@@ -1,8 +1,13 @@
-# nutriApp
-App de una aplicacion de nutricion
-
+# App de una aplicacion de nutricion
+       1. Objetivo
+       2. Integrantes
+       3. Analisis de la Base de Datos
 # Objetivo
 
 # Integrantes
+Romo Alvarado Luis Angel
+Sagarnaga Macias Jesus Antonio
 
-# Analis de la Base de Datos
+
+
+# Analisis de la Base de Datos
