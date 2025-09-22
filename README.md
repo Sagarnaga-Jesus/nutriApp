@@ -11,8 +11,10 @@ y de esa manera darles un estilo de vida mas sano y mejor para ellos con ayuda d
 ### Romo Alvarado Luis Angel
 ### Sagarnaga Macias Jesus Antonio
 
-- Romo Alvarao Luis Angel
+- **Romo Alvarao Luis Angel**  
+   23308060610320
 
-- Sagarnaga Macias Jesus Antonio
+- **Sagarnaga Macias Jesus Antonio**  
+  23308060610320
 
 # Analisis de la Base de Datos
