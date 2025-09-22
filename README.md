@@ -17,7 +17,7 @@ y de esa manera darles un estilo de vida mas sano y mejor para ellos con ayuda d
 
 - **Sagarnaga Macias Jesus Antonio**  
   - Correo Electronico:23308060610320@cetis61.edu.mx
-  - - Edad: 17
+  - Edad: 17
   - Especialida: Programacion
   - Instituto: CETis61
 
