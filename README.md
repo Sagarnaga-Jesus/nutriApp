@@ -10,9 +10,13 @@ y de esa manera darles un estilo de vida mas sano y mejor para ellos con ayuda d
 # Integrantes
 
 - **Romo Alvarao Luis Angel**  
-   23308060610320
+  -Correo Electronico:23308060610320
+  -Especialidad: Programacion
+  -Instituto: CETis61
 
 - **Sagarnaga Macias Jesus Antonio**  
-  23308060610320
+  -Correo Electronico:23308060610320
+  -Especialida: Programacion
+  -Instituto: CETis61
 
 # Analisis de la Base de Datos
