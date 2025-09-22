@@ -1,7 +1,7 @@
 # App de una aplicacion de nutricion
-1. Objetivo
-2. Integrantes
-3. Analisis de la Base de Datos
+         1. Objetivo
+         2. Integrantes
+         3. Analisis de la Base de Datos
 
 ## Objetivo
 *Esta aplicacion tiene como objetivo mejorar la vida de las personas en base a su alimentacion 
@@ -9,7 +9,7 @@ y de esa manera darles un estilo de vida mas sano y mejor para ellos con ayuda d
 
 ## Integrantes
 
-- **Romo Alvarao Luis Angel**  
+- **Romo Alvarado Luis Angel**  
   - Correo Electronico:23308060610320@cetis61.edu.mx
   - Edad: 17
   - Especialidad: Programacion
