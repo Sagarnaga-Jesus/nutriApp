@@ -35,8 +35,6 @@ y de esa manera darles un estilo de vida mas sano y mejor para ellos con ayuda d
     27/10/2025
     Construye aplicaciones web
 
-
-
 ***Objetivo de la investigacion:***
 
 El objetivo de esta investigacion, es ayudarnos a construir nuestra propia aplicacion nutricional de manera correcta, en base a esta investigacion poder crear una aplicacion que tenga  una variedad de funcionalidades que pueda competir con las aplicaciones existentes, de igual forma conocer el diseño que manejan para poder tener un concepto y poder ofrecer una mejor experiencia cuando utilizen nuestra aplicacion. Al hacer esto nos permite tener distinto conocimiento de lo que se puede realizar y saber que funcionalidades llaman la atencion o tienen una mayor utilidad para las personas.
