@@ -117,18 +117,20 @@ Esto sería unos de los puntos importantes a remarcar sobre esta encuesta para t
 1.	Una aplicación puede ser llamativa, aunque no se le llene de colores, como en el caso de MyFitnessPal que en su mayoría utiliza dos colores y llama la atención, al menos desde nuestro punto de vista, pero se aprendió que no ocupa ser de muchos colores. Tomando en cuenta esta misma aplicación haríamos un diseño más limpio y ordenado, además la haríamos más fácil de entender y comprender, principalmente no tendría costo.
 
 2.	Nuestras ideas que identificamos para desarrollar en el futuro son; Un calendario el cual nos muestre las calorías que hemos consumido cada día, también por día ofrecer apartados como desayuno, comida y cena y poder escribir lo que comieron y sacar sus calorías del día que consumieron. También que al momento de registrarse ofrecer un el cálculo de calorías que deberían de consumir y ponerlo como meta o si quieren ya sea bajar o subir peso ponerle la opción y hacerles un cálculo plan calórico. En una de las aplicaciones vimos que tenían un apartado de agua y cada vez que interactuaba con un vaso este se llenaba y iba sumando lo que consumías de agua al día, por lo que investigaremos en como realizarlo.
+   
 3.	Se tiene pensado utilizar esta paleta de colores: 
-1.	Blanco
-2.	Negro
-3.	Verde
-4.	Naranja
-5.	Morado
-6.	Azul
-7.	Amarillo
-8.	Rosa
-9.   Celeste
-10.  Rojo
-11.  Piel
- Que a futuro podría ser seleccionable para el usuario elegir como quiere el color de su menú, principalmente seria blanco y negro y con ellos combinar un color agradable para el usuario.       
+       -	Blanco
+       -	Negro
+       -	Verde
+       -	Naranja
+       -	Morado
+       -	Azul
+       -	Amarillo
+       -	Rosa
+       -Celeste
+       -  Rojo
+       -   Piel
+
+Que a futuro podría ser seleccionable para el usuario elegir como quiere el color de su menú, principalmente seria blanco y negro y con ellos combinar un color agradable para el usuario.       
 Después en la parte de navbar realizar uno expansivo para que no se vea abultada la interfaz y solo utilizarlo para cambiar o querer consultar diferentes opciones.
 Tener una zona de perfil en la cual puedan recalcular sus calorías 
