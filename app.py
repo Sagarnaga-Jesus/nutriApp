@@ -4,7 +4,14 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template("home.html")
+    
+    informacion = [
+                    {"imagen":"static/imagenes/La-diferencia-entre-nutricion-y-alimentacion1.jpg",
+                    "info":"Some quick example text to build on the card title and make up the bulk of the card’s content.",
+                    },
+                ]
+    
+    return render_template("home.html",informacion=informacion)
 
 @app.route('/login')
 def login():
