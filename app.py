@@ -7,7 +7,13 @@ def home():
     
     informacion = [
                     {"imagen":"static/imagenes/La-diferencia-entre-nutricion-y-alimentacion1.jpg",
-                    "info":"Some quick example text to build on the card title and make up the bulk of the card’s content.",
+                    "descripcion":"Some quick example text to build on the card title and make up the bulk of the card’s content.",
+                    },
+                    {"imagen":"",
+                    "descripcion":"",
+                    },
+                    {"imagen":"",
+                    "descripcion":"",
                     },
                 ]
     

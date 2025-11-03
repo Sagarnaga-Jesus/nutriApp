@@ -14,14 +14,16 @@
 
         <div class="row" style="margin-top: 40px; margin-end: 80px;">
 
+            {% for info in informacion %}
             <div class="col-3" style="">
                 <div class="card" style="width: 18rem; margin 30px;">
-                    <img src="static/imagenes/La-diferencia-entre-nutricion-y-alimentacion1.jpg" class="card-img-top" alt="alimento">
+                    <img src="{{ info.imagen }}" class="card-img-top" alt="{{info.imagen}}">
                         <div class="card-body">
-                            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
+                            <p class="card-text">{{ info.descripcion }}</p>
                         </div>
                 </div>
             </div>
+            {% endfor %}
             
         </div>
 
