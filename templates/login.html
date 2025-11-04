@@ -1,1 +1,23 @@
 {% extends "base.html" %}
+
+{% block title %} Inicio de sesion {% endblock %}
+
+{% block contenido %}
+
+<div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded text-center justify-content border-success border-5" style="width: 25%; margin-top: 60px;">
+    <div class="card-body">
+        <form>
+            <div class="mb-3">
+                <label for="email" class="form-label">Correo electronico</label>
+                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+            </div>
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contrasena">
+            </div>
+            <button type="submit" class="btn btn-success">Iniciar sesión</button>
+            <p class="text-center"><a class="link-success"href="/registro">¿No tienes una cuenta?</a></p>
+        </form>
+    </div>
+</div>
+{% endblock %}
