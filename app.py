@@ -31,7 +31,7 @@ def registro():
 def perfil():
     return render_template("perfil.html")
 
-@app.route("/acerca")
+@app.route('/acerca')
 def acerca_de():
     return render_template("acerca_de.html")
 

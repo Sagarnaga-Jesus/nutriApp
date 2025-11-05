@@ -6,50 +6,37 @@
     <title>{% block title%}  {% endblock title %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
 </head>
-<body style="background-color: rgba(41, 40, 40, 0.9); text-color: white; color: white; bg-gradient">
+<body style="background-color: rgba(48, 48, 48, 1); text-color: white; color: white; bg-gradient">
 
-    <nav class="navbar border-black border-bottom border-3 fst-italic" style="background-color: rgba(27, 136, 33, 1);">
+    <nav class="navbar navbar-expand-lg py-3 fs-5 border-bottom border-5 border-black fw-bolder"  style="background-color: rgba(41, 255, 155, 0.90); ">
         <div class="container-fluid">
-            <p class="navbar-brand mx-auto fs-1 fw-bolder ">NutriApp</p>
-            
-            <button class="navbar-toggler bg-dark-subtle" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+            <a class="navbar-brand fs-2 fst-italic" style="margin-left: 110px;">NutriApp</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"> Navegador </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                    </div>
-
-                    <div class="offcanvas-body">
-                        <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                            <li class="nav-item">
-                                <a class="nav-link active" aria-current="page" href="/">Home</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/login">Inicio de sesion</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/registro">Registrarte</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="/perfil">Perfil</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">Link</a>
-                            </li>
-
+                <div class="collapse navbar-collapse fst-italic" id="navbarNav" style="justify-content: end;">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/login">Inicio de sesion</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/registro">Registrarte</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/perfil">Perfil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/acerca">Acerca de</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Link</a>
+                        </li>
+                    </ul>
                 </div>
-            </div>
         </div>
     </nav>
     
@@ -57,13 +44,21 @@
     {% block contenido %}{% endblock %}
     </div>
 
-    <footer class="border-black border-bottom border-3 fst-italic text-center py-4" style="background-color: rgba(27, 136, 33, 1);">
+    <footer class="border-black border-bottom border-3 fst-italic text-center py-4 text-black " style="background-color: rgba(41, 255, 155, 0.90); margin-top: 100px;">
         <h4>Cualquier duda contactenos: </h4>
+        
         <h6>
             Jesus Antonio Sagarnaga Macias - 23308060610335@cetis61.edu.mx 
             <br>
             Luis Angel Romo Alvarado - 23308060610320@cetis61.edu.mx
         </h6>
+
+        <p class="fs-5">Lugar de creación: Instituto Preparatorio de Educación Media Superior Cetis61</p>
+
+        <p class="fs-5">Para más información, visita nuestra página de<a href="/acerca"> Acerca de</a>.</p>
+
+
+        <p>copyright © 2025 NutriApp</p>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
