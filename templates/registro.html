@@ -5,5 +5,71 @@
 {% block contenido %}
 
 
+<h1 class="text-center fst-italic" style="margin-top: 30px;">¡Es bueno ver nueva gente!</h1>
+<div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-3 fst-italic" style="width: 50rem; height: auto; margin-top: 60px;">
+    <div class="card-header">
+        <h2>Crear una cuenta</h2>
+    <div class="card-body">
+        <form>
+        <h5>Nombre(s) y apellidos</h5>    
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="nombre(s) y apellidos" aria-label="nombre(s) y apellidos" aria-describedby="basic-addon1" id="nombre_apellidos">
+        </div>
+
+        <h5>Correo electronico</h5>
+        <div class="input-group mb-3"> 
+            <input type="email" class="form-control" placeholder="Correo electronico" aria-label="email" aria-describedby="basic-addon2" id="email">
+        </div>
+
+        <div class="row mb-2">
+            <div class="col">
+                <h5>Edad</h5>
+                <input type="text" class="form-control" placeholder="Edad" aria-label="edad" id="edad" required>
+        </div>
+            <div class="col">
+                <h5>Altura (cm)</h5>
+                <input type="text" class="form-control" placeholder="Altura (cm)" aria-label="altura" id="altura"required>
+            </div>
+            <div class="col">
+                <h5>Peso (kg)</h5>
+                <input type="text" class="form-control" placeholder="Peso (kg)" aria-label="peso" id="peso" required>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <h5>Sexo</h5>
+        <div class="input-group">
+            <select class="form-select" aria-label="Default select example">
+                <option selected>Seleccione su sexo</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+                <option value="Neutral">Neutral</option>
+            </select>
+        </div>
+    </div>
+
+        <div class="mb-3">
+            <h5>Contraseña</h5>
+        <div class="input-group">
+            <input type="password" class="form-control" id="contrasena" placeholder="Contraseña">
+        </div>
+    </div>
+        <div class="mb-3">
+            <h5>Confirmar Contraseña</h5>
+        <div class="input-group">
+            <input type="password" class="form-control" id="confirmar_contrasena" placeholder="Confirmar Contraseña">
+        </div>
+    </div>
+        </div>
+        
+        
+
+
+        <button type="submit" class="btn btn-success">Registrarte</button>
+            <p class="text-center"><a class="link-success" href="/login">¿Ya tienes una cuenta?</a></p>
+        </form>
+    </div>
+
+
 
 {% endblock %}
