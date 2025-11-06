@@ -23,8 +23,17 @@ def home():
 def login():
     return render_template("login.html")
 
-@app.route('/registro')
+@app.route('/registro',methods=["POST", "GET"])
 def registro():
+    if request.method == "POST":
+        nombre = request.form["nombre"]
+        correo = request.form["correo"]
+        contraseña = request.form["contraseña"]
+        edad = request.form["edad"]
+        peso = request.form["peso"]
+        altura = request.form["altura"]
+        sexo = request.form["sexo"]
+        contrafirma = request.form["confirmar_contraseña"]
     return render_template("registro.html")
 
 @app.route('/perfil')
