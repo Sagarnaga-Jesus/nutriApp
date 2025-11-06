@@ -35,5 +35,9 @@ def perfil():
 def acerca_de():
     return render_template("acerca_de.html")
 
+@app.route('/contador')
+def contador():
+    return render_template("contador.html")
+
 if __name__ == "__main__":
     app.run(debug=True)
