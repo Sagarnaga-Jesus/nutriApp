@@ -1,6 +1,10 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from datetime import timedelta,datetime
+
 
 app = Flask(__name__)
+
+perfiles = []
 
 @app.route('/')
 def home():
@@ -19,21 +23,42 @@ def home():
     
     return render_template("home.html",informacion=informacion)
 
-@app.route('/login')
+@app.route('/login', methods=["POST", "GET"])
 def login():
+    error = None
+    contraseña =request.form("contraseña")
+    
     return render_template("login.html")
 
-@app.route('/registro',methods=["POST", "GET"])
+@app.route('/registro' , methods=["POST", "GET"])
 def registro():
     if request.method == "POST":
-        nombre = request.form["nombre"]
-        correo = request.form["correo"]
+        nomyape = request.form["nombre"]
+        correo = request.form["email"]
         contraseña = request.form["contraseña"]
         edad = request.form["edad"]
         peso = request.form["peso"]
         altura = request.form["altura"]
         sexo = request.form["sexo"]
         contrafirma = request.form["confirmar_contraseña"]
+        
+        error = None
+        
+        if contraseña != contrafirma:
+            flash(f"Las contraseñas no coinciden" , "danger")
+            return render_template(("registro.html"))
+        else:
+            perfiles.append(
+                {"nombre":nomyape, 
+                "correo":correo, 
+                "contraseña":contraseña,
+                "edad":edad, 
+                "peso":peso, 
+                "altura":altura, 
+                "sexo":sexo
+                })
+            return render_template("perfil.html")
+        
     return render_template("registro.html")
 
 @app.route('/perfil')

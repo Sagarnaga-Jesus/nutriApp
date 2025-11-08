@@ -9,41 +9,53 @@
 <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-3 fst-italic" style="width: 50rem; height: auto; margin-top: 60px;">
     <div class="card-header">
         <h2>Crear una cuenta</h2>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+    </div>
+
     <div class="card-body">
-        <form method="post" action="/registro">
+        <form action="/registro" method="POST" id="/registro">
         <h5>Nombre(s) y apellidos</h5>    
         <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="nombre(s) y apellidos" aria-label="nombre(s) y apellidos" aria-describedby="basic-addon1" id="nombre_apellidos">
+            <input type="text" class="form-control" placeholder="nombre(s) y apellidos" aria-label="nombre(s) y apellidos" aria-describedby="basic-addon1" id="nombre" name="nombre" value="{{request.form.get('nombre', '')}}" required>
         </div>
 
         <h5>Correo electronico</h5>
         <div class="input-group mb-3"> 
-            <input type="email" class="form-control" placeholder="Correo electronico" aria-label="email" aria-describedby="basic-addon2" id="email">
+            <input type="email" class="form-control" placeholder="Correo electronico" aria-label="email" aria-describedby="basic-addon2" id="email" name="email" value="{{request.form.get('email', '')}}" required>
         </div>
 
         <div class="row mb-2">
             <div class="col">
                 <h5>Edad</h5>
-                <input type="text" class="form-control" placeholder="Edad" aria-label="edad" id="edad" required>
+                <input type="number" class="form-control" placeholder="Edad" aria-label="edad" id="edad" name="edad" value="{{request.form.get('edad', '')}}" required>
         </div>
             <div class="col">
                 <h5>Altura (cm)</h5>
-                <input type="text" class="form-control" placeholder="Altura (cm)" aria-label="altura" id="altura"required>
+                <input type="text" class="form-control" placeholder="Altura (cm)" aria-label="altura" id="altura" name="altura" value="{{request.form.get('altura', '')}}" required>
             </div>
             <div class="col">
                 <h5>Peso (kg)</h5>
-                <input type="text" class="form-control" placeholder="Peso (kg)" aria-label="peso" id="peso" required>
+                <input type="text" class="form-control" placeholder="Peso (kg)" aria-label="peso" id="peso" name="peso" value="{{request.form.get('peso', '')}}" required>
             </div>
         </div>
 
         <div class="mb-3">
             <h5>Sexo</h5>
         <div class="input-group">
-            <select class="form-select" aria-label="Default select example">
+            <select class="form-select" aria-label="Default select example" value="{{request.form.get('sexo', '')}}" name="sexo" id="sexo" required>
                 <option selected>Seleccione su sexo</option>
-                <option value="M">Masculino</option>
-                <option value="F">Femenino</option>
-                <option value="Neutral">Neutral</option>
+                <option id="masculino" name="masculino" value="M">Masculino</option>
+                <option id="femenino" name="femenino" value="F">Femenino</option>
+                <option id="neutral" name="neutral" value="Neutral">Neutral</option>
             </select>
         </div>
     </div>
@@ -51,23 +63,21 @@
         <div class="mb-3">
             <h5>Contraseña</h5>
         <div class="input-group">
-            <input type="password" class="form-control" id="contraseña" placeholder="Contraseña">
+            <input type="password" class="form-control" id="contraseña" placeholder="Contraseña" name="contraseña" value="{{request.form.get('contraseña', '')}}" required>
         </div>
     </div>
         <div class="mb-3">
             <h5>Confirmar Contraseña</h5>
         <div class="input-group">
-            <input type="password" class="form-control" id="confirmar_contraseña" placeholder="Confirmar Contraseña">
+            <input type="password" class="form-control" id="confirmar_contraseña" placeholder="Confirmar Contraseña" name="confirmar_contraseña" value="{{request.form.get('confirmar_contraseña', '')}}" required>
         </div>
     </div>
         </div>
-        
-        
-
 
         <button type="submit" class="btn btn-success">Registrarte</button>
             <p class="text-center"><a class="link-success" href="/login">¿Ya tienes una cuenta?</a></p>
         </form>
+
     </div>
 
 
