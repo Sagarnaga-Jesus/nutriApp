@@ -3,10 +3,24 @@ from datetime import timedelta,datetime
 
 
 app = Flask(__name__)
+app.secret_key = "1q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l"
+app.permanent_session_lifetime = timedelta(minutes=5)
 
-perfiles = []
+## Falta validasr dsatos que funcione bien logica para encontrar buscar los datos de los usuarios, flata los objetivos para que pase de un lado a otro, tambien ver a donde
+## redirigir los datos a un solo lado y almacenarlos
 
-@app.route('/')
+perfiles = [
+        {"nombre":"Admin", 
+        "correo":"Admin/08-@gmail.com",
+        "contraseña":"Admin1920",
+        "edad":"17", 
+        "peso":"95.7", 
+        "altura":"1.79", 
+        "sexo":"Masculino",
+        }
+]
+
+@app.route('/') ## No mover
 def home():
     
     informacion = [
@@ -23,14 +37,25 @@ def home():
     
     return render_template("home.html",informacion=informacion)
 
-@app.route('/login', methods=["POST", "GET"])
+@app.route('/login', methods=["POST", "GET"])##Iniciar sesion 
 def login():
-    error = None
-    contraseña =request.form("contraseña")
-    
+    usuario = []
+    if request.method == "POST":
+        correo = request.form["correo"]
+        contraseña =request.form("contraseña")
+        
+        for perfil in perfiles:
+            if correo == perfil["correo"]:##falta hay error aqui
+                usuario = perfil
+                flash(f"Perfil encontrado", "success")
+                return render_template("perfil.html")
+            else:
+                flash(f"No se encontro perfil", "danger")
+                return render_template("login.html")
+            
     return render_template("login.html")
 
-@app.route('/registro' , methods=["POST", "GET"])
+@app.route('/registro' , methods=["POST", "GET"])##Registro
 def registro():
     if request.method == "POST":
         nomyape = request.form["nombre"]
@@ -45,8 +70,8 @@ def registro():
         error = None
         
         if contraseña != contrafirma:
-            flash(f"Las contraseñas no coinciden" , "danger")
-            return render_template(("registro.html"))
+            flash("Las contraseñas no coinciden", "danger")
+            return render_template("registro.html")
         else:
             perfiles.append(
                 {"nombre":nomyape, 
@@ -57,10 +82,28 @@ def registro():
                 "altura":altura, 
                 "sexo":sexo
                 })
-            return render_template("perfil.html")
+            flash("Registro exitoso {nomyape}","success")##falsta
+            return render_template("objetivos.html")
         
     return render_template("registro.html")
 
+@app.route('/objetivos', methods=["POST", "GET"])##Objetivos
+def objetivos():
+    
+    
+    return render_template("objetivos.html")
+
+@app.route('/preferencias',methods={"POST","GET"})##Preferencias
+def calorias():
+    return render_template("preferencias.html")
+
+@app.route('/experiencia',methods={"POST","GET"})##Calendario
+def calendario():
+    return render_template("experiencia.html")
+
+
+
+## De aqui para abajo despues no mover hasta la otra semana
 @app.route('/perfil')
 def perfil():
     return render_template("perfil.html")

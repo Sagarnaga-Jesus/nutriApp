@@ -7,14 +7,15 @@
 <h1 class="text-center fst-italic" style="margin-top: 30px;">¡Bienvenidos de nuevo!</h1>
 <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-3 fst-italic" style="width: 30rem; height: auto; margin-top: 60px;">
     <div class="card-body">
-        <form>
+        <form action="/login" method="POST" id="login">
             <div class="mb-3">
                 <label for="email" class="form-label">Correo electronico</label>
-                <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+                <input type="email" class="form-control" id="correo" name="correo" value="{{request.form.get('correo', '')}}" required>
             </div>
             <div class="mb-3">
-                <label for="contrasena" class="form-label">Contraseña</label>
-                <input type="password" class="form-control" id="contrasena">
+                <label for="contraseña" class="form-label">Contraseña</label>
+                <input type="password" class="form-control" id="contraseña" name="contraseña" value="{{request.form.get('contraseña', '')}}" minlength="8" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).*"
+                required title="Mínimo 8 caracteres; incluir mayúscula, minúscula y número" required>
             </div>
             <button type="submit" class="btn btn-success">Iniciar sesión</button>
             <p class="text-center"><a class="link-success"href="/registro">¿No tienes una cuenta?</a></p>
