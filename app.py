@@ -118,12 +118,13 @@ def preferencias():
                         }
         
         for u in perfiles:
-            if session['usuario'] == u['correo']:
-                u.append(preferencias)
-                return render_template("nivel.html")
-            else:
-                flash("Error al guardar")
-            return render_template("preferencias.html")
+            for s in correos:
+                if s[correos] == u['correo']:
+                    u.append(preferencias)
+                    return render_template("nivel.html")
+                else:
+                    flash("Error al guardar")
+                return render_template("preferencias.html")
         
     return render_template("preferencias.html")
 
@@ -133,12 +134,13 @@ def experiencia():
         experi = request.form["experiencia"]
         
         for u in perfiles:
-            if session['usuario'] == u['correo']:
-                u.append(experi)
-                return render_template("perfil.html")
-            else:
-                flash("Error al guardar")
-            return render_template("nivel.html")
+            for s in correos:
+                if s[correos] == u['correo']:
+                    u.append(experi)
+                    return render_template("perfil.html")
+                else:
+                    flash("Error al guardar")
+                return render_template("nivel.html")
         
     return render_template("experiencia.html")
 
@@ -146,11 +148,12 @@ def experiencia():
 def perfil():
     
     for u in perfiles:
-        if session['usuario'] == u['correo']:
-            usuario = u
-        else:
-            flash("Error al cargar el perfil")
-            return redirect(url_for('login'))
+        for s in correos:
+            if s[correos] == u['correo']:
+                usuario = u
+            else:
+                flash("Error al cargar el perfil")
+                return redirect(url_for('login'))
     
     return render_template('perfil.html',usuario=usuario)
 
