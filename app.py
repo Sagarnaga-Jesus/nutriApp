@@ -37,23 +37,6 @@ def home():
     
     return render_template("home.html",informacion=informacion)
 
-@app.route('/verifica', methods=['POST', 'GET'])
-def verifica():
-    if request.method == 'POST':
-        correo = request.form.get('correo')
-        contraseña = request.form.get('contraseña')
-
-        for perfil in perfiles:
-            if correo == perfil['correo'] and contraseña == perfil['contraseña']:
-                session['usuario'] = perfil
-                return redirect('/perfil')
-
-        flash("Correo o contraseña incorrectos")
-        return render_template('login.html')
-
-    return render_template('login.html')
-    
-
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if request.method == 'POST':
@@ -142,10 +125,24 @@ def experiencia():
 
 @app.route('/perfil')
 def perfil():
-    usuario = session.get('usuario')
-
-    if not usuario:
-        return redirect('/login')
+    
+    if 'usuario' not in session:
+        return redirect(url_for('login'))
+    
+    else:
+        usuario = session.get('usuario')
+        nombre = usuario['nombre']
+        correo = usuario['correo']
+        contraseña = usuario['contraseña']
+        edad = usuario['edad']
+        peso = usuario['peso']  
+        altura = usuario['altura']
+        sexo = usuario['sexo']
+        objetivos = usuario.get('objetivos', '')
+        preferencias = usuario.get('preferencias', {})
+        experiencia = usuario.get('experiencia', '')
+        alergia = preferencias.get('alergia', '')
+        return redirect('/perfil')
 
     return render_template('perfil.html', usuario=usuario)
 
