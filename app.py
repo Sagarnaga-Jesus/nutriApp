@@ -121,8 +121,8 @@ def experiencia():
         
         session['usuario']['experiencia'] = experi
         
-        perfiles.append(session['perfil'])
-        return render_template('/login')## no manda a logiiin
+        perfiles.append(session['usuario'])
+        return redirect('/login')## no manda a logiiin
     return render_template("experiencia.html")
 
 
