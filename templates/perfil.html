@@ -1,17 +1,6 @@
 {% extends "base.html" %}
 {% block title %} Perfil {% endblock %}
 
-{% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-        {% for category, message in messages %}
-            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        {% endfor %}
-    {% endif %}
-{% endwith %}
-
 {% block contenido %}
 <div>
     <h1 class="text-center fst-italic" style="margin-top: 20px;">Perfil de {{ usuario.nombre }}</h1>
@@ -20,21 +9,21 @@
             <h2>Detalles del perfil</h2>
         </div>
         <div class="card-body">
-            <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
-            <p><strong>Correo electrónico:</strong> {{ usuario.correo }}</p>
-            <p><strong>Edad:</strong> {{ usuario.edad }}</p>
-            <p><strong>Altura:</strong> {{ usuario.altura }} cm</p>
-            <p><strong>Peso:</strong> {{ usuario.peso }} kg</p>
-            <p><strong>Sexo:</strong> {{ usuario.sexo }}</p>
-            <p><strong>Objetivos:</strong> {{ usuario.objetivos}}</p>
-            <p><strong>Preferencias:</strong></p>
+            <p>Nombre: {{ usuario.nombre }}</p>
+            <p>Correo electrónico: {{ usuario.correo }}</p>
+            <p>Edad: {{ usuario.edad }}</p>
+            <p>Altura: {{ usuario.altura }} cm</p>
+            <p>Peso: {{ usuario.peso }} kg</p>
+            <p>Sexo: {{ usuario.sexo }}</p>
+            <p>Objetivos: {{ usuario.objetivos}}</p>
+            <p>Preferencias:</p>
             <ul>
-                <li><strong>Alergias:</strong> {{ usuario.preferencias.alergia}}</li>
-                <li><strong>Intolerancias:</strong> {{ usuario.preferencias.intolerancia}}</li>
-                <li><strong>Dietas:</strong> {{ usuario.preferencias.dietas}}</li>
-                <li><strong>No gustan:</strong> {{ usuario.preferencias.no_gusta }}</li>
+                <li>Alergias:{{ usuario.preferencias.alergias}}</li>
+                <li>Intolerancias: {{ usuario.preferencias.intolerancia}}</li>
+                <li>Dietas: {{ usuario.preferencias.dietas}}</li>
+                <li>No gustan: {{ usuario.preferencias.no_gusta }}</li>
             </ul>
-            <p><strong>Nivel de experiencia:</strong> {{ usuario.experiencia }}</p>
+            <p>Nivel de experiencia: {{ usuario.experiencia }}</p>
         </div>
     </div>
 </div>

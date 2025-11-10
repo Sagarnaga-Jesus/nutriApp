@@ -11,6 +11,8 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 
 perfiles = []
 
+correos = []
+
 @app.route('/') ## No mover
 def home():
     
@@ -62,14 +64,22 @@ def registro():
             flash("Las contraseñas no coinciden", "danger")
             return render_template("registro.html")
         else:
-            session['usuario']= {"nombre":nomyape, 
+            usuario = {"nombre":nomyape, 
                 "correo":correo, 
                 "contraseña":contraseña,
                 "edad":edad, 
                 "peso":peso, 
                 "altura":altura, 
-                "sexo":sexo
+                "sexo":sexo,
+                preferencias:{},
                 }
+            
+            for u in perfiles:
+                if u['correo'] == correo:
+                    flash(f"El correo ya está registrado.")
+                else:
+                    correos.append(correo)
+                    perfiles.append(usuario)
             return render_template("objetivos.html")
         
     return render_template("registro.html")
@@ -78,7 +88,15 @@ def registro():
 def objetivos():
     if request.method == "POST":
         objetivos = request.form["objetivos"]
-        session['usuario']['objetivo'] = objetivos
+        
+        for u in perfiles:
+            if session['usuario'] == u['correo']:
+                u.append(objetivos)
+            else:
+                flash("Ya existe un usuario con ese correo")
+            return render_template("objetivos.html")
+            
+        
         return redirect('/preferencias')
     
     return render_template("objetivos.html")
@@ -99,8 +117,14 @@ def preferencias():
                         "no_gusta":no_gusta
                         }
         
-        session['usuario']['preferencias'] = preferencias
-        return redirect('/nivel')
+        for u in perfiles:
+            if session['usuario'] == u['correo']:
+                u.append(preferencias)
+                return render_template("nivel.html")
+            else:
+                flash("Error al guardar")
+            return render_template("preferencias.html")
+        
     return render_template("preferencias.html")
 
 @app.route('/nivel',methods={"POST","GET"})
@@ -108,37 +132,29 @@ def experiencia():
     if request.method == "POST":
         experi = request.form["experiencia"]
         
-        session['usuario']['experiencia'] = experi
+        for u in perfiles:
+            if session['usuario'] == u['correo']:
+                u.append(experi)
+                return render_template("perfil.html")
+            else:
+                flash("Error al guardar")
+            return render_template("nivel.html")
         
-        perfiles.append(session['usuario'])
-        return redirect('/login')
     return render_template("experiencia.html")
 
 @app.route('/perfil')
 def perfil():
     
-    if 'usuario' not in session:
-        return redirect(url_for('login'))
+    for u in perfiles:
+        if session['usuario'] == u['correo']:
+            usuario = u
+        else:
+            flash("Error al cargar el perfil")
+            return redirect(url_for('login'))
     
-    else:
-        usuario = session.get('usuario')
-        nombre = usuario['nombre']
-        correo = usuario['correo']
-        contraseña = usuario['contraseña']
-        edad = usuario['edad']
-        peso = usuario['peso']  
-        altura = usuario['altura']
-        sexo = usuario['sexo']
-        objetivos = usuario.get('objetivos', '')
-        preferencias = usuario.get('preferencias', {})
-        experiencia = usuario.get('experiencia', '')
-        alergia = preferencias.get('alergia', '')
-        return redirect('/perfil')
-
-    return render_template('perfil.html', usuario=usuario)
+    return render_template('perfil.html',usuario=usuario)
 
 ## De aqui para abajo despues no mover hasta la otra semana
-
 
 @app.route('/acerca')
 def acerca_de():
