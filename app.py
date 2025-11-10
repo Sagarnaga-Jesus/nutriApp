@@ -42,15 +42,15 @@ def login():
     usuario = []
     if request.method == "POST":
         correo = request.form["correo"]
-        contraseña =request.form("contraseña")
+        contraseña = request.form["contraseña"]
         
         for perfil in perfiles:
             if correo == perfil["correo"]:##falta hay error aqui
                 usuario = perfil
                 flash(f"Perfil encontrado", "success")
-                return render_template("perfil.html")
+                return render_template("/perfil")
             else:
-                flash(f"No se encontro perfil", "danger")
+                flash(f"No se encontro el perfil", "danger")
                 return render_template("login.html")
             
     return render_template("login.html")
