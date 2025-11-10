@@ -9,16 +9,7 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 ## Falta validasr dsatos que funcione bien logica para encontrar buscar los datos de los usuarios, flata los objetivos para que pase de un lado a otro, tambien ver a donde
 ## redirigir los datos a un solo lado y almacenarlos
 
-perfiles = [
-        {"nombre":"Admin", 
-        "correo":"Admin/08-@gmail.com",
-        "contraseña":"Admin1920",
-        "edad":"17", 
-        "peso":"95.7", 
-        "altura":"1.79", 
-        "sexo":"Masculino",
-        }
-]
+perfiles = []
 
 @app.route('/') ## No mover
 def home():
