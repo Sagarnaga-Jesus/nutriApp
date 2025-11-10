@@ -111,7 +111,7 @@ def preferencias():
                         }
         
         session['usuario']['preferencias'] = preferencias
-        return redirect('/experiencia')
+        return redirect('/nivel')
     return render_template("preferencias.html")
 
 @app.route('/nivel',methods={"POST","GET"})
