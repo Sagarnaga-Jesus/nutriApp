@@ -1,30 +1,52 @@
 {% extends "base.html" %}
 {% block title %} Perfil {% endblock %}
 
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        {% for category, message in messages %}
+            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+{% endwith %}
+
 {% block contenido %}
 <div>
     <h1 class="text-center fst-italic" style="margin-top: 20px;">Perfil de {{ usuario.nombre }}</h1>
     <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
         <div class="card-header">
-            <h2>Detalles del perfil</h2>
+            <h2 class="text-center">Perfil</h2>
         </div>
         <div class="card-body">
-            <p>Nombre: {{ usuario.nombre }}</p>
-            <p>Correo electrónico: {{ usuario.correo }}</p>
-            <p>Edad: {{ usuario.edad }}</p>
-            <p>Altura: {{ usuario.altura }} cm</p>
-            <p>Peso: {{ usuario.peso }} kg</p>
-            <p>Sexo: {{ usuario.sexo }}</p>
-            <p>Objetivos: {{ usuario.objetivos}}</p>
-            <p>Preferencias:</p>
+            <p><strong>Nombre:</strong> {{ usuario.nombre }}</p><br>
+            <p><strong>Correo electrónico:</strong> {{ usuario.correo }}</p><br>
+            <p><strong>Edad:</strong> {{ usuario.edad }}</p><br>
+            <p><strong>Altura:</strong> {{ usuario.altura }} cm</p><br>
+            <p><strong>Peso:</strong> {{ usuario.peso }} kg</p><br>
+            <p><strong>Sexo:</strong> {{ usuario.sexo }}</p><br>
+            <p><strong>Objetivos:</strong> {{ usuario.objetivos}}</p><br>
+            <p><strong>Preferencias:</strong></p><br>
             <ul>
-                <li>Alergias:{{ usuario.preferencias.alergias}}</li>
-                <li>Intolerancias: {{ usuario.preferencias.intolerancia}}</li>
-                <li>Dietas: {{ usuario.preferencias.dietas}}</li>
-                <li>No gustan: {{ usuario.preferencias.no_gusta }}</li>
-            </ul>
-            <p>Nivel de experiencia: {{ usuario.experiencia }}</p>
+
         </div>
-    </div>
-</div>
+            </div>
+        </div>     
+        <h1 class="text-center fst-italic" style="margin-top: 20px;">Preferencias de {{ usuario.nombre }}</h1>
+        <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
+        <div class="card-header">
+            <h2 class="text-center">Preferencias del usuario</h2>
+        <div class="card-body">
+            <ul>
+                <li><strong>Alergias:</strong> {{ usuario.preferencias.alergia}}</li><br>
+                <li><strong>Intolerancias:</strong> {{ usuario.preferencias.intolerancia}}</li><br>
+                <li><strong>Dietas:</strong> {{ usuario.preferencias.dietas}}</li><br>
+                <li><strong>No gustan:</strong> {{ usuario.preferencias.no_gusta }}</li><br>
+            </ul>
+            <p><strong>Nivel de experiencia:</strong> {{ usuario.experiencia }}</p><br>
+            </div>
+        </div>           
+        <button type="button" class="btn-close btn btn-info">Cerrar sesion</button>
+
 {% endblock %}
