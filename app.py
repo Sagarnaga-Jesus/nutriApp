@@ -73,32 +73,56 @@ def registro():
             flash("Las contraseñas no coinciden", "danger")
             return render_template("registro.html")
         else:
-            perfiles.append(
-                {"nombre":nomyape, 
+            session['usuario']= {"nombre":nomyape, 
                 "correo":correo, 
                 "contraseña":contraseña,
                 "edad":edad, 
                 "peso":peso, 
                 "altura":altura, 
                 "sexo":sexo
-                })
-            flash("Registro exitoso {nomyape}","success")##falsta
+                }
             return render_template("objetivos.html")
         
     return render_template("registro.html")
 
 @app.route('/objetivos', methods=["POST", "GET"])##Objetivos
 def objetivos():
-    
+    if request.method == "POST":
+        objetivos = request.form["objetivos"]
+        session['usuario']['objetivo'] = objetivos
+        return redirect('/preferencias')
     
     return render_template("objetivos.html")
 
-@app.route('/preferencias',methods=["POST","GET"])##Preferencias
-def preferencias():##cambie el nombre de calorias a preferencias
+@app.route('/preferencias',methods=["POST","GET"])
+def preferencias():
+    if request.method == "POST":
+        alergia = request.form["alergia"]
+        alergias = request.form["alergias"]
+        intolerancia = request.form["intolerancias"]
+        dietas = request.form["dietas"]
+        no_gusta = request.form["no_gustan"]
+        
+        preferencias = { "alergia":alergia,
+                        "alergias":alergias,
+                        "intolerancia":intolerancia,
+                        "dietas":dietas,
+                        "no_gusta":no_gusta
+                        }
+        
+        session['usuario']['preferencias'] = preferencias
+        return redirect('/experiencia')
     return render_template("preferencias.html")
 
-@app.route('/experiencia',methods={"POST","GET"})##Calendario
-def experiencia():##cambie el nombre de calendario a experiencia
+@app.route('/nivel',methods={"POST","GET"})
+def experiencia():
+    if request.method == "POST":
+        experi = request.form["experiencia"]
+        
+        session['usuario']['experiencia'] = experi
+        
+        perfiles.append(session['perfil'])
+        return render_template('/login')## no manda a logiiin
     return render_template("experiencia.html")
 
 

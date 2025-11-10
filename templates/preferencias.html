@@ -5,7 +5,7 @@
 
 <h1 class="text-center fst-italic" style="margin-top: 20px;"> Preferencias y Restricciones</h1>
     <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
-            <form action="/experiencia" method="POST" id="preferencias">
+            <form action="/preferencias" method="POST" id="preferencias">
         <div class="card-header">
             <h2> Preferencias y Restricciones</h2>
         </div>
@@ -20,23 +20,52 @@
                 <label class="form-check-label" for="no">No</label>
             </div>
             <h5>Seleccione alimentos al cual le tenga alergias</h5>
-            <select class="form-select border border-black" aria-label="Default select example" name="alergias"required>
-                <option selected>Alimentos</option>
-                <option value="almendras">Almendras</option>
-                <option value="pescados">Pescados</option>
-                <option value="huevo">Huevo</option>
-                <option value="otro">Algun otro</option>
-            </select>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="almendras" id="almendras" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Almendras
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="pescados" id="pescados" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Pescados
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="huevo" id="huevo" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Huevo
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="nueces" id="nueces" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Nueces
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="pasas" id="pasas" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Pasas
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="otros" id="otros" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Otros
+                </label>
+            </div>
             <br>
             <h3>Intolerancias</h3>
-            <select class="form-select border border-black" aria-label="Default select example" name="Intolerancias" required>
+            <select class="form-select border border-black" aria-label="Default select example" name="intolerancias" required>
                 <option selected>Intolerancias</option>
                 <option value="lactosa">Lactosa</option>
                 <option value="gluten">Gluten</option>
                 <option value="no">No tengo</option>
             </select>
             <br>
-            <h3>Tipo de dietas </h3>
+            <h3>Tipo de dietas</h3>
             <select class="form-select border border-black" aria-label="Default select example" name="dietas" required>
                 <option selected>Seleccione la dieta que desea.</option>
                 <option value="vegana">Vegana</option>

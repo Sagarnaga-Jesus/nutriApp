@@ -3,15 +3,15 @@
 
 {% block contenido %}
 
-<h1 class="text-center fst-italic" style="margin-top: 20px;">Objetivos a seguir:)</h1>
+<h1 class="text-center fst-italic" style="margin-top: 20px;">Objetivos a seguir:</h1>
     <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
-    <form action="/preferencias" method="POST" id="objetivos"><!-- lo que hiciste en registro-->
+    <form action="/objetivos" method="POST" id="objetivos"><!-- lo que hiciste en registro-->
         <div class="card-header">
             <h2>Objetivos</h2>
         </div>
         <div class="card-body">
             <div class="form-check">
-                <input class="form-check-input border border-black" type="checkbox" value="bajar_peso" id="bajar_peso" name="objetivos" required>
+                <input class="form-check-input border border-black" type="checkbox" value="bajar_peso" id="bajar_peso" name="objetivos">
                 <label class="form-check-label" for="checkDefault">
                     ¿Bajar de peso?
                 </label>
@@ -39,7 +39,7 @@
             </div>
             <br>
             <div class="form-check">
-                <input class="form-check-input border border-black" type="checkbox" value="condicion" id="condicion">
+                <input class="form-check-input border border-black" type="checkbox" value="condicion" id="condicion" name="objetivos">
                 <label class="form-check-label" for="checkDefault">
                     ¿Controlar una condición (diabetes, hipertensión)?
                 </label>
