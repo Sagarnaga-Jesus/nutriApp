@@ -37,23 +37,38 @@ def home():
     
     return render_template("home.html",informacion=informacion)
 
-@app.route('/login', methods=["POST", "GET"])##Iniciar sesion 
-def login():
-    usuario = []
-    if request.method == "POST":
-        correo = request.form["correo"]
-        contraseña = request.form["contraseña"]
-        
+@app.route('/verifica', methods=['POST', 'GET'])
+def verifica():
+    if request.method == 'POST':
+        correo = request.form.get('correo')
+        contraseña = request.form.get('contraseña')
+
         for perfil in perfiles:
-            if correo == perfil["correo"]:##falta hay error aqui
-                usuario = perfil
-                flash(f"Perfil encontrado", "success")
-                return render_template("/perfil")
-            else:
-                flash(f"No se encontro el perfil", "danger")
-                return render_template("login.html")
-            
-    return render_template("login.html")
+            if correo == perfil['correo'] and contraseña == perfil['contraseña']:
+                session['usuario'] = perfil
+                return redirect('/perfil')
+
+        flash("Correo o contraseña incorrectos")
+        return render_template('login.html')
+
+    return render_template('login.html')
+    
+
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        correo = request.form.get('correo')
+        contraseña = request.form.get('contraseña')
+
+        for perfil in perfiles:
+            if correo == perfil['correo'] and contraseña == perfil['contraseña']:
+                session['usuario'] = perfil
+                return redirect('/perfil')
+
+        flash("Correo o contraseña incorrectos")
+        return render_template('login.html')
+
+    return render_template('login.html')
 
 @app.route('/registro' , methods=["POST", "GET"])##Registro
 def registro():
@@ -122,15 +137,20 @@ def experiencia():
         session['usuario']['experiencia'] = experi
         
         perfiles.append(session['usuario'])
-        return redirect('/login')## no manda a logiiin
+        return redirect('/login')
     return render_template("experiencia.html")
 
-
-
-## De aqui para abajo despues no mover hasta la otra semana
 @app.route('/perfil')
 def perfil():
-    return render_template("perfil.html")
+    usuario = session.get('usuario')
+
+    if not usuario:
+        return redirect('/login')
+
+    return render_template('perfil.html', usuario=usuario)
+
+## De aqui para abajo despues no mover hasta la otra semana
+
 
 @app.route('/acerca')
 def acerca_de():
