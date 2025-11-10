@@ -93,12 +93,12 @@ def objetivos():
     
     return render_template("objetivos.html")
 
-@app.route('/preferencias',methods={"POST","GET"})##Preferencias
-def calorias():
+@app.route('/preferencias',methods=["POST","GET"])##Preferencias
+def preferencias():##cambie el nombre de calorias a preferencias
     return render_template("preferencias.html")
 
 @app.route('/experiencia',methods={"POST","GET"})##Calendario
-def calendario():
+def experiencia():##cambie el nombre de calendario a experiencia
     return render_template("experiencia.html")
 
 

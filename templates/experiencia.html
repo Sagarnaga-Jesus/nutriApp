@@ -1,2 +1,35 @@
 {% extends "base.html" %}
 {% block title %} Objetivos {% endblock %}
+
+{% block contenido %}
+
+<h1 class="text-center fst-italic" style="margin-top: 20px;">Experiencia</h1>
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
+    <form action="/experiencia" method="POST" id="preferencias"><!-- lo que hiciste en registro-->
+        <div class="card-header">
+            <h2>Nivel de Experiencia</h2>
+        </div>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="radio" name="experiencia"value="principiante" id="principiante" required>
+                <label class="form-check-label" for="principiante">
+                    ¿Principiante en la cocina?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="radio" name="experiencia"value="chef" id="chef">
+                <label class="form-check-label" for="chef">
+                    ¿Chef aficionado?
+                </label>
+            </div>
+            <br>
+
+            <footer>
+                <button type="submit" class="btn btn-success">Finalizar registro</button>
+            </footer>
+            </form>
+    </div>
+
+
+{% endblock %}

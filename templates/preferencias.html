@@ -1,2 +1,62 @@
 {% extends "base.html" %}
-{% block title %} Preferencias {% endblock %}
+{% block title %}  Preferencias y Restricciones {% endblock %}
+
+{% block contenido %}
+
+<h1 class="text-center fst-italic" style="margin-top: 20px;"> Preferencias y Restricciones</h1>
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
+            <form action="/experiencia" method="POST" id="preferencias">
+        <div class="card-header">
+            <h2> Preferencias y Restricciones</h2>
+        </div>
+        <div class="card-body">
+            <h3>Tienes alergia a algun alimento?</h3>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border border-black" type="radio" name="alergia" id="si" value="si" required>
+                <label class="form-check-label" for="si">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border border-black" type="radio" name="alergia" id="no" value="no" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <h5>Seleccione alimentos al cual le tenga alergias</h5>
+            <select class="form-select border border-black" aria-label="Default select example" name="alergias"required>
+                <option selected>Alimentos</option>
+                <option value="almendras">Almendras</option>
+                <option value="pescados">Pescados</option>
+                <option value="huevo">Huevo</option>
+                <option value="otro">Algun otro</option>
+            </select>
+            <br>
+            <h3>Intolerancias</h3>
+            <select class="form-select border border-black" aria-label="Default select example" name="Intolerancias" required>
+                <option selected>Intolerancias</option>
+                <option value="lactosa">Lactosa</option>
+                <option value="gluten">Gluten</option>
+                <option value="no">No tengo</option>
+            </select>
+            <br>
+            <h3>Tipo de dietas </h3>
+            <select class="form-select border border-black" aria-label="Default select example" name="dietas" required>
+                <option selected>Seleccione la dieta que desea.</option>
+                <option value="vegana">Vegana</option>
+                <option value="vegetariana">Vegetariana</option>
+                <option value="keto">Keto</option>
+                <option value="mediterranea">Mediterranea</option>
+                <option value="ninguna">Ninguna en especifica</option>
+            </select>
+            <br>
+            <h3>Alimentos que no le gustan.</h3>
+            <div class="form-floating">
+                <textarea class="form-control border border-black" placeholder="Leave a comment here" name="no_gustan" id="no_gustan" style="height: 100px" required></textarea>
+                <label for="no_gustan">Alimentos que no te gustan</label>
+            </div>
+            <br>
+
+            <footer>
+                <button type="submit" class="btn btn-success">Siguente paso</button>
+            </footer>
+            </form>
+    </div>
+
+{% endblock %}

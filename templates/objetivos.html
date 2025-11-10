@@ -1,2 +1,55 @@
 {% extends "base.html" %}
 {% block title %} Objetivos {% endblock %}
+
+{% block contenido %}
+
+<h1 class="text-center fst-italic" style="margin-top: 20px;">Objetivos a seguir:)</h1>
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
+    <form action="/preferencias" method="POST" id="objetivos"><!-- lo que hiciste en registro-->
+        <div class="card-header">
+            <h2>Objetivos</h2>
+        </div>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="bajar_peso" id="bajar_peso" name="objetivos" required>
+                <label class="form-check-label" for="checkDefault">
+                    ¿Bajar de peso?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="masa_muscu" id="masa_muscu" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Aumentar masa muscular?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="mantener_peso" id="mantener_peso" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Mantener peso?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="mejorar_digestion" id="mejorar_digestion" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Mejorar digestión?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="condicion" id="condicion">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Controlar una condición (diabetes, hipertensión)?
+                </label>
+            </div>
+            <br>
+
+            <footer>
+                <button type="submit" class="btn btn-success">Siguente paso</button>
+            </footer>
+            </form>
+    </div>
+
+{% endblock %}
