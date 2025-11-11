@@ -12,6 +12,7 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 perfiles = []
 
 correos = []
+print(perfiles)
 
 @app.route('/') ## No mover
 def home():
@@ -58,104 +59,93 @@ def registro():
         sexo = request.form["sexo"]
         contrafirma = request.form["confirmar_contraseña"]
         
-        error = None
-        
         if contraseña != contrafirma:
             flash("Las contraseñas no coinciden", "danger")
             return render_template("registro.html")
-        else:
-            usuario = {"nombre":nomyape, 
-                "correo":correo, 
-                "contraseña":contraseña,
-                "edad":edad, 
-                "peso":peso, 
-                "altura":altura, 
-                "sexo":sexo,
-                preferencias:{},
-                }
             
-            for u in perfiles:
-                if u['correo'] == correo:
-                    flash(f"El correo ya está registrado.")
-                else:
-                    correos.append(correo)
-                    perfiles.append(usuario)
-            return render_template("objetivos.html")
-        
+        for u in perfiles:
+            if u['correo'] != correo:
+                usuario = {"nombre":nomyape, 
+                    "correo":correo, 
+                    "contraseña":contraseña,
+                    "edad":edad, 
+                    "peso":peso, 
+                    "altura":altura, 
+                    "sexo":sexo,
+                    }
+                session['usuario'] = correo
+                perfiles.append(usuario)
+                return render_template("objetivos.html")
+            break
+                    
     return render_template("registro.html")
 
-@app.route('/objetivos', methods=["POST", "GET"])##Objetivos
+@app.route('/objetivos', methods=["POST", "GET"])
 def objetivos():
     if request.method == "POST":
-        objetivos = request.form["objetivos"]
-        
+        objetivo = request.form["objetivos"]
+
         for u in perfiles:
             if session['usuario'] == u['correo']:
-                u.append(objetivos)
-            else:
-                flash("Ya existe un usuario con ese correo")
-            return render_template("objetivos.html")
-            
-        
-        return redirect('/preferencias')
-    
+                u["objetivo"] = objetivo 
+                return redirect('/preferencias')
+            break
+
+        flash("No se encontró el usuario en sesión")
+        return render_template("objetivos.html")
+
     return render_template("objetivos.html")
 
-@app.route('/preferencias',methods=["POST","GET"])
+@app.route('/preferencias', methods=["POST","GET"])
 def preferencias():
     if request.method == "POST":
-        alergia = request.form["alergia"]
-        alergias = request.form["alergias"]
-        intolerancia = request.form["intolerancias"]
-        dietas = request.form["dietas"]
-        no_gusta = request.form["no_gustan"]
-        
-        preferencias = { "alergia":alergia,
-                        "alergias":alergias,
-                        "intolerancia":intolerancia,
-                        "dietas":dietas,
-                        "no_gusta":no_gusta
-                        }
-        
+        preferencias_usr = {
+            "alergia": request.form["alergia"],
+            "alergias": request.form["alergias"],
+            "intolerancia": request.form["intolerancias"],
+            "dietas": request.form["dietas"],
+            "no_gusta": request.form["no_gustan"]
+        }
+
         for u in perfiles:
-            for s in correos:
-                if s[correos] == u['correo']:
-                    u.append(preferencias)
-                    return render_template("nivel.html")
-                else:
-                    flash("Error al guardar")
-                return render_template("preferencias.html")
-        
+            if session['usuario'] == u['correo']:
+                u["preferencias"] = preferencias_usr
+                return redirect('/nivel')
+
+        flash("Error al guardar preferencias")
+        return render_template("preferencias.html")
+
     return render_template("preferencias.html")
 
-@app.route('/nivel',methods={"POST","GET"})
+@app.route('/nivel', methods=["POST","GET"])
 def experiencia():
     if request.method == "POST":
         experi = request.form["experiencia"]
-        
+
         for u in perfiles:
-            for s in correos:
-                if s[correos] == u['correo']:
-                    u.append(experi)
-                    return render_template("perfil.html")
-                else:
-                    flash("Error al guardar")
-                return render_template("nivel.html")
-        
-    return render_template("experiencia.html")
+            if session['usuario'] == u['correo']:
+                u["experiencia"] = experi
+                return redirect('/perfil')
+
+        flash("No se pudo guardar la experiencia")
+        return render_template("nivel.html")
+
+    return render_template("nivel.html")
 
 @app.route('/perfil')
 def perfil():
-    
+    usua = None
+
     for u in perfiles:
-        for s in correos:
-            if s[correos] == u['correo']:
-                usuario = u
-            else:
-                flash("Error al cargar el perfil")
-                return redirect(url_for('login'))
-    
-    return render_template('perfil.html',usuario=usuario)
+        if session.get('usuario') == u['correo']:
+            usua = u
+            break
+
+    if usua is None:
+        flash("No se encontró el usuario en la sesión")
+        return redirect('/registro')
+
+    return render_template('perfil.html', usuario=usua)
 
 ## De aqui para abajo despues no mover hasta la otra semana
 
