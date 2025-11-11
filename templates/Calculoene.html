@@ -1,0 +1,59 @@
+{%extends "base.html"%}
+    {%block contenido%}
+    <div class="row" style="align-items: center; margin-top: 100px;">
+        <div class="card" style="width: 100rem; height:200rem:">
+            <div class="card-header" style=" background-color: blue;">
+                <p class="fw-bolder " style="color: azure;">Calculadora de gasto Energeticos (TMB Y GET)</p>
+            </div>
+
+            <div class="card-body">
+                
+                <form action="/energia" method="POST">
+
+                    
+                <div class="row">
+                    <label> Peso(kg) </label>
+                    <input type="number" id="peso" name="peso"  value="{{request.form.get('peso','')}}">
+                    
+                    </input>
+                </div>
+
+                <div class="row">
+                    <label> Altura(cm) </label>
+                    <input type="text" id="altu" name="altu" value="{{request.form.get('altu','')}}">
+                    
+                    </input>
+                </div>
+
+                <div class="row">
+                    <label> Edad(años) </label>
+                    <input type="number" id="edad" name="edad" value="{{request.form.get('edad','')}}"> 
+                    
+                    </input>
+                    </div>
+
+                <div class="row">
+                    <label> Genero </label>
+                    <select name="genero">
+                        <option id="hombre" name="hombre" value="hombre">Hombre</option>
+                        <option id="mujer" name="mujer" value="mujer">Mujer</option>
+                    </select>
+                </div>
+
+                <div class="row">
+                    <label> Nivel de actividad fisica </label>
+                    <select name="activi">
+                        <option value="sedentario">Sedentario</option>
+                        <option value="ligera">Actividad Ligera</option>
+                        <option value="moderada">Actividad Moderada</option>
+                        <option value="alta">Actividad Alta</option>
+                    </select>
+                </div>
+
+                
+                    <input type="submit" value="Calcular">  </input>
+                </form>
+            </div>
+        </div>
+    </div>
+    {%endblock%}

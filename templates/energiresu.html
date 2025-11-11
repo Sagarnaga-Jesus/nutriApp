@@ -1,0 +1,41 @@
+{%extends "base.html"%}
+{%block contenido%}
+<div class="container" style="text-align: center; ">
+    <div class="row">
+        <p class="fs-5">Resultados del calculo</p>
+        <div class="col-5">
+            <div class="card">
+                <div>
+                    <p>Tasa Metabolica Basal (TMB)</p>
+                </div>
+
+                <div>
+                    <p class='fs-5' style="color: blue;">{{tbm}}</p>
+                </div>
+
+                <div>
+                    <p>Kcal/dia(Gasto en Reposo)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5">
+            <div class="card">
+                <div>
+                    <p>Gasto Energetico Total (GET)</p>
+                </div>
+
+                <div>
+                    <p class='fs-5' style="color: blue;">{{get}}</p>
+                </div>
+
+                <div>
+                    <p>Kcal/dia(Gasto con Actividad)</p>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+</div>
+{%endblock%}

@@ -1,6 +1,5 @@
-{% extends "base.html" %}
-
-{% block title %} Contador {% endblock %}
+{%extends "base.html"%}
+{% block title%} Clasificador macronutrientes {% endblock %}
 
 {% block contenido %}
 
@@ -10,31 +9,31 @@
     <thead>
         <tr>
             <th scope="col">#</th>
+            <th scope="col">Alimento</th>
             <th scope="col">Calorias</th>
-            <th scope="col">Agua</th>
+            <th scope="col">Grasas</th>
             <th scope="col">Macronutriente</th>
+            <th scope="col">Grasas calorico</th>
+            <th scope="col">proteinas calorico</th>
+            <th scope="col">Carbohidratos calorico</th>
+            <th scope="col">Agua</th>
+            
         </tr>
     </thead>
     <tbody>
-        <tr>
-        <th scope="row" >1</th>
-            <td class="table-info"></td>
-            <td class="table-info"></td>
-            <td class="table-info"></td>
+            {% for alimento in alimento %}
+        <th scope="row">{{ loop.index }}</th>
+            <td class="table-info">{{alimento.nombre}}</td>
+            <td class="table-info">{{alimento.grasas}}</td>
+            <td class="table-info">{{alimento.proteinas}}</td>
+            <td class="table-info">{{alimento.carbohidratos}}</td>
+            <td class="table-info">{{alimento.grasasc}}</td>
+            <td class="table-info">{{alimento.proteinasc}}</td>
+            <td class="table-info">{{alimento.carbohidratosc}}</td>
+            <td class="table-info">{{alimento.agua}} L</td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td class="table-success"></td>
-            <td class="table-success"></td>
-            <td class="table-success"></td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td></td>
-            <td></td>
-            <td></td>
-        </tr>
+        {% endfor %}
     </tbody>
 </table>
 </div>
-{% endblock %}
+{%endblock%}

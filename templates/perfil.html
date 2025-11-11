@@ -26,13 +26,13 @@
             <p><strong>Altura:</strong> {{ usuario.altura }} cm</p><br>
             <p><strong>Peso:</strong> {{ usuario.peso }} kg</p><br>
             <p><strong>Sexo:</strong> {{ usuario.sexo }}</p><br>
-            <p><strong>Objetivos:</strong> {{ usuario.objetivos}}</p><br>
-            <p><strong>Preferencias:</strong></p><br>
+            <p><strong>Objetivos:</strong> {{ usuario.objetivo}}</p><br>
             <ul>
 
         </div>
             </div>
-        </div>     
+
+        </div>    
         <h1 class="text-center fst-italic" style="margin-top: 20px;">Preferencias de {{ usuario.nombre }}</h1>
         <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
         <div class="card-header">
@@ -46,7 +46,8 @@
             </ul>
             <p><strong>Nivel de experiencia:</strong> {{ usuario.experiencia }}</p><br>
             </div>
+            
         </div>           
-        <button type="button" class="btn-close btn btn-info">Cerrar sesion</button>
+        
 
 {% endblock %}

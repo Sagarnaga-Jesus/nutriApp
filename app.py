@@ -12,6 +12,10 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 perfiles = []
 
 correos = []
+
+alimentos = [
+]
+
 print(perfiles)
 
 @app.route('/') ## No mover
@@ -40,14 +44,21 @@ def login():
         for perfil in perfiles:
             if correo == perfil['correo'] and contraseña == perfil['contraseña']:
                 session['usuario'] = perfil
+                session.permanent = True
                 return redirect('/perfil')
 
-        flash("Correo o contraseña incorrectos")
+        flash("Correo o contraseña incorrectos", "danger")
         return render_template('login.html')
-
     return render_template('login.html')
 
-@app.route('/registro' , methods=["POST", "GET"])##Registro
+@app.route('/logout')
+def logout():
+    session.pop('usuario', None)
+    session.permanent = False
+    flash("Has cerrado sesión correctamente.", "danger")
+    return redirect('/login')
+
+@app.route('/registro', methods=["POST", "GET"])
 def registro():
     if request.method == "POST":
         nomyape = request.form["nombre"]
@@ -58,26 +69,32 @@ def registro():
         altura = request.form["altura"]
         sexo = request.form["sexo"]
         contrafirma = request.form["confirmar_contraseña"]
-        
+
         if contraseña != contrafirma:
             flash("Las contraseñas no coinciden", "danger")
             return render_template("registro.html")
-            
+
         for u in perfiles:
-            if u['correo'] != correo:
-                usuario = {"nombre":nomyape, 
-                    "correo":correo, 
-                    "contraseña":contraseña,
-                    "edad":edad, 
-                    "peso":peso, 
-                    "altura":altura, 
-                    "sexo":sexo,
-                    }
-                session['usuario'] = correo
-                perfiles.append(usuario)
-                return render_template("objetivos.html")
-            break
-                    
+            if u['correo'] == correo:
+                flash("El correo ya está registrado.", "danger")
+                return render_template("registro.html")
+        usuario = {
+            "nombre": nomyape,
+            "correo": correo,
+            "contraseña": contraseña,
+            "edad": edad,
+            "peso": peso,
+            "altura": altura,
+            "sexo": sexo,
+            "objetivo": "",
+            "preferencias": {},
+            "experiencia": ""
+        }
+
+        perfiles.append(usuario)
+        session['usuario'] = correo
+        return redirect("/objetivos")
+
     return render_template("registro.html")
 
 @app.route('/objetivos', methods=["POST", "GET"])
@@ -86,50 +103,53 @@ def objetivos():
         objetivo = request.form["objetivos"]
 
         for u in perfiles:
-            if session['usuario'] == u['correo']:
+            if session.get('usuario') == u['correo']:
                 u["objetivo"] = objetivo 
                 return redirect('/preferencias')
-            break
-
-        flash("No se encontró el usuario en sesión")
-        return render_template("objetivos.html")
+        else:
+            flash("No se encontró el usuario en sesión", "danger")
+            return render_template("objetivos.html")
 
     return render_template("objetivos.html")
 
 @app.route('/preferencias', methods=["POST","GET"])
 def preferencias():
     if request.method == "POST":
-        preferencias_usr = {
-            "alergia": request.form["alergia"],
-            "alergias": request.form["alergias"],
-            "intolerancia": request.form["intolerancias"],
-            "dietas": request.form["dietas"],
-            "no_gusta": request.form["no_gustan"]
+        alergia = request.form["alergia"]
+        alergias = request.form["alergias"]
+        intolerancia = request.form["intolerancias"]
+        dietas = request.form["dietas"]
+        no_gusta = request.form["no_gustan"]
+        
+        preferencias={
+            "alergia":alergia,
+            "alergias":alergias,
+            "intolerancia":intolerancia,
+            "dietas":dietas,
+            "no_gusta":no_gusta
         }
 
         for u in perfiles:
-            if session['usuario'] == u['correo']:
-                u["preferencias"] = preferencias_usr
+            if session.get('usuario') == u['correo']:
+                u["preferencias"] = preferencias
                 return redirect('/nivel')
-
-        flash("Error al guardar preferencias")
-        return render_template("preferencias.html")
-
+        else:
+            flash("Error al guardar preferencias", "danger")
+            return render_template("preferencias.html")
     return render_template("preferencias.html")
 
 @app.route('/nivel', methods=["POST","GET"])
-def experiencia():
+def nivel():
     if request.method == "POST":
         experi = request.form["experiencia"]
 
         for u in perfiles:
-            if session['usuario'] == u['correo']:
+            if session.get('usuario') == u['correo']:
                 u["experiencia"] = experi
                 return redirect('/perfil')
-
-        flash("No se pudo guardar la experiencia")
-        return render_template("nivel.html")
-
+        else:
+            flash("No se pudo guardar la experiencia", "danger")
+            return render_template("nivel.html")
     return render_template("nivel.html")
 
 @app.route('/perfil')
@@ -142,14 +162,12 @@ def perfil():
             break
 
     if usua is None:
-        flash("No se encontró el usuario en la sesión")
+        flash("No se encontró el usuario en la sesión" , "danger")
         return redirect('/registro')
 
     return render_template('perfil.html', usuario=usua)
 
-@app.route('/registrar_alimentos')
-def alimentos():
-    return render_template("registrar_alimentos.html")
+
 
 ## De aqui para abajo despues no mover hasta la otra semana
 
@@ -157,9 +175,84 @@ def alimentos():
 def acerca_de():
     return render_template("acerca_de.html")
 
-@app.route('/contador')
+@app.route('/registrar_alimentos')
+def alimentos():
+    return render_template("registrar_alimentos.html")
+
+@app.route("/contador",methods=["POST","GET"])
 def contador():
-    return render_template("contador.html")
+    if  request.method == "POST":
+        nombre = request.form["alimento"]
+        grasas = request.form["grasas"]
+        prote = request.form["proteinas"]
+        carbo = request.form["carbohidratos"]
+        agua = request.form["agua"]
+        
+        grasa=0
+        proteinas=0
+        carbohidratos=0
+        
+        grasa = 9*float(grasas)
+        proteinas = 4*float(prote)
+        carbohidratos = 4*float(carbo)
+        
+        
+        grasat = str(grasa)
+        proteinast = str(proteinas)
+        carbohidratost = str(carbohidratos)
+        
+        alimento = {
+            "nombre": nombre ,
+            "grasas": grasas ,
+            "proteinas": prote ,
+            "carbohidratos":carbo ,
+            "grasasc":grasat,
+            "proteinasc":proteinast,
+            "carbohidratosc":carbohidratost
+        }
+        alimentos.append(alimento)
+        
+    return render_template("contador.html", alimentos=alimentos,)
+
+@app.route("/calculoene")
+def calculoene ():
+    return render_template("Calculoene.html")
+
+@app.route("/energia", methods = ["Get", "POST"])
+def energia():
+    if request .method == "POST":
+        edad = request.form["edad"]
+        altu = request.form["altu"]
+        peso = request.form["peso"]
+        genero = request.form["genero"]
+        actividad = request.form["activi"]
+        
+        tbm = 0
+        get = 0
+        nivel = 0
+        altura = float(altu)*100
+        
+        if actividad == "sedentario":
+            nivel = 1.2
+        else:
+            if actividad == "ligera":
+                nivel = 1.375
+            else:
+                if actividad == "moderada":
+                    nivel=1.55
+                else:
+                    if actividad == "alta":
+                        nivel = 1,725
+        
+        if genero == "hombre":
+            tbm = 10*float(peso)+6.25*float(altura)-5*float(edad)+5
+        else:
+            if genero == "mujer":
+                tbm = 10*float(peso)+6.25*float(altura)-5*float(edad)-161
+        
+        get = tbm * nivel
+        
+    return render_template("energiresu.html",get=get,tbm=tbm,)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -4,10 +4,23 @@
 {% block contenido %}
 
 <h1 class="text-center fst-italic" style="margin-top: 20px;">Experiencia</h1>
+
     <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
     <form action="/nivel" method="POST" id="experiencia"><!-- lo que hiciste en registro-->
         <div class="card-header">
             <h2>Nivel de Experiencia</h2>
+            <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
         </div>
         <div class="card-body">
             <div class="form-check">

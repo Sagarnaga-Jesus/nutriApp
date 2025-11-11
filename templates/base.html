@@ -23,22 +23,33 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">
+                            <a class="nav-link" href="{% if session.get('usuario') %}/logout{% else %}/login{% endif %}">
+                                {% if session.get('usuario') %}
+                                Cerrar sesión
+                                {% else %}
                                     Iniciar sesión
+                                    {% endif %}
                             </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/perfil">Perfil</a>
                         </li>
 
                         <li class="nav-item">
                             <a class="nav-link" href="/registro">Registrarte</a>
                         </li>
+                        
+                        <li class="nav-item">
+                            <a class="nav-link" href="/registrar_alimentos">Registro de alimentos</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="/calculoene">Calculo de Energetico</a>
+                        </li>
+                        
                         <li class="nav-item">
                             <a class="nav-link" href="/acerca">Acerca de</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/contador">Contador</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="/perfil">Perfil</a>
                         </li>
                     </ul>
                 </div>
