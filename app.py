@@ -147,6 +147,10 @@ def perfil():
 
     return render_template('perfil.html', usuario=usua)
 
+@app.route('/registrar_alimentos')
+def alimentos():
+    return render_template("registrar_alimentos.html")
+
 ## De aqui para abajo despues no mover hasta la otra semana
 
 @app.route('/acerca')
