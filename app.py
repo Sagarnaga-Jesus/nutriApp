@@ -6,14 +6,14 @@ app = Flask(__name__)
 app.secret_key = "1q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
-## Falta validasr dsatos que funcione bien logica para encontrar buscar los datos de los usuarios, flata los objetivos para que pase de un lado a otro, tambien ver a donde
-## redirigir los datos a un solo lado y almacenarlos
+## Falta revisar el iniciar secion, tambien modificar el navbar para que cambie segun si hay sesion iniciada o no mostrar ciertas cosas como contador perfil etc
+## Solo debe de mostar alinicio home , login, registro, acerca de
 
 perfiles = []
 
 correos = []
 
-alimentos_cons = []##modifique el nombre porque llama a una funcion en lugar de un arreglo
+alimentos_cons = []
 
 print(perfiles)
 
@@ -42,7 +42,7 @@ def login():
 
         for perfil in perfiles:
             if correo == perfil['correo'] and contraseña == perfil['contraseña']:
-                session['usuario'] = perfil
+                session['usuario'] = perfil['correo']
                 session.permanent = True
                 return redirect('/perfil')
 
@@ -54,7 +54,7 @@ def login():
 def logout():
     session.pop('usuario', None)
     session.permanent = False
-    flash("Has cerrado sesión correctamente.", "danger")
+    flash("Has cerrado sesión correctamente.", "success")
     return redirect('/login')
 
 @app.route('/registro', methods=["POST", "GET"])
@@ -209,9 +209,15 @@ def contador():
             "proteinasc":proteinast,
             "carbohidratosc":carbohidratost
         }
-        alimentos_cons.append(alimento)##esta parte marca erro en el html
+        alimentos_cons.append(alimento)
         
-    return render_template("contador.html", alimentos=alimentos,)
+    return render_template("contador.html", alimento=alimentos_cons,)
+
+@app.route("/eliminar")
+def eliminar ():
+    if alimentos_cons:
+        alimentos_cons.pop(-1)
+    return render_template("contador.html", alimento=alimentos_cons )
 
 @app.route("/calculoene")
 def calculoene ():

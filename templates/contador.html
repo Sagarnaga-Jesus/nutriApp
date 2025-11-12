@@ -5,6 +5,9 @@
 
 <div class="container-fluid fst-italic align-items-center" style="margin-top: 30px; margin-bottom: 30px; ">
 <h3 class="text-center">Contador calorico</h3>
+<button type="button" class="btn btn-success d-block mx-auto mb-3 shadow-lg rounded-4 fs-5 fst-italic" style="width: 12rem;" onclick="location.href='/registrar_alimentos'">Agregar alimento</button>
+<button type="button" class="btn btn-danger d-block mx-auto mb-3 shadow-lg rounded-4 fs-5 fst-italic" style="width: 16rem;" onclick="location.href='/eliminar'">Eliminar Alimento</button>
+
 <table class="table mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
     <thead>
         <tr>
@@ -21,16 +24,16 @@
         </tr>
     </thead>
     <tbody>
-            {% for alimento in alimento %}
+            {% for a in alimento %}
         <th scope="row">{{ loop.index }}</th>
-            <td class="table-info">{{alimento.nombre}}</td>
-            <td class="table-info">{{alimento.grasas}}</td>
-            <td class="table-info">{{alimento.proteinas}}</td>
-            <td class="table-info">{{alimento.carbohidratos}}</td>
-            <td class="table-info">{{alimento.grasasc}}</td>
-            <td class="table-info">{{alimento.proteinasc}}</td>
-            <td class="table-info">{{alimento.carbohidratosc}}</td>
-            <td class="table-info">{{alimento.agua}} L</td>
+            <td class="table-info">{{a.nombre}}</td>
+            <td class="table-info">{{a.grasas}}</td>
+            <td class="table-info">{{a.proteinas}}</td>
+            <td class="table-info">{{a.carbohidratos}}</td>
+            <td class="table-info">{{a.grasasc}}</td>
+            <td class="table-info">{{a.proteinasc}}</td>
+            <td class="table-info">{{a.carbohidratosc}}</td>
+            <td class="table-info">{{a.agua}} L</td>
         </tr>
         {% endfor %}
     </tbody>
