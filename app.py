@@ -13,8 +13,7 @@ perfiles = []
 
 correos = []
 
-alimentos = [
-]
+alimentos_cons = []##modifique el nombre porque llama a una funcion en lugar de un arreglo
 
 print(perfiles)
 
@@ -210,7 +209,7 @@ def contador():
             "proteinasc":proteinast,
             "carbohidratosc":carbohidratost
         }
-        alimentos.append(alimento)
+        alimentos_cons.append(alimento)##esta parte marca erro en el html
         
     return render_template("contador.html", alimentos=alimentos,)
 
