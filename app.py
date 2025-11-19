@@ -67,6 +67,7 @@ def registro():
         edad = request.form["edad"]
         peso = request.form["peso"]
         altura = request.form["altura"]
+        actividad = request.form["actividad"]
         sexo = request.form["sexo"]
         contrafirma = request.form["confirmar_contraseña"]
 
@@ -85,6 +86,7 @@ def registro():
             "edad": edad,
             "peso": peso,
             "altura": altura,
+            "actividad": actividad,
             "sexo": sexo,
             "objetivo": "",
             "preferencias": {},

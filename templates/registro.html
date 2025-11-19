@@ -51,6 +51,18 @@
                         <input type="text" class="form-control" placeholder="Peso (kg)" aria-label="peso" id="peso" name="peso" value="{{request.form.get('peso', '')}}" required>
                     </div>
                 </div>
+
+                <div class="mb-3">
+                    <h5> Nivel de actividad fisica </h5>
+                    <div class="input-group">
+                    <select class="form-select" value="{{request.form.get('actividad', '')}}" name="actividad" id="actividad" required>
+                        <option value="sedentario">Sedentario</option>
+                        <option value="ligera">Actividad Ligera</option>
+                        <option value="moderada">Actividad Moderada</option>
+                        <option value="alta">Actividad Alta</option>
+                    </select>
+                    </div>
+                </div>
     
                 <div class="mb-3">
                     <h5>Sexo</h5>
