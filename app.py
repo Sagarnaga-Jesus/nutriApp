@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import timedelta,datetime
+import requests
 
 
 app = Flask(__name__)
@@ -166,13 +167,13 @@ def perfil():
 
     return render_template('perfil.html', usuario=usua)
 
-
-
-## De aqui para abajo despues no mover hasta la otra semana
-
 @app.route('/acerca')
 def acerca_de():
     return render_template("acerca_de.html")
+
+## De aqui para abajo despues no mover hasta la otra semana
+
+
 
 @app.route('/registrar_alimentos')
 def alimentos():
@@ -180,6 +181,7 @@ def alimentos():
 
 @app.route("/contador",methods=["POST","GET"])
 def contador():
+    
     if  request.method == "POST":
         nombre = request.form["alimento"]
         grasas = request.form["grasas"]
@@ -207,7 +209,8 @@ def contador():
             "carbohidratos":carbo ,
             "grasasc":grasat,
             "proteinasc":proteinast,
-            "carbohidratosc":carbohidratost
+            "carbohidratosc":carbohidratost,
+            "agua":agua
         }
         alimentos_cons.append(alimento)
         
@@ -225,6 +228,17 @@ def calculoene ():
 
 @app.route("/energia", methods = ["Get", "POST"])
 def energia():
+    usua = None
+
+    for u in perfiles:
+        if session.get('usuario') == u['correo']:
+            usua = u
+            break
+
+    if usua is None:
+        flash("No se encontró el usuario en la sesión" , "danger")
+        return redirect('/registro')
+    
     if request .method == "POST":
         edad = request.form["edad"]
         altu = request.form["altu"]
