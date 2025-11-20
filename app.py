@@ -7,6 +7,12 @@ app = Flask(__name__)
 app.secret_key = "1q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
+API_URL = "https://api.edamam.com/api/recipes/v2"
+API_ID = "6d8321c7"
+API_KEY = "3299bb508e6a3b92fd7b3d8597f1e80d"
+
+
+
 ## Falta revisar el iniciar secion, tambien modificar el navbar para que cambie segun si hay sesion iniciada o no mostrar ciertas cosas como contador perfil etc
 ## Solo debe de mostar alinicio home , login, registro, acerca de
 
@@ -169,6 +175,56 @@ def perfil():
 
     return render_template('perfil.html', usuario=usua)
 
+@app.route('/buscador')
+def buscador():
+    return render_template("buscador.html")
+
+@app.route('/buscar', methods=['POST'])
+def buscar():
+    alimento = request.form.get('name', '').strip().lower()
+    
+    if not alimento:
+        flash("Ingresa un ingrediente", "danger")
+        return redirect(url_for('buscador'))
+
+    params = {
+        "type": "public",
+        "q": alimento,
+        "app_id": API_ID,
+        "app_key": API_KEY
+    }
+
+    try:
+        
+        if not alimento:
+            flash('Por favor ingresa un nombre de Alimento válido.', 'danger')
+            return redirect(url_for('buscador'))
+        
+        response = requests.get(API_URL, params)
+        data = response.json()
+        
+
+        if "hits" not in data or not data["hits"]:
+            flash("No se encontraron recetas.", "danger")
+            return redirect(url_for('buscador'))
+
+        recetas = []
+        for item in data["hits"]:
+            r = item["recipe"]
+            recetas.append({
+                "name": r["label"],
+                "imagen": r["images"]["REGULAR"]["url"],
+                "calorias": int(r["calories"]),
+                "ingredientes": r["ingredientLines"]
+            })
+
+        return render_template("targeta.html", alimento=recetas)
+
+    except Exception as e:
+        print("ERROR:", e)
+        flash("Error al conectar con Edamam.", "danger")
+        return redirect(url_for('buscador'))
+
 @app.route('/acerca')
 def acerca_de():
     return render_template("acerca_de.html")
@@ -241,29 +297,29 @@ def energia():
         flash("No se encontró el usuario en la sesión" , "danger")
         return redirect('/registro')
     
-    if request .method == "POST":
-        edad = request.form["edad"]
-        altu = request.form["altu"]
-        peso = request.form["peso"]
-        genero = request.form["genero"]
-        actividad = request.form["activi"]
+    edad=usua["edad"]
+    altu=usua["altura"]
+    peso=usua["peso"]
+    genero=usua["sexo"]
+    actividad=usua["actividad"]
+    
+    tbm = 0
+    get = 0
+    nivel = 0
+    altura = float(altu)*100
+
         
-        tbm = 0
-        get = 0
-        nivel = 0
-        altura = float(altu)*100
-        
-        if actividad == "sedentario":
-            nivel = 1.2
+    if actividad == "sedentario":
+        nivel = 1.2
+    else:
+        if actividad == "ligera":
+            nivel = 1.375
         else:
-            if actividad == "ligera":
-                nivel = 1.375
+            if actividad == "moderada":
+                nivel=1.55
             else:
-                if actividad == "moderada":
-                    nivel=1.55
-                else:
-                    if actividad == "alta":
-                        nivel = 1,725
+                if actividad == "alta":
+                    nivel = 1,725
         
         if genero == "hombre":
             tbm = 10*float(peso)+6.25*float(altura)-5*float(edad)+5
@@ -274,6 +330,50 @@ def energia():
         get = tbm * nivel
         
     return render_template("energiresu.html",get=get,tbm=tbm,)
+
+@app.route('/energiresu')
+def energiresu():
+    usua = None
+
+    for u in perfiles:
+        if session.get('usuario') == u['correo']:
+            usua = u
+            break
+
+    if usua is None:
+        flash("No se encontró el usuario en la sesión", "danger")
+        return redirect('/registro')
+
+    edad = float(usua["edad"])
+    peso = float(usua["peso"])
+    altu = float(usua["altura"])
+    genero = usua["sexo"]
+    actividad = usua["actividad"]
+
+    altura = altu * 100
+
+    if actividad == "sedentario":
+        nivel = 1.2
+    elif actividad == "ligera":
+        nivel = 1.375
+    elif actividad == "moderada":
+        nivel = 1.55
+    elif actividad == "alta":
+        nivel = 1.725
+    else:
+        nivel = 1.2
+
+    if genero == "hombre":
+        tbm = 10 * peso + 6.25 * altura - 5 * edad + 5
+    else:
+        tbm = 10 * peso + 6.25 * altura - 5 * edad - 161
+
+    get = tbm * nivel
+    
+    get = round(get, 2)
+    tbm = round(tbm, 2)
+
+    return render_template("energiresu.html", get=get, tbm=tbm)
 
 if __name__ == "__main__":
     app.run(debug=True)

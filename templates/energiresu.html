@@ -1,36 +1,36 @@
 {%extends "base.html"%}
 {%block contenido%}
 <div class="container" style="text-align: center; ">
-    <div class="row">
-        <p class="fs-5">Resultados del calculo</p>
+    <div class="row " style="display: flex; justify-content: center; align-items: center;">
+        <h1 style="margin-top: 50px;">Resultados del calculo</h1>
         <div class="col-5">
-            <div class="card">
+            <div class="card" style="margin-top: 50px;">
                 <div>
-                    <p>Tasa Metabolica Basal (TMB)</p>
+                    <h3>Tasa Metabolica Basal (TMB)</h3>
                 </div>
 
                 <div>
-                    <p class='fs-5' style="color: blue;">{{tbm}}</p>
+                    <p class='fs-3' style="color: blue;">{{tbm}}</p>
                 </div>
 
                 <div>
-                    <p>Kcal/dia(Gasto en Reposo)</p>
+                    <h4>Kcal/dia(Gasto en Reposo)</h4>
                 </div>
             </div>
         </div>
 
         <div class="col-5">
-            <div class="card">
+            <div class="card" style="margin-top: 50px;">
                 <div>
-                    <p>Gasto Energetico Total (GET)</p>
+                    <h3>Gasto Energetico Total (GET)</h3>
                 </div>
 
                 <div>
-                    <p class='fs-5' style="color: blue;">{{get}}</p>
+                    <p class='fs-3' style="color: blue;">{{get}}</p>
                 </div>
 
                 <div>
-                    <p>Kcal/dia(Gasto con Actividad)</p>
+                    <h4>Kcal/dia(Gasto con Actividad)</h4>
                 </div>
             </div>
         </div>

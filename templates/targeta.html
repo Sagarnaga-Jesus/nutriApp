@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}Resultados{% endblock %}
+
+{% block contenido %}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Resultados</h2>
+
+    <div class="mb-4 text-center">
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">Nueva Búsqueda</a>
+    </div>
+
+    <div class="row">
+        {% for comida in alimento %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow" style="border-radius: 15px; height: 400px; width: 400px;">
+
+                <img src="{{ comida.imagen }}" class="card-img-top" alt="{{ comida.name }}" style="height: 200px; border-top-left-radius: 15px; border-top-right-radius: 15px;">
+
+                <div class="card-body">
+                    <h5>{{ comida.name }}</h5>
+                    <p><strong>Calorías:</strong> {{ comida.calorias }}</p>
+
+                    <p><strong>Ingredientes:</strong></p>
+                    <ul>
+                        {% for ingr in comida.ingredientes %}
+                        <li>{{ ingr }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+{% endblock %}
