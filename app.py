@@ -375,5 +375,49 @@ def energiresu():
 
     return render_template("energiresu.html", get=get, tbm=tbm)
 
+@app.route('/calcuimc')
+def imc():
+    usua = None
+    for u in perfiles:
+        if session.get('usuario') == u['correo']:
+            usua = u
+            break
+
+    if usua is None:
+        flash("No se encontró el usuario en la sesión", "danger")
+        return redirect('/registro')
+    
+    edad = float(usua["edad"])
+    peso = float(usua["peso"])
+    altu = float(usua["altura"])
+    genero = usua["sexo"]
+    actividad = usua["actividad"]
+    
+    altura2 = altu * altu
+    
+    imc = peso/altura2
+    
+    imc=round(imc,2)
+    
+    info = None
+    reco = None
+    if imc < 18.5:
+        info = "Bajo de peso"
+        reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
+    else:
+        if imc > 18.5 and imc < 24.9:
+            info = "Peso normal"
+            reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
+        else:
+            if imc > 25 and imc < 29.9:
+                info = "Sobrepeso"
+                reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
+            else:
+                if imc < 30 and imc > 34.9:
+                    info = "Obesidad ligera, asiste con tu doctor y sigue recetas"       
+    
+    
+    return render_template('calculadoraimc.html', usuario=usua, imc=imc, informacion=info, recomendaciones=reco )
+
 if __name__ == "__main__":
     app.run(debug=True)
