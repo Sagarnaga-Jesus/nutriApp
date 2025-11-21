@@ -42,6 +42,7 @@
                         {% endif %}
                         
 
+                        {% if session.get('usuario') %}
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Calculadoras
@@ -68,6 +69,30 @@
 
                             </ul>
                         </li>
+                            {% else %}
+
+                            <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Calculadoras
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/calcuimc">Calculadora IMC</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/energiresu">Calculo de TMB y GCT</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/calcupeso">Calculadora PSI</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/registrar_alimentos">Calculo Macronutrientes</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        {% endif %}
+                        
 
                         {% if session.get('usuario') %}
                         <li class="nav-item">
