@@ -11,7 +11,9 @@ API_URL = "https://api.edamam.com/api/recipes/v2"
 API_ID = "6d8321c7"
 API_KEY = "3299bb508e6a3b92fd7b3d8597f1e80d"
 
-
+NUTRIENTES_API_URL = "https://api.edamam.com/api/food-database/v2/parser"
+NUTRIENTES_API_ID = "8497257e"
+NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 
 ## Falta revisar el iniciar secion, tambien modificar el navbar para que cambie segun si hay sesion iniciada o no mostrar ciertas cosas como contador perfil etc
 ## Solo debe de mostar alinicio home , login, registro, acerca de
@@ -401,23 +403,58 @@ def imc():
     
     info = None
     reco = None
-    if imc < 18.5:
+    if imc <= 18.5:
         info = "Bajo de peso"
         reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
     else:
-        if imc > 18.5 and imc < 24.9:
+        if imc >= 18.5 and imc <= 24.9:
             info = "Peso normal"
-            reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
+            reco = "Para mantener un peso saludable evite los alimentos densos en calorías. Y evite las bebidas azucaradas."
         else:
-            if imc > 25 and imc < 29.9:
+            if imc >= 25 and imc <= 29.9:
                 info = "Sobrepeso"
-                reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
+                reco = "se recomienda una combinación de una dieta saludable y actividad física regular. Esto incluye consumir abundantes frutas y verduras, limitar grasas y azúcares, preferir métodos de cocción como la plancha o el vapor, tomar suficiente agua y realizar ejercicio físico adaptado a las capacidades individuales, además de mantener un seguimiento médico regular"
             else:
-                if imc < 30 and imc > 34.9:
-                    info = "Obesidad ligera, asiste con tu doctor y sigue recetas"       
+                if imc >= 30 and imc <= 34.9:
+                    info = "Obesidad ligera"
+                    reco =  "La mejor estrategia implica una combinación de cambios en la dieta y aumento de la actividad física, siempre bajo la supervisión de un profesional médico"      
+                else:
+                    if imc >= 35 and imc <= 39.9:
+                        info = "Obesidad"
+                        reco = "Algunas medidas que se pueden adoptar y que servirán para mantener el peso adecuado son: 1- Mantenerte activo. 2- Comer sano. 3- Ingerir agua.4- Llevar a cabo chequeo médico por lo menos una vez al año. 5- Evitar alimentos ricos en grasas y carbohidratos."
+                    else: 
+                        if imc >= 40:
+                            info = "Obesidad morbida o grave"
+                            reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
     
     
     return render_template('calculadoraimc.html', usuario=usua, imc=imc, informacion=info, recomendaciones=reco )
 
+@app.route('/calcupeso')##calculadora peso corporal ideal
+def peso():
+    usua = None
+    for u in perfiles:
+        if session.get('usuario') == u['correo']:
+            usua = u
+            break
+
+    if usua is None:
+        flash("No se encontró el usuario en la sesión", "danger")
+        return redirect('/registro')
+    
+    altu = float(usua["altura"])
+    genero = usua["sexo"]
+    
+    altu_cm = altu*100
+    psi = None
+    
+    if genero == "Masculino":
+       psi = (altu_cm - 100) * 0.90
+    else:
+        if genero == "Femenino":
+            psi = (altu_cm - 100) * 0.85
+            
+    return render_template('calculadorapeso.html', usuario=usua, psi=psi)
+    
 if __name__ == "__main__":
     app.run(debug=True)
