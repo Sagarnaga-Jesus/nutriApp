@@ -8,15 +8,17 @@ app.secret_key = "1q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
 API_URL = "https://api.edamam.com/api/recipes/v2"
-API_ID = "6d8321c7"
-API_KEY = "3299bb508e6a3b92fd7b3d8597f1e80d"
+API_ID = "54f74682"
+API_KEY = "40219f3173e572e7d42a1ef58874bab2"
 
 NUTRIENTES_API_URL = "https://api.edamam.com/api/food-database/v2/parser"
 NUTRIENTES_API_ID = "8497257e"
 NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 
-## Falta revisar el iniciar secion, tambien modificar el navbar para que cambie segun si hay sesion iniciada o no mostrar ciertas cosas como contador perfil etc
-## Solo debe de mostar alinicio home , login, registro, acerca de
+## Falta modificar el navbar al momento de iniciar sesion 
+## Meter dos apis mas 1 nutrientes, y analizador de recetas
+## Parece no funcionar ahorita la api de recetas ni idea
+## Analizador de recetas meter 2 plantillas una de "Registro de alimentos para analizarlos" y "Receta analizada"
 
 perfiles = []
 
@@ -43,7 +45,11 @@ def home():
     
     return render_template("home.html",informacion=informacion)
 
-@app.route('/login', methods=['POST', 'GET'])
+@app.route('/acerca')## acerca de
+def acerca_de():
+    return render_template("acerca_de.html")
+
+@app.route('/login', methods=['POST', 'GET'])##iniciar sesion
 def login():
     if request.method == 'POST':
         correo = request.form.get('correo')
@@ -59,14 +65,14 @@ def login():
         return render_template('login.html')
     return render_template('login.html')
 
-@app.route('/logout')
+@app.route('/logout')## cierra sesion
 def logout():
     session.pop('usuario', None)
     session.permanent = False
     flash("Has cerrado sesión correctamente.", "success")
     return redirect('/login')
 
-@app.route('/registro', methods=["POST", "GET"])
+@app.route('/registro', methods=["POST", "GET"])##Registro
 def registro():
     if request.method == "POST":
         nomyape = request.form["nombre"]
@@ -107,7 +113,8 @@ def registro():
 
     return render_template("registro.html")
 
-@app.route('/objetivos', methods=["POST", "GET"])
+##Registro de datos de usuario
+@app.route('/objetivos',methods=["POST", "GET"])
 def objetivos():
     if request.method == "POST":
         objetivo = request.form["objetivos"]
@@ -161,8 +168,9 @@ def nivel():
             flash("No se pudo guardar la experiencia", "danger")
             return render_template("nivel.html")
     return render_template("nivel.html")
+##Acaba el registro de usuario
 
-@app.route('/perfil')
+@app.route('/perfil')## perfil de usuario envia datos del registro de usuario
 def perfil():
     usua = None
 
@@ -177,12 +185,17 @@ def perfil():
 
     return render_template('perfil.html', usuario=usua)
 
+
+
+##Buscadores de rcetas
 @app.route('/buscador')
 def buscador():
     return render_template("buscador.html")
 
 @app.route('/buscar', methods=['POST'])
 def buscar():
+    recetas = []
+    
     alimento = request.form.get('name', '').strip().lower()
     
     if not alimento:
@@ -202,7 +215,7 @@ def buscar():
             flash('Por favor ingresa un nombre de Alimento válido.', 'danger')
             return redirect(url_for('buscador'))
         
-        response = requests.get(API_URL, params)
+        response = requests.get(API_URL, params=params)
         data = response.json()
         
 
@@ -210,36 +223,30 @@ def buscar():
             flash("No se encontraron recetas.", "danger")
             return redirect(url_for('buscador'))
 
-        recetas = []
+        
         for item in data["hits"]:
-            r = item["recipe"]
+            receta = item["recipe"]
             recetas.append({
-                "name": r["label"],
-                "imagen": r["images"]["REGULAR"]["url"],
-                "calorias": int(r["calories"]),
-                "ingredientes": r["ingredientLines"]
+                "name": receta["label"],
+                "imagen": receta["images"]["REGULAR"]["url"],
+                "calorias": int(receta["calories"]),
+                "ingredientes": receta["ingredientLines"]
             })
 
-        return render_template("targeta.html", alimento=recetas)
+        return render_template("targeta.html", recetas=recetas)
 
     except Exception as e:
         print("ERROR:", e)
         flash("Error al conectar con Edamam.", "danger")
         return redirect(url_for('buscador'))
 
-@app.route('/acerca')
-def acerca_de():
-    return render_template("acerca_de.html")
+##Calculadoras 
 
-## De aqui para abajo despues no mover hasta la otra semana
-
-
-
-@app.route('/registrar_alimentos')
+@app.route('/registrar_alimentos')## guarda e calcula una lista de nutrientes de alimentos
 def alimentos():
     return render_template("registrar_alimentos.html")
 
-@app.route("/contador",methods=["POST","GET"])
+@app.route("/contador",methods=["POST","GET"])## contador de nutrientes
 def contador():
     
     if  request.method == "POST":
@@ -276,17 +283,17 @@ def contador():
         
     return render_template("contador.html", alimento=alimentos_cons,)
 
-@app.route("/eliminar")
+@app.route("/eliminar")## elimina el ukltimo alimento ingresado
 def eliminar ():
     if alimentos_cons:
         alimentos_cons.pop(-1)
     return render_template("contador.html", alimento=alimentos_cons )
 
-@app.route("/calculoene")
+@app.route("/calculoene") ## ingreso de datos para energetico por ahora no se usa por que se saca automaticamente informacion
 def calculoene ():
     return render_template("Calculoene.html")
 
-@app.route("/energia", methods = ["Get", "POST"])
+@app.route("/energia", methods = ["Get", "POST"]) ## calcula el tmb y gasto energetico total
 def energia():
     usua = None
 
@@ -333,7 +340,7 @@ def energia():
         
     return render_template("energiresu.html",get=get,tbm=tbm,)
 
-@app.route('/energiresu')
+@app.route('/energiresu') ## creo que hizimos 2 gasto energetico
 def energiresu():
     usua = None
 
@@ -377,7 +384,7 @@ def energiresu():
 
     return render_template("energiresu.html", get=get, tbm=tbm)
 
-@app.route('/calcuimc')
+@app.route('/calcuimc') ## calculadora de imc
 def imc():
     usua = None
     for u in perfiles:
@@ -449,11 +456,12 @@ def peso():
     psi = None
     
     if genero == "Masculino":
-       psi = (altu_cm - 100) * 0.90
+        psi = (altu_cm - 100) * 0.90
+        psi = round(psi, 2)
     else:
         if genero == "Femenino":
             psi = (altu_cm - 100) * 0.85
-            
+            psi = round(psi, 2)
     return render_template('calculadorapeso.html', usuario=usua, psi=psi)
     
 if __name__ == "__main__":
