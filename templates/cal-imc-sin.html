@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block contenido %}
+
+<div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
+    <div class="card-body">
+        <h5 class="card-title">Calculadora IMC (Indice de Masa Corporal)</h5>
+        <p class="card-text">Datos</p>
+
+            <p><strong>Peso:</strong> {{ peso }} kg</p><br><!-- peso de ejmplos --> 
+            <p><strong>Altura:</strong> {{ altura }} cm/m</p><br><!-- altura de ejmplos -->
+            <p><strong>IMC:</strong> {{ imc }}</p><br><!-- imc de ejmplos -->
+            <p><strong>informacion:</strong> {{ informacion }}</p><br><!-- infos de ejmplos -->
+            <p><strong>Recomendaciones:</strong> {{ recomendaciones }}</p><br><!-- infos de ejmplos -->
+            <h4 class="text-center fst-italic">Imagen de referencia</h4>
+            <img src="static/imagenes/ref.jpeg" alt="imagen de referencia" class="d-inline-block align-text-top" width="600" height="300">
+    </div>
+</div>
+
+
+
+{% endblock %}

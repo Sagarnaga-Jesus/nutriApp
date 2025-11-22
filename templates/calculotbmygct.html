@@ -1,7 +1,7 @@
 {%extends "base.html"%}
     {%block contenido%}
     <div class="row" style="align-items: center; margin-top: 100px;">
-        <div class="card" style="width: 100rem; height:200rem:">
+        <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
             <div class="card-header" style=" background-color: blue;">
                 <p class="fw-bolder " style="color: azure;">Calculadora de gasto Energeticos (TMB Y GET)</p>
             </div>
@@ -13,14 +13,14 @@
                     
                 <div class="row">
                     <label> Peso(kg) </label>
-                    <input type="number" id="peso" name="peso"  value="{{request.form.get('peso','')}}">
+                    <input type="text" id="peso" name="peso"  value="{{request.form.get('peso','')}}">
                     
                     </input>
                 </div>
 
                 <div class="row">
                     <label> Altura(cm) </label>
-                    <input type="text" id="altu" name="altu" value="{{request.form.get('altu','')}}">
+                    <input type="text" id="altura" name="altura" value="{{request.form.get('altura','')}}">
                     
                     </input>
                 </div>
@@ -42,7 +42,7 @@
 
                 <div class="row">
                     <label> Nivel de actividad fisica </label>
-                    <select name="activi">
+                    <select name="actividad">
                         <option value="sedentario">Sedentario</option>
                         <option value="ligera">Actividad Ligera</option>
                         <option value="moderada">Actividad Moderada</option>

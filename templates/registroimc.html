@@ -6,32 +6,20 @@
     <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
     
     <div class="card-header">
-        <h2>Registros alimenticio</h2>
+        <h2>Calculadora de IMC</h2>
     <div>
-        <form method="POST" action="/energiresu">
+        <form method="POST" action="/cal-sin-imc">
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Alimento consumido hoy?</label>
-                <input type="text" class="form-control" id="alimento" name="alimento" aria-describedby="emailHelp">
+                <label for="calorias" class="form-label">Altura en metros</label>
+                <input type="text" class="form-control" id="altura" name="altura">
             </div>
             <div class="mb-3">
-                <label for="calorias" class="form-label">Grasas g</label>
-                <input type="text" class="form-control" id="grasas" name="grasas">
-            </div>
-            <div class="mb-3">
-                <label for="macronutrientes" class="form-label">proteinas g </label>
-                <input type="text" class="form-control" id="proteinas" name="proteinas">
-            </div>
-            <div class="mb-3">
-                <label for="macronutrientes" class="form-label">Carbohidratos g</label>
-                <input type="text" class="form-control" id="carbohidratos" name="carbohidratos">
-            </div>
-            <div class="mb-3">
-                <label for="Agua" class="form-label">Cuantos litros de agua bebiste hoy?</label>
-                <input type="text" class="form-control" id="agua" name="agua">
+                <label for="macronutrientes" class="form-label">Peso en KG</label>
+                <input type="text" class="form-control" id="peso" name="peso">
             </div>
         </div>
     </div>
-            <button type="submit" class="btn btn-primary">Agregar</button>
+            <button type="submit" class="btn btn-primary">Calcular IMC</button>
         </form>
 
 {% endblock %}

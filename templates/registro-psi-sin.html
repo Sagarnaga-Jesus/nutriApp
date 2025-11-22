@@ -1,0 +1,35 @@
+{% extends'base.html' %}
+
+{% block contenido %}
+
+<h1 class="text-center fst-italic" style="margin-top: 20px;">Registremos tu Peso Corporal: </h1>
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 45rem; height: auto; margin-top: 40px;">
+    
+    <div class="card-header">
+        <h2>Calculadora de PSI</h2>
+    <div>
+        <form method="POST" action="/calcupeso">
+            <div class="mb-3">
+                <label for="calorias" class="form-label">Altura en metros</label>
+                <input type="text" class="form-control" id="altura" name="altura" required>
+            </div>
+            <div class="mb-3">
+                <label for="macronutrientes" class="form-label">Peso en KG</label>
+                <input type="text" class="form-control" id="peso" name="peso" required>
+            </div>
+            <div class="mb-3">
+                    <h5>Sexo</h5>
+                    <div class="input-group">
+                        <select class="form-select" aria-label="Default select example" value="{{request.form.get('sexo', '')}}" name="sexo" id="sexo" required>
+                            <option selected>Seleccione tu genero</option>
+                            <option id="masculino" name="masculino" value="Masculino">Masculino</option>
+                            <option id="femenino" name="femenino" value="Femenino">Femenino</option>
+                        </select>
+                    </div>
+                </div>
+        </div>
+    </div>
+            <button type="submit" class="btn btn-primary">Calcular PSI</button>
+        </form>
+
+{% endblock %}
