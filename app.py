@@ -283,99 +283,100 @@ def contador():
         
     return render_template("contador.html", alimento=alimentos_cons,)
 
-@app.route("/eliminar")## elimina el ukltimo alimento ingresado
+@app.route("/eliminar")## elimina el ultimo alimento ingresado
 def eliminar ():
     if alimentos_cons:
         alimentos_cons.pop(-1)
     return render_template("contador.html", alimento=alimentos_cons )
 
+
+
 @app.route("/calculoene") ## ingreso de datos para energetico por ahora no se usa por que se saca automaticamente informacion
 def calculoene ():
     return render_template("calculotbmygct.html")
 
-@app.route("/energia", methods = ["Get", "POST"]) ## calcula el tmb y gasto energetico total
-def energia():
-    if request.method == "POST":
-        peso = request.form["peso"]
-        edad= request.form["edad"]
-        altura=  request.form["altura"]
-        genero= request.form["genero"]
-        actividad= request.form["actividad"]
-    
-    tbm = 0
-    get = 0
-    nivel = 0
-    peso = float(peso)
-    altura = float(altura)*100
-
-        
-    if actividad == "sedentario":
-        nivel = 1.2
-    else:
-        if actividad == "ligera":
-            nivel = 1.375
-        else:
-            if actividad == "moderada":
-                nivel=1.55
-            else:
-                if actividad == "alta":
-                    nivel = 1,725
-        
-        if genero == "hombre":
-            tbm = 10*float(peso)+6.25*float(altura)-5*float(edad)+5
-        else:
-            if genero == "mujer":
-                tbm = 10*float(peso)+6.25*float(altura)-5*float(edad)-161
-        
-        get = tbm * nivel
-        
-    return render_template("energiresu.html",get=get,tbm=tbm,)
-
-@app.route('/energiresu') ## creo que hizimos 2 gasto energetico
-def energiresu():
+@app.route('/energiresu', methods = ["Get", "POST"]) ## Calculadora de gct y tmb, registro y sin registro
+def energiresu(): 
     usua = None
-
     for u in perfiles:
         if session.get('usuario') == u['correo']:
             usua = u
             break
 
     if usua is None:
-        flash("No se encontró el usuario en la sesión", "danger")
-        return redirect('/registro')
-
-    edad = float(usua["edad"])
-    peso = float(usua["peso"])
-    altu = float(usua["altura"])
-    genero = usua["sexo"]
-    actividad = usua["actividad"]
-
-    altura = altu * 100
-
-    if actividad == "sedentario":
-        nivel = 1.2
-    elif actividad == "ligera":
-        nivel = 1.375
-    elif actividad == "moderada":
-        nivel = 1.55
-    elif actividad == "alta":
-        nivel = 1.725
-    else:
-        nivel = 1.2
-
-    if genero == "hombre":
-        tbm = 10 * peso + 6.25 * altura - 5 * edad + 5
-    else:
-        tbm = 10 * peso + 6.25 * altura - 5 * edad - 161
-
-    get = tbm * nivel
+        if request.method == "POST":
+            pesoregistro = request.form["peso"]
+            edadregistro = request.form["edad"]
+            alturaregistro =  request.form["altura"]
+            generoregistro = request.form["genero"]
+            actividadregistro = request.form["actividad"]
     
-    get = round(get, 2)
-    tbm = round(tbm, 2)
+            tbm = 0
+            get = 0
+            nivel = 0
+            peso = float(pesoregistro)
+            altura = float(alturaregistro)*100
 
-    return render_template("energiresu.html", get=get, tbm=tbm)
+        
+        if actividadregistro == "sedentario":
+            nivel = 1.2
+        else:
+            if actividadregistro == "ligera":
+                nivel = 1.375
+            else:
+                if actividadregistro == "moderada":
+                    nivel=1.55
+                else:
+                    if actividadregistro == "alta":
+                        nivel = 1.725
+            
+            if generoregistro == "hombre":
+                tbm = 10*float(pesoregistro)+6.25*float(alturaregistro)-5*float(edadregistro)+5
+            else:
+                if generoregistro == "mujer":
+                    tbm = 10*float(pesoregistro)+6.25*float(alturaregistro)-5*float(edadregistro)-161
+            
+            get = tbm * nivel
+            get = round(get, 2)
+            tbm = round(tbm, 2)
+        return render_template('energiresu.html',get=get,tbm=tbm,)
+    
+    else:
+        edad = float(usua["edad"])
+        peso = float(usua["peso"])
+        altu = float(usua["altura"])
+        genero = usua["sexo"]
+        actividad = usua["actividad"]
+    
+        altura = altu * 100
+    
+        if actividad == "sedentario":
+            nivel = 1.2
+        elif actividad == "ligera":
+            nivel = 1.375
+        elif actividad == "moderada":
+            nivel = 1.55
+        elif actividad == "alta":
+            nivel = 1.725
+        else:
+            nivel = 1.2
+    
+        if genero == "hombre":
+            tbm = 10 * peso + 6.25 * altura - 5 * edad + 5
+        else:
+            tbm = 10 * peso + 6.25 * altura - 5 * edad - 161
+    
+        get = tbm * nivel
+        
+        get = round(get, 2)
+        tbm = round(tbm, 2)
+    return render_template("energiresu.html",usuario=usua, get=get, tbm=tbm)
 
-@app.route('/calcuimc') ## calculadora de imc
+@app.route('/registroimc')## Registro de datos imc
+def registroimc():
+    return render_template('registroimc.html')  
+
+@app.route('/calcuimc', methods=["POST", "GET"]) ## calculadora de imc, registro y sin registro
 def imc():
     usua = None
     for u in perfiles:
@@ -384,49 +385,90 @@ def imc():
             break
 
     if usua is None:
-        flash("No se encontró el usuario en la sesión", "danger")
-        return redirect('/registro')
-    
-    edad = float(usua["edad"])
-    peso = float(usua["peso"])
-    altu = float(usua["altura"])
-    
-    altura2 = altu * altu
-    
-    imc = peso/altura2
-    
-    imc=round(imc,2)
-    
-    info = None
-    reco = None
-    if imc <= 18.5:
-        info = "Bajo de peso"
-        reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
-    else:
-        if imc >= 18.5 and imc <= 24.9:
-            info = "Peso normal"
-            reco = "Para mantener un peso saludable evite los alimentos densos en calorías. Y evite las bebidas azucaradas."
+        
+        if request.method == "POST":
+            peso = request.form["peso"]
+            altura = request.form["altura"]
+        
+        peso = float(peso)
+        altu = float(altura)
+        altura2 = altu * altu
+        
+        imc = peso/altura2
+        
+        imc=round(imc,2)
+        
+        info = None
+        reco = None
+        if imc <= 18.5:
+            info = "Bajo de peso"
+            reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
         else:
-            if imc >= 25 and imc <= 29.9:
-                info = "Sobrepeso"
-                reco = "se recomienda una combinación de una dieta saludable y actividad física regular. Esto incluye consumir abundantes frutas y verduras, limitar grasas y azúcares, preferir métodos de cocción como la plancha o el vapor, tomar suficiente agua y realizar ejercicio físico adaptado a las capacidades individuales, además de mantener un seguimiento médico regular"
+            if imc >= 18.5 and imc <= 24.9:
+                info = "Peso normal"
+                reco = "Para mantener un peso saludable evite los alimentos densos en calorías. Y evite las bebidas azucaradas."
             else:
-                if imc >= 30 and imc <= 34.9:
-                    info = "Obesidad ligera"
-                    reco =  "La mejor estrategia implica una combinación de cambios en la dieta y aumento de la actividad física, siempre bajo la supervisión de un profesional médico"      
+                if imc >= 25 and imc <= 29.9:
+                    info = "Sobrepeso"
+                    reco = "se recomienda una combinación de una dieta saludable y actividad física regular. Esto incluye consumir abundantes frutas y verduras, limitar grasas y azúcares, preferir métodos de cocción como la plancha o el vapor, tomar suficiente agua y realizar ejercicio físico adaptado a las capacidades individuales, además de mantener un seguimiento médico regular"
                 else:
-                    if imc >= 35 and imc <= 39.9:
-                        info = "Obesidad"
-                        reco = "Algunas medidas que se pueden adoptar y que servirán para mantener el peso adecuado son: 1- Mantenerte activo. 2- Comer sano. 3- Ingerir agua.4- Llevar a cabo chequeo médico por lo menos una vez al año. 5- Evitar alimentos ricos en grasas y carbohidratos."
-                    else: 
-                        if imc >= 40:
-                            info = "Obesidad morbida o grave"
-                            reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
-    
-    
-    return render_template('calculadoraimc.html', usuario=usua, imc=imc, informacion=info, recomendaciones=reco )
+                    if imc >= 30 and imc <= 34.9:
+                        info = "Obesidad ligera"
+                        reco =  "La mejor estrategia implica una combinación de cambios en la dieta y aumento de la actividad física, siempre bajo la supervisión de un profesional médico"      
+                    else:
+                        if imc >= 35 and imc <= 39.9:
+                            info = "Obesidad"
+                            reco = "Algunas medidas que se pueden adoptar y que servirán para mantener el peso adecuado son: 1- Mantenerte activo. 2- Comer sano. 3- Ingerir agua.4- Llevar a cabo chequeo médico por lo menos una vez al año. 5- Evitar alimentos ricos en grasas y carbohidratos."
+                        else: 
+                            if imc >= 40:
+                                info = "Obesidad morbida o grave"
+                                reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
+        
+        return render_template('calculadoraimc.html',peso=peso, altura=altura, imc=imc, informacion=info, recomendaciones=reco )
 
-@app.route('/calcupeso')##calculadora peso corporal ideal
+    else:
+        peso = float(usua["peso"])
+        altu = float(usua["altura"])
+        
+        altura2 = altu * altu
+        
+        imc = peso/altura2
+        
+        imc=round(imc,2)
+        
+        info = None
+        reco = None
+        if imc <= 18.5:
+            info = "Bajo de peso"
+            reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
+        else:
+            if imc >= 18.5 and imc <= 24.9:
+                info = "Peso normal"
+                reco = "Para mantener un peso saludable evite los alimentos densos en calorías. Y evite las bebidas azucaradas."
+            else:
+                if imc >= 25 and imc <= 29.9:
+                    info = "Sobrepeso"
+                    reco = "se recomienda una combinación de una dieta saludable y actividad física regular. Esto incluye consumir abundantes frutas y verduras, limitar grasas y azúcares, preferir métodos de cocción como la plancha o el vapor, tomar suficiente agua y realizar ejercicio físico adaptado a las capacidades individuales, además de mantener un seguimiento médico regular"
+                else:
+                    if imc >= 30 and imc <= 34.9:
+                        info = "Obesidad ligera"
+                        reco =  "La mejor estrategia implica una combinación de cambios en la dieta y aumento de la actividad física, siempre bajo la supervisión de un profesional médico"      
+                    else:
+                        if imc >= 35 and imc <= 39.9:
+                            info = "Obesidad"
+                            reco = "Algunas medidas que se pueden adoptar y que servirán para mantener el peso adecuado son: 1- Mantenerte activo. 2- Comer sano. 3- Ingerir agua.4- Llevar a cabo chequeo médico por lo menos una vez al año. 5- Evitar alimentos ricos en grasas y carbohidratos."
+                        else: 
+                            if imc >= 40:
+                                info = "Obesidad morbida o grave"
+                                reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
+        
+        return render_template('calculadoraimc.html', usuario=usua, imc=imc, informacion=info, recomendaciones=reco )
+
+@app.route("/registropsi")## Registro del psi
+def registropsi():
+    return render_template("registro-psi-sin.html")
+
+@app.route('/calcupeso', methods=["POST", "GET"])##calculadora peso corporal ideal, registro y sin registro
 def peso():
     usua = None
     for u in perfiles:
@@ -435,95 +477,38 @@ def peso():
             break
 
     if usua is None:
-        flash("No se encontró el usuario en la sesión", "danger")
-        return redirect('/registro')
-    
-    altu = float(usua["altura"])
-    genero = usua["sexo"]
-    
-    altu_cm = altu*100
-    psi = None
-    
-    if genero == "Masculino":
-        psi = (altu_cm - 100) * 0.90
-        psi = round(psi, 2)
-    else:
-        if genero == "Femenino":
-            psi = (altu_cm - 100) * 0.85
+        if request.method == "POST":
+            altura = request.form["altura"]
+            peso = request.form["peso"]
+            genero = request.form["sexo"]
+            
+        altura = float(altura)
+        altu_cm = altura*100
+        psi = None
+            
+        if genero == "Masculino":
+            psi = (altu_cm - 100) * 0.90
             psi = round(psi, 2)
-    return render_template('calculadorapeso.html', usuario=usua, psi=psi)
-    
-@app.route('/registroimc')
-def registroimc():
-    return render_template('registroimc.html')  
-
-@app.route("/registropsi")
-def registropsi():
-    return render_template("registro-psi-sin.html")
-
-@app.route('/cal-sin-imc', methods=["POST", "GET"])
-def registroimc2():
-    if request.method == "POST":
-        peso = request.form["peso"]
-        altura = request.form["altura"]
-        
-    peso = float(peso)
-    altu = float(altura)
-
-    altura2 = altu * altu
-    
-    imc = peso/altura2
-    
-    imc=round(imc,2)
-    
-    info = None
-    reco = None
-    if imc <= 18.5:
-        info = "Bajo de peso"
-        reco = "Pídale a su médico que lo ayude a calcular la cantidad de calorías que necesita diariamente para mantener su encuadre ligero actual, teniendo en cuenta su edad, nivel de actividad y género"
-    else:
-        if imc >= 18.5 and imc <= 24.9:
-            info = "Peso normal"
-            reco = "Para mantener un peso saludable evite los alimentos densos en calorías. Y evite las bebidas azucaradas."
         else:
-            if imc >= 25 and imc <= 29.9:
-                info = "Sobrepeso"
-                reco = "se recomienda una combinación de una dieta saludable y actividad física regular. Esto incluye consumir abundantes frutas y verduras, limitar grasas y azúcares, preferir métodos de cocción como la plancha o el vapor, tomar suficiente agua y realizar ejercicio físico adaptado a las capacidades individuales, además de mantener un seguimiento médico regular"
-            else:
-                if imc >= 30 and imc <= 34.9:
-                    info = "Obesidad ligera"
-                    reco =  "La mejor estrategia implica una combinación de cambios en la dieta y aumento de la actividad física, siempre bajo la supervisión de un profesional médico"      
-                else:
-                    if imc >= 35 and imc <= 39.9:
-                        info = "Obesidad"
-                        reco = "Algunas medidas que se pueden adoptar y que servirán para mantener el peso adecuado son: 1- Mantenerte activo. 2- Comer sano. 3- Ingerir agua.4- Llevar a cabo chequeo médico por lo menos una vez al año. 5- Evitar alimentos ricos en grasas y carbohidratos."
-                    else: 
-                        if imc >= 40:
-                            info = "Obesidad morbida o grave"
-                            reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
-    
-    
-    return render_template('cal-imc-sin.html',peso=peso, altura=altura, imc=imc, informacion=info, recomendaciones=reco )
-
-@app.route('/calcupeso', methods=["POST", "GET"])##calculadora peso corporal ideal sin registro
-def peso2():
-    if request.method == "POST":
-        genero = request.form["sexo"]
-        peso = request.form["peso"]
-        altura = request.form["altura"]
-        
-    altura = float(altura)
-    altu_cm = altura*100
-    psi = None
-    
-    if genero == "Masculino":
-        psi = (altu_cm - 100) * 0.90
-        psi = round(psi, 2)
+            if genero == "Femenino":
+                psi = (altu_cm - 100) * 0.85
+                psi = round(psi, 2)
+        return render_template('calculadorapeso.html',altura=altura, peso=peso, psi=psi)
     else:
-        if genero == "Femenino":
-            psi = (altu_cm - 100) * 0.85
+        altu = float(usua["altura"])
+        genero = usua["sexo"]
+        
+        altu_cm = altu*100
+        psi = None
+        
+        if genero == "Masculino":
+            psi = (altu_cm - 100) * 0.90
             psi = round(psi, 2)
-    return render_template('cal-psi-sin.html', psi=psi, peso=peso, altura=altura,)
-    
+        else:
+            if genero == "Femenino":
+                psi = (altu_cm - 100) * 0.85
+                psi = round(psi, 2)
+    return render_template('calculadorapeso.html', usuario=usua, psi=psi)
+
 if __name__ == "__main__":
     app.run(debug=True)

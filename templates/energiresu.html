@@ -1,5 +1,47 @@
 {%extends "base.html"%}
 {%block contenido%}
+
+{%if session.get('usuario')%}
+<div class="container" style="text-align: center; ">
+    <div class="row " style="display: flex; justify-content: center; align-items: center;">
+        <h1 style="margin-top: 50px;">Resultados del calculo</h1>
+        <h3>Datos de: {{usuario.nombre}}</h3>
+        <div class="col-5">
+            <div class="card" style="margin-top: 50px;">
+                <div>
+                    <h3>Tasa Metabolica Basal (TMB)</h3>
+                </div>
+
+                <div>
+                    <p class='fs-3' style="color: blue;">{{tbm}}</p>
+                </div>
+
+                <div>
+                    <h4>Kcal/dia(Gasto en Reposo)</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-5">
+            <div class="card" style="margin-top: 50px;">
+                <div>
+                    <h3>Gasto Energetico Total (GCT)</h3>
+                </div>
+
+                <div>
+                    <p class='fs-3' style="color: blue;">{{get}}</p>
+                </div>
+
+                <div>
+                    <h4>Kcal/dia(Gasto con Actividad)</h4>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+</div>
+{%else%}
 <div class="container" style="text-align: center; ">
     <div class="row " style="display: flex; justify-content: center; align-items: center;">
         <h1 style="margin-top: 50px;">Resultados del calculo</h1>
@@ -38,4 +80,6 @@
     </div>
     
 </div>
+{%endif%}
+
 {%endblock%}
