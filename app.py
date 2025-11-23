@@ -15,10 +15,10 @@ NUTRIENTES_API_URL = "https://api.edamam.com/api/food-database/v2/parser"
 NUTRIENTES_API_ID = "8497257e"
 NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 
-## Falta modificar el navbar al momento de iniciar sesion 
 ## Meter dos apis mas 1 nutrientes, y analizador de recetas
 ## Parece no funcionar ahorita la api de recetas ni idea
 ## Analizador de recetas meter 2 plantillas una de "Registro de alimentos para analizarlos" y "Receta analizada"
+
 
 perfiles = []
 
