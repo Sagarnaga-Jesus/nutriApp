@@ -6,15 +6,15 @@
     <div class="container-fluid fst-italic align-items-center" style="margin-top: 30px; margin-bottom: 30px; ">
     
         <div class="row">
-            <h1 class="text-center">¡Bienvenidos a NutriApp!</h1>
-            <h3 class="text-center">Una aplicación para mejorar nuestra rutina de alimentación y cumplir nuestros objetivos de salud de manera efectiva.</h3>
-            <img src="static/imagenes/comida.jpg" alt="Plato de frutas y verduras" class="img-fluid mx-auto d-block rounded-5 shadow-sm" style="max-width: 600px; margin-top: 20px;">
+            <h1 class="text-center text-black">¡Bienvenidos a NutriApp!</h1>
+            <h3 class="text-center text-black">Una aplicación para mejorar nuestra rutina de alimentación y cumplir nuestros objetivos de salud de manera efectiva.</h3>
+            <img src="static/imagenes/comida.jpg" alt="Plato de frutas y verduras" class="img-fluid mx-auto d-block rounded-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded " style="max-width: 600px; margin-top: 20px;">
         </div>
 
         <div class="row justify-content-center" style="margin-top: 30px; gap: 20px;">
             <div class="col-auto">
                 <button class="btn btn-success fs-5 fw-bold" style="color: white; height: 65px; width: 160px;">
-                    <a class="text-white" href="/login">Iniciar Sesión</a>
+                    <a class="text-black" href="/login">Iniciar Sesión</a>
                 </button>
                 
 
@@ -26,7 +26,7 @@
 
             {% for info in informacion %}
             <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex justify-content-center">
-                <div class="card shadow-lg border border-success border-5 fw-bold" style="width: 25rem; margin 30px; background-color: rgba(255, 255, 255, 1);">
+                <div class="card shadow-lg border border-success border-5 fw-bold " style="width: 25rem; margin 30px; background-color: rgba(255, 255, 255, 1);">
                     <img src="{{ info.imagen }}" class="card-img-top" alt="{{info.imagen}}">
                         <div class="card-body">
                             <p class="card-text fs-5">{{ info.descripcion }}</p>
