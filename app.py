@@ -8,8 +8,8 @@ app.secret_key = "1q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
 API_URL = "https://api.edamam.com/api/recipes/v2"
-API_ID = "54f74682"
-API_KEY = "40219f3173e572e7d42a1ef58874bab2"
+API_ID = "6d8321c7"
+API_KEY = "3299bb508e6a3b92fd7b3d8597f1e80d"
 
 NUTRIENTES_API_URL = "https://api.edamam.com/api/food-database/v2/parser"
 NUTRIENTES_API_ID = "8497257e"
@@ -20,7 +20,27 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ## Analizador de recetas meter 2 plantillas una de "Registro de alimentos para analizarlos" y "Receta analizada"
 
 
-perfiles = []
+perfiles = [
+    {
+        "nombre": "Admin",
+        "correo": "admin@example.com",
+        "contraseña": "Admin#12345",
+        "edad": "25",
+        "peso": "70",
+        "altura": "175",
+        "actividad": "Moderada",
+        "sexo": "Masculino",
+        "objetivo": "Bajar de peso",
+        "preferencias": {
+            "alergia": "Ninguna",
+            "alergias": "Ninguna",
+            "intolerancia": "Ninguna",
+            "dietas": "Balanceada",
+            "no_gusta": "Brócoli"
+        },
+        "experiencia": "Intermedio"
+    }
+]
 
 correos = []
 
@@ -248,7 +268,7 @@ def buscar():
             flash('Por favor ingresa un nombre de Alimento válido.', 'danger')
             return redirect(url_for('buscador'))
         
-        response = requests.get(API_URL, params=params)
+        response = requests.get(API_URL, params)
         data = response.json()
         
 
@@ -256,7 +276,7 @@ def buscar():
             flash("No se encontraron recetas.", "danger")
             return redirect(url_for('buscador'))
 
-        
+        recetas = []
         for item in data["hits"]:
             receta = item["recipe"]
             recetas.append({

@@ -18,28 +18,22 @@
 
                 <div class="collapse navbar-collapse fst-italic" id="navbarNav" style="justify-content: end;">
                     <ul class="navbar-nav">
+                        {% if session.get('usuario') %}
+                        {% else %}
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/">Home</a>
                         </li>
-
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="{% if session.get('usuario') %}/logout{% else %}/login{% endif %}">
-                                {% if session.get('usuario') %}
-                                Cerrar sesión
-
-                                {% else %}
-                                    Iniciar sesión
-
-                                    {% endif %}
-                            </a>
-                        </li>
-                        
-                        {% if session.get('usuario') %}
-                            {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/registro">Registrarte</a>
-                        </li>
                         {% endif %}
+
+                        {% if session.get('usuario') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/perfil">Perfil</a>
+                        </li>
+                            {% else %}
+
+                        {% endif %}
+                        
+                        
                         
 
                         {% if session.get('usuario') %}
@@ -58,22 +52,29 @@
                                     <a class="nav-link" href="/calcupeso">Calculadora PSI</a>
                                 </li>
 
-                                {% if session.get('usuario') %}
                                 <li class="nav-item">
                                     <a class="nav-link" href="/registrar_alimentos">Calculo Macronutrientes</a>
                                 </li>
-                                    {% else %}
-        
-                                {% endif %}
-
-
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Buscadores
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/buscador">Buscador de recetas</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="/nutri">Buscador de nutrientes en alimentos</a>
+                                </li>
                             </ul>
                         </li>
                             {% else %}
 
                             <li class="nav-item dropdown">
                             <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Calculadoras
+                                Calculadoras beta
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
@@ -87,36 +88,30 @@
                                 </li>
                             </ul>
                         </li>
-
                         {% endif %}
                         
 
-                        {% if session.get('usuario') %}
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/perfil">Perfil</a>
-                        </li>
-                            {% else %}
-
-                        {% endif %}
-
-
-                        {% if session.get('usuario') %}
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/buscador">Buscador de recetas</a>
-                        </li>
-                            {% else %}
-
-                        {% endif %}
-
                         
-                        {% if session.get('usuario') %}
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/nutri">Buscador de nutrientes en alimentos</a>
-                        </li>
-                            {% else %}
 
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="{% if session.get('usuario') %}/logout{% else %}/login{% endif %}">
+                                {% if session.get('usuario') %}
+                                Cerrar sesión
+
+                                {% else %}
+                                    Iniciar sesión
+
+                                    {% endif %}
+                            </a>
+                        </li>
+
+                        {% if session.get('usuario') %}
+                            {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/registro">Registrarte</a>
+                        </li>
                         {% endif %}
-                        
                         
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/acerca">Acerca de</a>
