@@ -192,6 +192,39 @@ def perfil():
 def buscador():
     return render_template("buscador.html")
 
+@app.route('/nutri', methods=['POST', 'GET'])
+def nutri():
+    if request.method == 'POST':
+        busqueda_nutri = request.form.get('busqueda_nutri', '').strip()
+        if not busqueda_nutri:
+            flash('Por favor, ingrese un término de búsqueda válido.', 'warning')
+            return redirect(url_for('home'))
+        
+        params = {
+            'app_id': NUTRIENTES_API_ID,
+            'app_key': NUTRIENTES_API_KEY,
+            'ingr': busqueda_nutri
+        }
+        try:
+            response = requests.get(NUTRIENTES_API_URL, params=params)
+            if response.status_code != 200:
+                flash (f"Error en la solicitud a la API: {response.status_code}", 'error')
+                return redirect(url_for('home'))
+            
+            data = response.json()
+            alimentos_encontrados = data.get('hints', [])
+            if not alimentos_encontrados:
+                flash(f"No se encontraron alimentos para la búsqueda proporcionada.", 'warning')
+                return redirect(url_for('home'))
+    
+            return render_template('Nutrientes.html', alimentos=alimentos_encontrados, busqueda=busqueda_nutri)
+        
+        except requests.exceptions.RequestException as e:
+            flash(f"Error en la solicitud a la API: {e}", 'error')
+            return redirect(url_for('home'))
+        
+    return render_template('buscanutri.html')
+
 @app.route('/buscar', methods=['POST'])
 def buscar():
     recetas = []
@@ -509,6 +542,7 @@ def peso():
                 psi = (altu_cm - 100) * 0.85
                 psi = round(psi, 2)
     return render_template('calculadorapeso.html', usuario=usua, psi=psi)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

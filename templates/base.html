@@ -107,6 +107,15 @@
                             {% else %}
 
                         {% endif %}
+
+                        
+                        {% if session.get('usuario') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/nutri">Buscador de nutrientes en alimentos</a>
+                        </li>
+                            {% else %}
+
+                        {% endif %}
                         
                         
                         <li class="nav-item">
