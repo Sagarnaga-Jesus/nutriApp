@@ -619,6 +619,10 @@ def peso():
                 psi = round(psi, 2)
     return render_template('calculadorapeso.html', usuario=usua, psi=psi)
 
+@app.route('/informacion')
+def info():
+    return render_template('informacion.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)

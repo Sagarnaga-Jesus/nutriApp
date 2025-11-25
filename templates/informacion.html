@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title%} Educacion e informacion {% block title %}
+
+{% block contenido %}
+
+    <div class="row">
+        <div class="col-4">
+            <div class="list-group" id="list-tab" role="tablist">
+                <a class="list-group-item list-group-item-action" id="pregunta1" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">¿Cómo leer las etiquetas nutricionales?</a>
+                <a class="list-group-item list-group-item-action" id="pregunta2" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Mitos y verdades sobre las dietas de moda.</a>
+                <a class="list-group-item list-group-item-action" id="pregunta3" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Guías sobre macronutrientes y su función.</a>
+                <a class="list-group-item list-group-item-action active" id="pregunta4" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">La importancia de la hidratación, la fibra, etc.</a>
+            </div>
+        </div>
+        <div class="col-8">
+            <div class="tab-content" id="nav-tabContent">
+                <div class="tab-pane fade show active" id="resp1" role="tabpanel" aria-labelledby="list-home-list">EJEMPLOS DE TEXTO</div>
+                <div class="tab-pane fade" id="resp2" role="tabpanel" aria-labelledby="list-profile-list">EJEMPLOS DE TEXTO</div>
+                <div class="tab-pane fade" id="resp3" role="tabpanel" aria-labelledby="list-messages-list">EJEMPLOS DE TEXTO</div>
+                <div class="tab-pane fade" id="resp4" role="tabpanel" aria-labelledby="list-settings-list">EJEMPLOS DE TEXTO</div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
