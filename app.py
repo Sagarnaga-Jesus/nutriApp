@@ -18,10 +18,62 @@ NUTRIENTES_API_URL = "https://api.edamam.com/api/food-database/v2/parser"
 NUTRIENTES_API_ID = "8497257e"
 NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 
+##Configuracion MySQL
+app.config['MYSQL_HOST'] = 'localhost'
+app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_DB'] = 'bdnutriapp'
+
+mysql = MySQL(app)
+
+
 ## Meter dos apis mas 1 nutrientes, y analizador de recetas
 ## Parece no funcionar ahorita la api de recetas ni idea
 ## Analizador de recetas meter 2 plantillas una de "Registro de alimentos para analizarlos" y "Receta analizada"
 
+
+def crear_tabla():##Funcion para crear la tabla de usuarios
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS usuarios(
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                nombre VARCHAR(100) NOT NULL,
+                email VARCHAR(100) UNIQUE NOT NULL,
+                password VARCHAR(255) NOT NULL,
+                telefono VARCHAR(20),
+                fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
+            )
+        ''')
+        mysql.connection.commit()
+    except Exception as e:
+        print("Error al crear la tabla:", e)
+
+def email_existe(email):
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        return cursor.fetchone() is not None
+    except Exception as e:
+        print(f"Error verificando el email: {e}")
+        return False
+    
+def registra_usuario(nombre, email, password, telefono):##Funcion de registro de usuario
+    try:
+        cursor = mysql.connection.cursor()
+
+        hashed_password = generate_password_hash(password)
+        
+        cursor.execute('''
+                INSERT INTO usuarios (nombre, email, password, telefono)
+                VALUES (%s, %s, %s, %s)
+                ''', (nombre, email, hashed_password, telefono))
+        
+        mysql.connection.commit()
+        return True, "Usuario registrado exitosamente."
+    except Exception as e:
+        print("Error al registrar el usuario:", e)
+        return False, "Error al registrar el usuario."
 
 perfiles = [
     {
@@ -30,7 +82,7 @@ perfiles = [
         "contraseña": "Admin#12345",
         "edad": "25",
         "peso": "70",
-        "altura": "175",
+        "altura": "1.75",
         "actividad": "Moderada",
         "sexo": "Masculino",
         "objetivo": "Bajar de peso",
