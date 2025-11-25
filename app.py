@@ -21,7 +21,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'alum1#19'
 app.config['MYSQL_DB'] = 'bdnutriapp'
 
 mysql = MySQL(app)
