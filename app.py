@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, session
 from datetime import timedelta,datetime
 from flask_mysqldb import MySQL
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash,check_password_hash
 import re 
 import requests
 
@@ -21,8 +21,9 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'alum1#19'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'bdnutriapp'
+app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
 mysql = MySQL(app)
 
@@ -30,7 +31,7 @@ mysql = MySQL(app)
 ## Meter dos apis mas 1 nutrientes, y analizador de recetas
 ## Parece no funcionar ahorita la api de recetas ni idea
 ## Analizador de recetas meter 2 plantillas una de "Registro de alimentos para analizarlos" y "Receta analizada"
-
+## bd agregar a contraseña 255 en caracteres
 
 def crear_tabla():##Funcion para crear la tabla de usuarios
     try:
