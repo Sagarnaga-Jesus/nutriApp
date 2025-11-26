@@ -27,7 +27,10 @@
             <form action="/registro" method="POST" id="registro">
                 <h5>Nombre(s) y apellidos</h5>    
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control" placeholder="nombre(s) y apellidos" aria-label="nombre(s) y apellidos" aria-describedby="basic-addon1" id="nombre" name="nombre" value="{{request.form.get('nombre', '')}}" required pattern="[A-Za-z ]+" title="Solo letras">
+                        <input type="text" class="form-control" placeholder="nombre(s)" aria-label="nombre(s)" aria-describedby="basic-addon1" id="nombre" name="nombre" value="{{request.form.get('nombre', '')}}" required pattern="[A-Za-z ]+" title="Solo letras">
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="apellido(s)" aria-label="apellido(s)" aria-describedby="basic-addon2" id="apellido" name="apellido" value="{{request.form.get('apellido', '')}}" required pattern="[A-Za-z ]+" title="Solo letras">
                     </div>
     
                 <h5>Correo electronico</h5>
