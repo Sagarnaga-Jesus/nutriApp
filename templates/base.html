@@ -17,6 +17,7 @@
             </button>
 
                 <div class="collapse navbar-collapse fst-italic" id="navbarNav" style="justify-content: end;">
+                    
                     <ul class="navbar-nav">
                         {% if session.get('usuario') %}
                         {% else %}
@@ -27,7 +28,7 @@
 
                         {% if session.get('usuario') %}
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="/perfil">Perfil</a>
+                            <a class="nav-link  text-success" href="/perfil">Perfil: {{usuario.nombre}} </a>
                         </li>
                             {% else %}
 

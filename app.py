@@ -68,7 +68,7 @@ def email_existe(correo):
         return False
     
 
-def registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad, sexo):##Funcion de registro de usuario
+def registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo):##Funcion de registro de usuario
     try:
         cursor = mysql.connection.cursor()
 
@@ -78,7 +78,7 @@ def registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad
             INSERT INTO usuario
             (nombre, apellido, correo, contraseña, edad, peso, altura, sexo, actividad)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-        ''', (nomyape, nomyape, correo, hashed_password, edad, peso, altura, sexo, actividad))
+        ''', (nombre, apellido, correo, hashed_password, edad, peso, altura, sexo, actividad))
         
         mysql.connection.commit()
         return True, "Usuario registrado exitosamente."
@@ -89,6 +89,7 @@ def registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad
 perfiles = [
     {
         "nombre": "Admin",
+        "apellido": "Admin",
         "correo": "admin@example.com",
         "contraseña": "Admin#12345",
         "edad": "25",
@@ -162,7 +163,8 @@ def logout():
 @app.route('/registro', methods=["POST", "GET"])##Registro
 def registro():
     if request.method == "POST":
-        nomyape = request.form["nombre"]
+        nombre = request.form["nombre"]
+        apellido = request.form["apellido"]
         correo = request.form["email"]
         contraseña = request.form["contraseña"]
         edad = request.form["edad"]
@@ -180,10 +182,11 @@ def registro():
             flash("El correo ya está registrado.", "danger")
             return render_template("registro.html")
             
-        registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad, sexo)
+        registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo)
         
         usuario = {
-            "nombre": nomyape,
+            "nombre": nombre,
+            "apellido": apellido,
             "correo": correo,
             "contraseña": contraseña,
             "edad": edad,
