@@ -415,6 +415,10 @@ def eliminar ():
 def calculoene ():
     return render_template("calculotbmygct.html")
 
+@app.route("/calculotbmygct") ## calculadora de tmb y gct
+def calculotbmygct():
+    return render_template("calculotbmygct.html")
+
 @app.route('/energiresu', methods = ["Get", "POST"]) ## Calculadora de gct y tmb, registro y sin registro
 def energiresu(): 
     usua = None
