@@ -58,26 +58,26 @@ def crear_tabla():##Funcion para crear la tabla de usuarios
     except Exception as e:
         print("Error al crear la tabla:", e)
 
-def email_existe(email):
+def email_existe(correo):
     try:
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM usuarios WHERE email = %s", (email,))
+        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
         return cursor.fetchone() is not None
     except Exception as e:
         print(f"Error verificando el email: {e}")
         return False
     
 
-def registra_usuario(nombre, email, password, telefono):##Funcion de registro de usuario
+def registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad, sexo):##Funcion de registro de usuario
     try:
         cursor = mysql.connection.cursor()
 
-        hashed_password = generate_password_hash(password)
+        hashed_password = generate_password_hash(contraseña)
         
         cursor.execute('''
-                INSERT INTO usuarios (nombre, email, password, telefono)
-                VALUES (%s, %s, %s, %s)
-                ''', (nombre, email, hashed_password, telefono))
+                INSERT INTO usuarios (nombre, apellido, correo, contraseña, edad, peso, altura, sexo, altura,)
+                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                ''', (nomyape, nomyape, correo, hashed_password, edad, peso, altura, actividad, sexo))
         
         mysql.connection.commit()
         return True, "Usuario registrado exitosamente."
@@ -175,10 +175,12 @@ def registro():
             flash("Las contraseñas no coinciden", "danger")
             return render_template("registro.html")
 
-        for u in perfiles:
-            if u['correo'] == correo:
-                flash("El correo ya está registrado.", "danger")
-                return render_template("registro.html")
+        if  email_existe(correo) == True:
+            flash("El correo ya está registrado.", "danger")
+            return render_template("registro.html")
+            
+        registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad, sexo)
+        
         usuario = {
             "nombre": nomyape,
             "correo": correo,
@@ -257,12 +259,12 @@ def nivel():
     return render_template("nivel.html")
 ##Acaba el registro de usuario
 
-@app.route('/perfil')## perfil de usuario envia datos del registro de usuario
+@app.route('/perfil')## perfil de usuario envia datos del registro de usuario cambio
 def perfil():
     usua = None
 
     for u in perfiles:
-        if session.get('correo_registro') == u['correo']:
+        if session.get('usuario') == u['correo'] :
             usua = u
             break
 
