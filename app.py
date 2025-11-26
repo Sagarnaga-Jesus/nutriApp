@@ -126,7 +126,7 @@ def registrar_preferencias(preferencias):
                 WHERE correo = %s
         ''', (preferencias,correo))
         mysql.connection.commit()
-        
+        cursor.close()
         return True
     except Exception as e:
         print("Error al registrar los objetivos:", e)
@@ -137,13 +137,16 @@ def registrar_experiencia(experi):
         cursor = mysql.connection.cursor()
         correo=session.get('correo_registro')
         
+        if not correo:
+            return False, "No hay correo en sesión"
+        
         cursor.execute('''
             UPDATE usuario
-            SET preferencias = %s
+            SET experiencia = %s
                 WHERE correo = %s
         ''', (experi,correo))
         mysql.connection.commit()
-        
+        cursor.close()
         return True
     except Exception as e:
         print("Error al registrar los objetivos:", e)
@@ -251,7 +254,7 @@ def registro():
 @app.route('/objetivos', methods=["POST", "GET"])
 def objetivos():
     if request.method == "POST":
-        objetivo = request.form.get("objetivos")
+        objetivo = request.form["objetivos"]
         
         if not objetivo:
             flash("Debes ingresar un objetivo", "danger")
