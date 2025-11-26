@@ -23,28 +23,36 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'bdnutriapp'
-app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
+##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
 mysql = MySQL(app)
 
 
-## Meter dos apis mas 1 nutrientes, y analizador de recetas
-## Parece no funcionar ahorita la api de recetas ni idea
-## Analizador de recetas meter 2 plantillas una de "Registro de alimentos para analizarlos" y "Receta analizada"
 ## bd agregar a contraseña 255 en caracteres
+## Faltan platillas, revisar tu  plantilla luis
+## falta la base de datos estoy viendo como mandar los datos y le estoy dando estructura a la base de datos
+## has todas las pruebas que quieras sirve que vemos que falta el genero neutral quitalo 
+## pon en las calculadoras que se calculan automaticamente, una forma en la que puedancalcular ellos mismos dudas me dices
 
 def crear_tabla():##Funcion para crear la tabla de usuarios
     try:
         cursor = mysql.connection.cursor()
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS usuarios(
-                id INT AUTO_INCREMENT PRIMARY KEY,
-                nombre VARCHAR(100) NOT NULL,
-                email VARCHAR(100) UNIQUE NOT NULL,
-                password VARCHAR(255) NOT NULL,
-                telefono VARCHAR(20),
-                fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
-            )
+                id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                nombre VARCHAR(25) NULL DEFAULT NULL,
+                apellido VARCHAR(25) NULL DEFAULT NULL,
+                correo VARCHAR(25) NULL DEFAULT NULL,
+                contraseña VARCHAR(255) NULL DEFAULT NULL,
+                edad INT(11) NULL DEFAULT NULL,
+                peso FLOAT NULL DEFAULT NULL,
+                altura FLOAT NULL DEFAULT NULL,
+                sexo VARCHAR(25) NULL DEFAULT NULL,
+                objetivo VARCHAR(25) NULL DEFAULT NULL,
+                preferencias LONGTEXT NULL DEFAULT NULL,
+                experiencia LONGTEXT NULL DEFAULT NULL,
+                actividad VARCHAR(30) NULL DEFAULT NULL
+            );
         ''')
         mysql.connection.commit()
     except Exception as e:
@@ -59,6 +67,7 @@ def email_existe(email):
         print(f"Error verificando el email: {e}")
         return False
     
+
 def registra_usuario(nombre, email, password, telefono):##Funcion de registro de usuario
     try:
         cursor = mysql.connection.cursor()
@@ -98,7 +107,7 @@ perfiles = [
     }
 ]
 
-correos = []
+correo_registro = ""
 
 alimentos_cons = []
 
@@ -148,6 +157,7 @@ def logout():
     flash("Has cerrado sesión correctamente.", "success")
     return redirect('/login')
 
+
 @app.route('/registro', methods=["POST", "GET"])##Registro
 def registro():
     if request.method == "POST":
@@ -184,7 +194,7 @@ def registro():
         }
 
         perfiles.append(usuario)
-        session['usuario'] = correo
+        session['correo_registro'] = correo
         return redirect("/objetivos")
 
     return render_template("registro.html")
@@ -196,7 +206,7 @@ def objetivos():
         objetivo = request.form["objetivos"]
 
         for u in perfiles:
-            if session.get('usuario') == u['correo']:
+            if session.get('correo_registro') == u['correo']:
                 u["objetivo"] = objetivo 
                 return redirect('/preferencias')
         else:
@@ -223,7 +233,7 @@ def preferencias():
         }
 
         for u in perfiles:
-            if session.get('usuario') == u['correo']:
+            if session.get('correo_registro') == u['correo']:
                 u["preferencias"] = preferencias
                 return redirect('/nivel')
         else:
@@ -237,7 +247,8 @@ def nivel():
         experi = request.form["experiencia"]
 
         for u in perfiles:
-            if session.get('usuario') == u['correo']:
+            if session.get('correo_registro') == u['correo']:
+                session['usuario'] = session.get('correo_registro')
                 u["experiencia"] = experi
                 return redirect('/perfil')
         else:
@@ -251,7 +262,7 @@ def perfil():
     usua = None
 
     for u in perfiles:
-        if session.get('usuario') == u['correo']:
+        if session.get('correo_registro') == u['correo']:
             usua = u
             break
 
@@ -397,8 +408,6 @@ def eliminar ():
     if alimentos_cons:
         alimentos_cons.pop(-1)
     return render_template("contador.html", alimento=alimentos_cons )
-
-
 
 @app.route("/calculoene") ## ingreso de datos para energetico por ahora no se usa por que se saca automaticamente informacion
 def calculoene ():
