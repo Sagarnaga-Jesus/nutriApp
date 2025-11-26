@@ -21,7 +21,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'alum1#19'
 app.config['MYSQL_DB'] = 'bdnutriapp'
 ##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
@@ -75,9 +75,10 @@ def registra_usuario(nomyape, correo, contraseña, edad, peso, altura, actividad
         hashed_password = generate_password_hash(contraseña)
         
         cursor.execute('''
-                INSERT INTO usuarios (nombre, apellido, correo, contraseña, edad, peso, altura, sexo, altura,)
-                VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-                ''', (nomyape, nomyape, correo, hashed_password, edad, peso, altura, actividad, sexo))
+            INSERT INTO usuario
+            (nombre, apellido, correo, contraseña, edad, peso, altura, sexo, actividad)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
+        ''', (nomyape, nomyape, correo, hashed_password, edad, peso, altura, sexo, actividad))
         
         mysql.connection.commit()
         return True, "Usuario registrado exitosamente."
