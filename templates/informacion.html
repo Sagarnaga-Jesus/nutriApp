@@ -1,25 +1,89 @@
 {% extends 'base.html' %}
-{% block title%} Educacion e informacion {% block title %}
+{% block title%} Educacion e informacion {% endblock title %}
 
 {% block contenido %}
 
+<div class='container mt-5'>
+    <h1 class="text-center mb-4 fs-2 text-success fst-italic">Educación e Información Nutricional</h1>
+    <p class="text-dark fs-4 text-center fst-italic my-3">Bienvenido a nuestra sección de educación e información nutricional. Aquí encontrarás recursos y artículos diseñados para ayudarte a comprender mejor la nutrición y cómo tomar decisiones alimenticias saludables.</p>
     <div class="row">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action" id="pregunta1" data-bs-toggle="list" href="#list-profile" role="tab" aria-controls="list-profile">¿Cómo leer las etiquetas nutricionales?</a>
-                <a class="list-group-item list-group-item-action" id="pregunta2" data-bs-toggle="list" href="#list-messages" role="tab" aria-controls="list-messages">Mitos y verdades sobre las dietas de moda.</a>
-                <a class="list-group-item list-group-item-action" id="pregunta3" data-bs-toggle="list" href="#list-settings" role="tab" aria-controls="list-settings">Guías sobre macronutrientes y su función.</a>
-                <a class="list-group-item list-group-item-action active" id="pregunta4" data-bs-toggle="list" href="#list-home" role="tab" aria-controls="list-home">La importancia de la hidratación, la fibra, etc.</a>
+                <a class="list-group-item list-group-item-action" id="pregunta1" data-bs-toggle="list" href="#resp1" role="tab" aria-controls="list-profile">¿Cómo leer las etiquetas nutricionales?</a>
+                <a class="list-group-item list-group-item-action" id="pregunta2" data-bs-toggle="list" href="#resp2" role="tab" aria-controls="list-messages">Mitos y verdades sobre las dietas de moda.</a>
+                <a class="list-group-item list-group-item-action" id="pregunta3" data-bs-toggle="list" href="#resp3" role="tab" aria-controls="list-settings">Guías sobre macronutrientes y su función.</a>
+                <a class="list-group-item list-group-item-action active" id="pregunta4" data-bs-toggle="list" href="#resp4" role="tab" aria-controls="list-home">La importancia de la hidratación, la fibra, etc.</a>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-8 text-dark f-5">
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="resp1" role="tabpanel" aria-labelledby="list-home-list">EJEMPLOS DE TEXTO</div>
-                <div class="tab-pane fade" id="resp2" role="tabpanel" aria-labelledby="list-profile-list">EJEMPLOS DE TEXTO</div>
-                <div class="tab-pane fade" id="resp3" role="tabpanel" aria-labelledby="list-messages-list">EJEMPLOS DE TEXTO</div>
-                <div class="tab-pane fade" id="resp4" role="tabpanel" aria-labelledby="list-settings-list">EJEMPLOS DE TEXTO</div>
+                <div class="tab-pane fade show active" id="resp1" role="tabpanel" aria-labelledby="list-home-list"><strong>¿Cómo leer las etiquetas de los alimentos?</strong><br>Las etiquetas de los alimentos contienen información sobre sobre la cantidad de calorías, porciones y datos nutricionales de los alimentos. Leerlas le ayudará a hacer elecciones saludables al hacer las compras y planificar las comidas. <br> <strong>¿Qué se debe buscar?</strong> <br> Siempre verifique primero el tamaño de la porción. Toda la información en la etiqueta se basa en el tamaño de ésta. Muchos paquetes contienen más de 1 porción.
+                Por ejemplo, el tamaño de la porción para los fideos con frecuencia es de 2 onzas (56 g) crudos o 1 taza (140 g) cocidos. Si usted come 2 tazas (280 g) en una comida, está consumiendo 2 porciones. Es decir, 2 veces la cantidad de calorías, grasas y otros nutrientes que aparecen en lista en la etiqueta.
+                La información calórica le indica el número de calorías en 1 porción. Ajuste el número de calorías si usted come porciones más pequeñas o más grandes. Este número le ayudará a determinar cómo afectan su peso los alimentos.
+                El total de carbohidratos está listado en letra negrilla para que se destaque y se mide en gramos (g). El azúcar, el almidón y la fibra vegetal conforman los carbohidratos totales que aparecen en la etiqueta. El azúcar aparece por separado. Todos estos carbohidratos excepto la fibra elevan su azúcar en la sangre.
+                Si usted tiene diabetes y cuenta los carbohidratos para calcular las dosis de insulina, la Asociación Estadounidense para la Diabetes recomienda que utilice la cantidad total de carbohidratos para calcular sus dosis de insulina. Algunas personas obtienen mejores resultados si sustraen la cantidad de gramos de fibra dietética del número de carbohidratos totales.</div>
+                
+                <div class="tab-pane fade" id="resp2" role="tabpanel" aria-labelledby="list-profile-list"><strong>Mitos y realidades sobre las dietas</strong>Un mito sobre las dietas es un consejo que se vuelve popular a pesar de no contar con hechos que lo respalden. <br>
+                <ul>
+                    <li><strong>Mito: </strong>Hay que reducir el consumo de carbohidratos para bajar de peso.<br>
+                        <strong>Realidad: </strong> Los carbohidratos vienen en formas distintas: simples y complejos. Los carbohidratos simples que se encuentran en alimentos como galletas y caramelos carecen de vitaminas, minerales y fibras. Reducir estos dulces es una excelente medida para comer de una manera más saludable y posiblemente perder peso. Los alimentos con carbohidratos complejos como el pan de trigo integral, los frijoles y la fruta tienen muchos nutrientes que son buenos para usted.
+                    </li>
+                        <br>
+                    <li><strong>Mito: </strong>Si la etiqueta dice "sin grasa" (no-fat) o "con poca grasa" (low-fat ), puede comer todo lo que quiera y no subirá de peso.<br>
+                        <strong>Realidad: </strong> Muchos alimentos con poca grasa o sin grasa tienen azúcares añadidos, almidones o sal para compensar la reducción en grasa. Estos alimentos "maravilla" a menudo tienen la misma cantidad de calorías, o incluso más, que la versión regular.
+                    </li>
+                        <br>
+                    <li><strong>Mito: </strong>Omitir el desayuno hace que aumente de peso.<br>
+                        <strong>Realidad: </strong> Comer un desayuno saludable puede ayudarle a manejar el hambre más adelante en el día y ayudarle a decir "No gracias" a los refrigerios poco saludables. Ningún estudio científico ha mostrado que omitir el alimento matutino lleve directamente a un aumento de peso.
+                    </li>
+                        <br>
+                    <li><strong>Mito: </strong> Comer por la noche lo hará aumentar de peso.<br>
+                        <strong>Realidad: </strong> Las personas que comen tarde por la noche tienden a subir de peso. Una posible razón es que quienes comen tarde en la noche tienden a elegir refrigerios altos en calorías. Algunas personas que comen refrigerios tras la cena no duermen bien, lo que puede llevar a antojos poco saludables al día siguiente.
+                    </li>
+                </ul>      
+                </div>
+                
+                <div class="tab-pane fade" id="resp3" role="tabpanel" aria-labelledby="list-messages-list">
+                    Los <strong>MACRONUTRIENTES</strong> son aquellas sustancias que proporcionan energía al organismo para un buen funcionamiento, y otros elementos necesarios para reparar y construir estructuras orgánicas, para promover el crecimiento y para regular procesos metabólicos. 
+                    Este grupo está constituido por:
+                <ul>
+                    <li>Proteínas</li>
+                    <li>Grasas</li>
+                    <li>Hidratos de Carbono(Carbohidratos)</li>
+                </ul>
+                <br>
+                    <strong>Proteinas: </strong>Son los componentes de las estructuras de las células. Las necesidades de un adulto sano y sedentario son 0,8-1 g/kg/día. Nos aportan 4 kcalorías/gramo. Se recomienda entre un 10-15% del total de las calorías de la dieta en forma de proteínas en una dieta equilibrada. Las proteínas pueden ser de origen animal cuando proceden de la carne, pescado, leche y huevos, así como de los derivados cárnicos (embutidos, jamones,…) y derivados lácteos (yogures, quesos, natillas…) y contienen los aminoácidos esenciales. Otras proteínas son de origen vegetal, y provienen de los cereales, las legumbres, los frutos secos y la soja; éstas no contienen algunos de los aminoácidos esenciales, aunque la combinación de las legumbres y cereales sí aporta los aminoácidos esenciales. Al menos el 50% de las proteínas de la dieta deben ser de origen animal. Las proteínas de alto valor biológico son aquellas que contienen todos los aminoácidos esenciales. Las dos proteínas modelo son la ovoalbúmina de la clara del huevo y la lactoalbúmina de la leche.
+                <br><br>
+                    <strong>Grasas: </strong>Son el nutriente energético por excelencia. Este grupo está formado por los triglicéridos, los fosfolípidos y el colesterol. Constituyen el 30-35% de una dieta equilibrada. Aportan 9 kcal/gramo.
+                    La mayoría de las grasas que consumimos son triglicéridos, que una vez digeridos, liberan ácidos grasos que se clasifican en función de:
+                <ul>
+                    <li><strong>La longitud de los carbonos: </strong>-De cadena corta ( 4-6 átomos de carbono).  -De cadena media (8-10 átomos de carbono). -De cadena larga (más de 12 átomos de carbono). La mayoría de los ácidos grasos de la dieta son de cadena larga. Los de cadena media se absorben más rápidamente.</li>
+                    <br>
+                    <li><strong>La presencia del doble enlace: </strong>-Ácidos grasos SATURADOS: no contienen ningún enlace. Se encuentran en las grasas animales (carnes y derivados, lácteos y huevos) y en grasas vegetales (aceites tropicales). -Ácidos grasos INSATURADOS: AG MONOINSATURADOS: tienen un doble enlace. Están en el aceite de oliva y AG POLIINSATURADOS: tienen más de un doble enlace. Si el primer doble enlace se sitúa en posición 6 se denomina ac. graso Omega 6. Se encuentran en los aceites de semillas fundamentalemente.</li>
+                    <br>
+                    <li><strong>La configuración del doble enlace: </strong>Configuración CIS: el doble enlace se encuentra en un mismo plano. Está en la mayoría de las grasas de los alimentos. -Configuración TRANS: el doble enlace está en un plano diferente. La mayoría de estos ácidos grasos se deben a un proceso químico que consiste en transformar un aceite líquido en una grasa; también se encuentran de forma natural en la leche y en los derivados y en los rumiantes.</li>
+                </ul>
+                <br>
+                    <strong>Hidratos de Carbono (Carbohidratos): </strong>Son una fuente importante de energía y proceden fundamentalmente de los vegetales. La ingesta en un adulto sano recomendada es de 3-5 g/kg/día. Aportan 4 kcal/gramo. 
+                    Se dividen en:
+                    Monosacáridos: son los más simples; constan de 3-6 átomos de carbono.
+                    Oligosacáridos: formados por menos de 10 moléculas de monosacáridos.
+                    Polisacáridos: formados por más de 10 moléculas de monosacáridos.
+                    Los MONOSACÁRIDOS y los OLIGOSACÁRIDOS se absorben rápidamente en el intestino. Los disacáridos más conocidos son la sacarosa (sucrosa) que es el azúcar común que se obtiene de la caña de azúcar o de la remolacha; la lactosa es el azúcar de la leche de los mamíferos y la maltosa que procede del almidón. 
+                    Los POLISACÁRIDOS se absorben más lentamente en el intestino, entre los principales encontramos el almidón o fécula (en vegetales como cereales, tubérculos y legumbres) y el glucógeno (en el hígado y el músculo de los animales).
+                </div>
+                
+                <div class="tab-pane fade" id="resp4" role="tabpanel" aria-labelledby="list-settings-list">
+                    La hidratación es crucial para la salud porque ayuda a mantener la temperatura corporal, lubrica articulaciones, transporta nutrientes, elimina desechos y apoya las funciones cerebrales y la digestión. La deshidratación puede provocar fatiga, mareos, problemas cognitivos y, en casos graves, consecuencias que ponen en peligro la vida
+                    <br><br>
+                    La fibra ha mostrado ser un componente de la dieta esencial para un estado óptimo de salud. El consumo de ésta se encuentra muy por debajo de las recomendaciones por lo que es de suma importancia promover su consumo. En este trabajo se abordan los aspectos más importantes y generales de la fibra dietética, los diferentes tipos y sus funciones, así como su importancia en la prevención de enfermedades no transmisibles como la diabetes, las enfermedades cardiovasculares, así como los desórdenes gastrointestinales y su efecto beneficioso en el control de peso corporal.
+                    <br><br>
+                    La fibra es un factor dietético esencial para mantener un estado de salud óptimo. Dado que el consumo actual de fibra no alcanza la ingesta diaria recomendada, promover su consumo se convierte en una prioridad. En este trabajo, se resumirán los aspectos más relevantes de la fibra dietética, incluyendo una visión general, su definición y funcionalidad, su papel relevante en la prevención de enfermedades no transmisibles como la diabetes, las enfermedades cardiovasculares, así como los trastornos gastrointestinales y sus beneficios para el control de peso.
+                </div>
             </div>
         </div>
     </div>
+</div>
 
-{% endblock contenido %}
+
+{% endblock %}
