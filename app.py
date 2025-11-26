@@ -61,12 +61,20 @@ def crear_tabla():##Funcion para crear la tabla de usuarios
 def email_existe(correo):
     try:
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+        cursor.execute("SELECT * FROM usuario WHERE correo = %s", (correo,))
         return cursor.fetchone() is not None
     except Exception as e:
         print(f"Error verificando el email: {e}")
         return False
-    
+
+def obtener(correo):
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM usuario WHERE correo = %s", (correo, ))
+        usuario = cursor.fetchone()
+        return usuario,cursor.fetchone()
+    except Exception as e:
+        print(f"No se encontro al usuario {e}")
 
 def registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo):##Funcion de registro de usuario
     try:
@@ -85,31 +93,74 @@ def registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, 
     except Exception as e:
         print("Error al registrar el usuario:", e)
         return False, "Error al registrar el usuario."
+    
+def registrar_objetivos(objetivo):
+    try:
+        cursor = mysql.connection.cursor()
+        correo = session.get('correo_registro')
+        
+        if not correo:
+            return False, "No hay correo en sesión"
 
-perfiles = [
-    {
-        "nombre": "Admin",
-        "apellido": "Admin",
-        "correo": "admin@example.com",
-        "contraseña": "Admin#12345",
-        "edad": "25",
-        "peso": "70",
-        "altura": "1.75",
-        "actividad": "Moderada",
-        "sexo": "Masculino",
-        "objetivo": "Bajar de peso",
-        "preferencias": {
-            "alergia": "Ninguna",
-            "alergias": "Ninguna",
-            "intolerancia": "Ninguna",
-            "dietas": "Balanceada",
-            "no_gusta": "Brócoli"
-        },
-        "experiencia": "Intermedio"
-    }
-]
+        cursor.execute("""
+            UPDATE usuario
+            SET objetivo = %s
+            WHERE correo = %s
+        """, (objetivo, correo))
+        mysql.connection.commit()
+        cursor.close()
+        return True
+    except Exception as e:
+        print("Error al registrar los objetivos:", e)
+        return False, "Error al registrar los objetivos."
 
-correo_registro = ""
+    
+def registrar_preferencias(preferencias):
+    try:
+        cursor = mysql.connection.cursor()
+        correo=session.get('correo_registro')
+        
+        cursor.execute('''
+            UPDATE usuario
+            SET preferencias = %s
+                WHERE correo = %s
+        ''', (preferencias,correo))
+        mysql.connection.commit()
+        
+        return True
+    except Exception as e:
+        print("Error al registrar los objetivos:", e)
+        return False, "Error al registrar los objetivos."
+    
+def registrar_experiencia(experi):
+    try:
+        cursor = mysql.connection.cursor()
+        correo=session.get('correo_registro')
+        
+        cursor.execute('''
+            UPDATE usuario
+            SET preferencias = %s
+                WHERE correo = %s
+        ''', (experi,correo))
+        mysql.connection.commit()
+        
+        return True
+    except Exception as e:
+        print("Error al registrar los objetivos:", e)
+        return False, "Error al registrar los objetivos."
+
+def obtener_usuario(correo):
+    try:
+        cursor = mysql.connection.cursor()
+        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+        usuario = cursor.fetchone()
+        cursor.close()
+        return usuario
+    except Exception as e:
+        print(f"Error al obtener el usuario: {e}")
+        return None
+
+perfiles = []
 
 alimentos_cons = []
 
@@ -141,12 +192,14 @@ def login():
     if request.method == 'POST':
         correo = request.form.get('correo')
         contraseña = request.form.get('contraseña')
-
-        for perfil in perfiles:
-            if correo == perfil['correo'] and contraseña == perfil['contraseña']:
-                session['usuario'] = perfil['correo']
-                session.permanent = True
-                return redirect('/perfil')
+        
+        usuario = obtener_usuario(correo)
+        contraseña_guardada=check_password_hash(usuario[4])
+        
+        if contraseña == contraseña_guardada:
+            session['usuario'] = usuario[3]
+            session.permanent = True
+            return redirect('/perfil')
 
         flash("Correo o contraseña incorrectos", "danger")
         return render_template('login.html')
@@ -177,6 +230,10 @@ def registro():
         if contraseña != contrafirma:
             flash("Las contraseñas no coinciden", "danger")
             return render_template("registro.html")
+        
+        if not re.match(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]', correo):
+            flash("Correo electrónico inválido", "danger")
+            return render_template("registro.html")
 
         if  email_existe(correo) == True:
             flash("El correo ya está registrado.", "danger")
@@ -184,42 +241,31 @@ def registro():
             
         registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo)
         
-        usuario = {
-            "nombre": nombre,
-            "apellido": apellido,
-            "correo": correo,
-            "contraseña": contraseña,
-            "edad": edad,
-            "peso": peso,
-            "altura": altura,
-            "actividad": actividad,
-            "sexo": sexo,
-            "objetivo": "",
-            "preferencias": {},
-            "experiencia": ""
-        }
 
-        perfiles.append(usuario)
         session['correo_registro'] = correo
         return redirect("/objetivos")
 
     return render_template("registro.html")
 
 ##Registro de datos de usuario
-@app.route('/objetivos',methods=["POST", "GET"])
+@app.route('/objetivos', methods=["POST", "GET"])
 def objetivos():
     if request.method == "POST":
-        objetivo = request.form["objetivos"]
+        objetivo = request.form.get("objetivos")
+        
+        if not objetivo:
+            flash("Debes ingresar un objetivo", "danger")
+            return redirect("/objetivos")
 
-        for u in perfiles:
-            if session.get('correo_registro') == u['correo']:
-                u["objetivo"] = objetivo 
-                return redirect('/preferencias')
+        exito = registrar_objetivos(objetivo)
+        if exito:
+            return redirect("/preferencias")
         else:
-            flash("No se encontró el usuario en sesión", "danger")
-            return render_template("objetivos.html")
+            flash("Error al registrar los objetivos", "danger")
+            return redirect("/objetivos")
 
     return render_template("objetivos.html")
+
 
 @app.route('/preferencias', methods=["POST","GET"])
 def preferencias():
@@ -238,13 +284,12 @@ def preferencias():
             "no_gusta":no_gusta
         }
 
-        for u in perfiles:
-            if session.get('correo_registro') == u['correo']:
-                u["preferencias"] = preferencias
-                return redirect('/nivel')
+        exito = registrar_preferencias(preferencias)
+        if exito:
+            return redirect("/nivel")
         else:
-            flash("Error al guardar preferencias", "danger")
-            return render_template("preferencias.html")
+            flash("Error al registrar las preferencias", "danger")
+            return redirect("/preferencias")
     return render_template("preferencias.html")
 
 @app.route('/nivel', methods=["POST","GET"])
@@ -252,31 +297,29 @@ def nivel():
     if request.method == "POST":
         experi = request.form["experiencia"]
 
-        for u in perfiles:
-            if session.get('correo_registro') == u['correo']:
-                session['usuario'] = session.get('correo_registro')
-                u["experiencia"] = experi
-                return redirect('/perfil')
+        exito = registrar_experiencia(experi)
+        if exito:
+            return redirect("/perfil")
         else:
-            flash("No se pudo guardar la experiencia", "danger")
-            return render_template("nivel.html")
+            flash("Error al registrar la experiencia", "danger")
+            return redirect("/nivel")
     return render_template("nivel.html")
 ##Acaba el registro de usuario
 
-@app.route('/perfil')## perfil de usuario envia datos del registro de usuario cambio
+@app.route('/perfil')
 def perfil():
-    usua = None
-
-    for u in perfiles:
-        if session.get('usuario') == u['correo'] :
-            usua = u
-            break
-
-    if usua is None:
-        flash("No se encontró el usuario en la sesión" , "danger")
+    correo = session.get('usuario')
+    if not correo:
+        flash("Debes iniciar sesión", "danger")
+        return redirect('/login')
+    
+    usuario = obtener_usuario(correo)
+    if not usuario:
+        flash("Usuario no encontrado", "danger")
         return redirect('/registro')
+    
+    return render_template('perfil.html', usuario=usuario)
 
-    return render_template('perfil.html', usuario=usua)
 
 
 

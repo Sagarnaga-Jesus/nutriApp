@@ -4,9 +4,12 @@
 {% block contenido %}
 
 <div class='container mt-5'>
-    <h1 class="text-center mb-4 fs-2 text-success fst-italic">Educación e Información Nutricional</h1>
-    <p class="text-dark fs-4 text-center fst-italic my-3">Bienvenido a nuestra sección de educación e información nutricional. Aquí encontrarás recursos y artículos diseñados para ayudarte a comprender mejor la nutrición y cómo tomar decisiones alimenticias saludables.</p>
-    <div class="row">
+    <h1 class="text-center mb-4 text-success fst-italic">Educación e Información Nutricional</h1>
+    <p class="text-dark fs-3 text-center fst-italic my-3">Bienvenido a nuestra sección de educación e información nutricional. Aquí encontrarás recursos y artículos diseñados para ayudarte a comprender mejor la nutrición y cómo tomar decisiones alimenticias saludables.</p>
+    <div class="row text-center" >
+        <a class="text-dark fs-4 text-center fst-italic" href="{{ url_for('static', filename='imagenes/doc/Planillas de ejercicios diarios - 2.pdf') }}" download>Descargar planilla de ejercicios</a>
+    </div>
+    <div class="row" style="margin-top: 60px;">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
                 <a class="list-group-item list-group-item-action" id="pregunta1" data-bs-toggle="list" href="#resp1" role="tab" aria-controls="list-profile">¿Cómo leer las etiquetas nutricionales?</a>
@@ -81,12 +84,10 @@
                     <br><br>
                     La fibra es un factor dietético esencial para mantener un estado de salud óptimo. Dado que el consumo actual de fibra no alcanza la ingesta diaria recomendada, promover su consumo se convierte en una prioridad. En este trabajo, se resumirán los aspectos más relevantes de la fibra dietética, incluyendo una visión general, su definición y funcionalidad, su papel relevante en la prevención de enfermedades no transmisibles como la diabetes, las enfermedades cardiovasculares, así como los trastornos gastrointestinales y sus beneficios para el control de peso.
                 </div>
+                
             </div>
         </div>
     </div>
+    
 </div>
-        <div>
-            <a href="{{ url_for('static', filename='imagenes/doc/Planillas de ejercicios diarios - 2.pdf') }}" download>Descargar planilla de ejercicios</a>
-        </div>
-
 {% endblock %}
