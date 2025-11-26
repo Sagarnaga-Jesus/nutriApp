@@ -9,7 +9,7 @@
         <h2 class="card-title">Calculadora IMC (Indice de Masa Corporal)</h2>
         <p class="card-text">Datos de: {{usuario.nombre}}</p>
             <h4></h4>
-
+            
             <p><strong>Peso:</strong> {{ usuario.peso }} kg</p><br><!-- peso de ejmplos --> 
             <p><strong>Altura:</strong> {{ usuario.altura }} cm/m</p><br><!-- altura de ejmplos -->
             <p><strong>IMC:</strong> {{ imc }}</p><br><!-- imc de ejmplos -->
@@ -37,6 +37,8 @@
 </div>
 
 {%endif%}
-
-
+    <div class='d-flex justify-content-center mb-4'>
+        <a href='/registroimc' class="btn btn-success mb-4">Quieres calcularlo por ti mismo?</a>
+    </div>
+    
 {% endblock %}
