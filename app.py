@@ -21,7 +21,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'alum1#19'
+app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'bdnutriapp'
 ##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
@@ -38,7 +38,7 @@ def crear_tabla():##Funcion para crear la tabla de usuarios
     try:
         cursor = mysql.connection.cursor()
         cursor.execute('''
-            CREATE TABLE IF NOT EXISTS usuarios(
+            CREATE TABLE IF NOT EXISTS usuario(
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
                 nombre VARCHAR(25) NULL DEFAULT NULL,
                 apellido VARCHAR(25) NULL DEFAULT NULL,
