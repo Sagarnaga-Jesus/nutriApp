@@ -324,6 +324,9 @@ def perfil():
     
     return render_template('perfil.html', usuario=usuario)
 
+@app.route('/bancorecetas')##Ruta del banco de recetas☺
+def bancorecetas():
+    return render_template('bancorecetas.html')
 
 
 
