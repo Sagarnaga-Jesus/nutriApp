@@ -3,7 +3,7 @@
 
 {% block contenido %}
 <div class="row">
-    <h1 class="text-center fst-italic text-black" style="margin-top: 20px;">Perfil de {{ usuario.nombre }}</h1>
+    <h1 class="text-center fst-italic text-black" style="margin-top: 20px;">Perfil de {{ usuario[1] }}</h1>
     <div class="col-6">
         
         <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="width: 30rem; height: auto; margin-top: 40px;">
@@ -11,15 +11,15 @@
                 <h2 class="text-center">Perfil</h2>
             </div>
             <div class="card-body">
-                <p><strong>Nombre:</strong> {{ usuario.nombre }} {{usuario.apellido}}</p><br>
-                <p><strong>Correo electrónico:</strong> {{ usuario.correo }}</p><br>
-                <p><strong>Edad:</strong> {{ usuario.edad }}</p><br>
-                <p><strong>Altura:</strong> {{ usuario.altura }} cm</p><br>
-                <p><strong>Peso:</strong> {{ usuario.peso }} kg</p><br>
-                <p><strong>Actividad fisica:</strong> {{ usuario.actividad }}</p><br>
-                <p><strong>Sexo:</strong> {{ usuario.sexo }}</p><br>
-                <p><strong>Objetivos:</strong> {{ usuario.objetivo}}</p><br>
-                <p><strong>Nivel de experiencia en cocina:</strong> {{ usuario.experiencia }}</p><br>
+                <p><strong>Nombre:</strong> {{ usuario[1] }} {{usuario[2]}}</p><br>
+                <p><strong>Correo electrónico:</strong> {{ usuario[3] }}</p><br>
+                <p><strong>Edad:</strong> {{ usuario[5] }}</p><br>
+                <p><strong>Altura:</strong> {{ usuario[7] }} cm</p><br>
+                <p><strong>Peso:</strong> {{ usuario[6] }} kg</p><br>
+                <p><strong>Actividad fisica:</strong> {{ usuario[8] }}</p><br>
+                <p><strong>Sexo:</strong> {{ usuario[9] }}</p><br>
+                <p><strong>Objetivos:</strong> {{ usuario[10]}}</p><br>
+                <p><strong>Nivel de experiencia en cocina:</strong> {{ usuario[12] }}</p><br>
             </div>
         </div>
         </div>

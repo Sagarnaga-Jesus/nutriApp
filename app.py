@@ -3,6 +3,7 @@ from datetime import timedelta,datetime
 from flask_mysqldb import MySQL
 from werkzeug.security import generate_password_hash,check_password_hash
 import re 
+import json
 import requests
 
 
@@ -72,7 +73,7 @@ def obtener(correo):
         cursor = mysql.connection.cursor()
         cursor.execute("SELECT * FROM usuario WHERE correo = %s", (correo, ))
         usuario = cursor.fetchone()
-        return usuario,cursor.fetchone()
+        return usuario
     except Exception as e:
         print(f"No se encontro al usuario {e}")
 
@@ -306,7 +307,7 @@ def nivel():
         else:
             flash("Error al registrar la experiencia", "danger")
             return redirect("/nivel")
-    session['usuario'] = session.get('usuario')
+    session['usuario'] = session.get('correo_registro')
     return render_template("nivel.html")
 ##Acaba el registro de usuario
 
@@ -318,11 +319,13 @@ def perfil():
         return redirect('/login')
     
     usuario = obtener_usuario(correo)
+    preferencias = usuario[11]
+    prefercia = json.loads(preferencias)
     if not usuario:
         flash("Usuario no encontrado", "danger")
         return redirect('/registro')
     
-    return render_template('perfil.html', usuario=usuario)
+    return render_template('perfil.html', usuario=usuario, preferencias=prefercia)
 
 @app.route('/bancorecetas')##Ruta del banco de recetas☺
 def bancorecetas():
@@ -415,6 +418,17 @@ def buscar():
         print("ERROR:", e)
         flash("Error al conectar con Edamam.", "danger")
         return redirect(url_for('buscador'))
+
+@app.route('/planificador')
+def planificador():
+    correo = session.get('usuario')
+    if not correo:
+        flash("Debes iniciar sesión", "danger")
+        return redirect('/login')
+    
+    
+    return render_template("planificador.html")
+
 
 ##Calculadoras 
 
