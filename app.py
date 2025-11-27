@@ -319,13 +319,11 @@ def perfil():
         return redirect('/login')
     
     usuario = obtener_usuario(correo)
-    preferencias = usuario[11]
-    prefercia = json.loads(preferencias)
     if not usuario:
         flash("Usuario no encontrado", "danger")
         return redirect('/registro')
     
-    return render_template('perfil.html', usuario=usuario, preferencias=prefercia)
+    return render_template('perfil.html', usuario=usuario)
 
 @app.route('/bancorecetas')##Ruta del banco de recetas☺
 def bancorecetas():
