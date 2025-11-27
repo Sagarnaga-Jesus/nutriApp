@@ -52,7 +52,6 @@ def crear_tabla():##Funcion para crear la tabla de usuarios
                 objetivo VARCHAR(150) NULL DEFAULT NULL,
                 preferencias VARCHAR(250) NULL DEFAULT NULL,
                 experiencia VARCHAR(150) NULL DEFAULT NULL
-                
             );
         ''')
         mysql.connection.commit()
