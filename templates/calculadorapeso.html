@@ -7,14 +7,14 @@
 <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 650px; width: 100%; margin-top: 40px;">
     <div class="card-body">
         <h1 class="card-title">Peso Corporal Ideal</h1>
-        <h3 class="card-text">Datos de: {{usuario.nombre}}</h3>
+        <h3 class="card-text">Datos de: {{usuario[1]}}</h3>
 
-            <p><strong>Altura:</strong> {{ usuario.peso }} cm</p><br><!-- altura de ejmplos -->
-            <p><strong>Altura:</strong> {{ usuario.altura }} cm</p><br><!-- altura de ejmplos -->
+            <p><strong>Altura:</strong> {{ usuario[6] }} cm</p><br><!-- altura de ejmplos -->
+            <p><strong>Altura:</strong> {{ usuario[7] }} cm</p><br><!-- altura de ejmplos -->
             <p><strong>Peso ideal:</strong> {{ psi }} kg</p><br><!-- peso de ejmplos --> 
     </div>
 </div>
-<div class='d-flex justify-content-center mb-4'>
+<div class='d-flex justify-content-center mb-4' style="margin-top: 30px;">
     <a href='/registropsi' class="btn btn-success mb-4">Quieres calcularlo por ti mismo?</a>
 </div>
 {%else%}

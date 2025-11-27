@@ -156,7 +156,7 @@ def registrar_experiencia(experi):
 def obtener_usuario(correo):
     try:
         cursor = mysql.connection.cursor()
-        cursor.execute("SELECT * FROM usuarios WHERE correo = %s", (correo,))
+        cursor.execute("SELECT * FROM usuario WHERE correo = %s", (correo,))
         usuario = cursor.fetchone()
         cursor.close()
         return usuario
@@ -198,9 +198,9 @@ def login():
         contraseña = request.form.get('contraseña')
         
         usuario = obtener_usuario(correo)
-        contraseña_guardada=check_password_hash(usuario[4])
         
-        if contraseña == contraseña_guardada:
+        
+        if check_password_hash(usuario[4],contraseña):
             session['usuario'] = usuario[3]
             session.permanent = True
             return redirect('/perfil')
@@ -318,12 +318,12 @@ def perfil():
         flash("Debes iniciar sesión", "danger")
         return redirect('/login')
     
-    usuario = obtener_usuario(correo)
-    if not usuario:
+    usuarioe = obtener_usuario(correo)
+    if not usuarioe:
         flash("Usuario no encontrado", "danger")
         return redirect('/registro')
     
-    return render_template('perfil.html', usuario=usuario)
+    return render_template('perfil.html', usuario=usuarioe)
 
 @app.route('/bancorecetas')##Ruta del banco de recetas☺
 def bancorecetas():
@@ -487,13 +487,10 @@ def calculotbmygct():
 
 @app.route('/energiresu', methods = ["Get", "POST"]) ## Calculadora de gct y tmb, registro y sin registro
 def energiresu(): 
-    usua = None
-    for u in perfiles:
-        if session.get('usuario') == u['correo']:
-            usua = u
-            break
+    correo = session.get('usuario')
+    usuarioe = obtener_usuario(correo)
 
-    if usua is None:
+    if usuarioe is None:
         if request.method == "POST":
             pesoregistro = request.form["peso"]
             edadregistro = request.form["edad"]
@@ -532,11 +529,11 @@ def energiresu():
         return render_template('energiresu.html',get=get,tbm=tbm,)
     
     else:
-        edad = float(usua["edad"])
-        peso = float(usua["peso"])
-        altu = float(usua["altura"])
-        genero = usua["sexo"]
-        actividad = usua["actividad"]
+        edad = float(usuarioe[5])
+        peso = float(usuarioe[6])
+        altu = float(usuarioe[7])
+        genero = usuarioe[9]
+        actividad = usuarioe[8]
     
         altura = altu * 100
     
@@ -560,7 +557,7 @@ def energiresu():
         
         get = round(get, 2)
         tbm = round(tbm, 2)
-    return render_template("energiresu.html",usuario=usua, get=get, tbm=tbm)
+    return render_template("energiresu.html",usuario=usuarioe, get=get, tbm=tbm)
 
 @app.route('/registroimc')## Registro de datos imc
 def registroimc():
@@ -568,13 +565,10 @@ def registroimc():
 
 @app.route('/calcuimc', methods=["POST", "GET"]) ## calculadora de imc, registro y sin registro
 def imc():
-    usua = None
-    for u in perfiles:
-        if session.get('usuario') == u['correo']:
-            usua = u
-            break
+    correo = session.get('usuario')
+    usuarioe = obtener_usuario(correo)
 
-    if usua is None:
+    if usuarioe is None:
         
         if request.method == "POST":
             peso = request.form["peso"]
@@ -617,8 +611,8 @@ def imc():
         return render_template('calculadoraimc.html',peso=peso, altura=altura, imc=imc, informacion=info, recomendaciones=reco )
 
     else:
-        peso = float(usua["peso"])
-        altu = float(usua["altura"])
+        peso = float(usuarioe[6])
+        altu = float(usuarioe[7])
         
         altura2 = altu * altu
         
@@ -652,7 +646,7 @@ def imc():
                                 info = "Obesidad morbida o grave"
                                 reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
         
-        return render_template('calculadoraimc.html', usuario=usua, imc=imc, informacion=info, recomendaciones=reco )
+        return render_template('calculadoraimc.html', usuario=usuarioe, imc=imc, informacion=info, recomendaciones=reco )
 
 @app.route("/registropsi")## Registro del psi
 def registropsi():
@@ -660,13 +654,10 @@ def registropsi():
 
 @app.route('/calcupeso', methods=["POST", "GET"])##calculadora peso corporal ideal, registro y sin registro
 def peso():
-    usua = None
-    for u in perfiles:
-        if session.get('usuario') == u['correo']:
-            usua = u
-            break
+    correo = session.get('usuario')
+    usuarioe = obtener_usuario(correo)
 
-    if usua is None:
+    if usuarioe is None:
         if request.method == "POST":
             altura = request.form["altura"]
             peso = request.form["peso"]
@@ -685,8 +676,8 @@ def peso():
                 psi = round(psi, 2)
         return render_template('calculadorapeso.html',altura=altura, peso=peso, psi=psi)
     else:
-        altu = float(usua["altura"])
-        genero = usua["sexo"]
+        altu = float(usuarioe[7])
+        genero = usuarioe[9]
         
         altu_cm = altu*100
         psi = None
@@ -698,7 +689,7 @@ def peso():
             if genero == "Femenino":
                 psi = (altu_cm - 100) * 0.85
                 psi = round(psi, 2)
-    return render_template('calculadorapeso.html', usuario=usua, psi=psi)
+    return render_template('calculadorapeso.html', usuario=usuarioe, psi=psi)
 
 @app.route('/informacion')##no funciona corrigo ahorita 
 def info():

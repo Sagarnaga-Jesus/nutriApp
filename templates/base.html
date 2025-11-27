@@ -34,9 +34,6 @@
 
                         {% endif %}
                         
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/informacion">Educación e Información</a>
-                        </li>
                         
 
                         {% if session.get('usuario') %}
@@ -120,7 +117,13 @@
                         </li>
                         {% endif %}
                         
+                        {% if session.get('usuario') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/informacion">Educación e Información</a>
+                        </li>
+                            {% else %}
                         
+                        {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/acerca">Acerca de</a>
