@@ -29,11 +29,10 @@ app.config['MYSQL_DB'] = 'bdnutriapp'
 mysql = MySQL(app)
 
 
-## bd agregar a contraseña 255 en caracteres
-## Faltan platillas, revisar tu  plantilla luis
-## falta la base de datos estoy viendo como mandar los datos y le estoy dando estructura a la base de datos
-## has todas las pruebas que quieras sirve que vemos que falta el genero neutral quitalo 
-## pon en las calculadoras que se calculan automaticamente, una forma en la que puedancalcular ellos mismos dudas me dices
+## analizador de recetas
+## diseños algunas cosas
+## responsivo
+## 
 
 def crear_tabla():##Funcion para crear la tabla de usuarios
     try:
@@ -319,11 +318,15 @@ def perfil():
         return redirect('/login')
     
     usuarioe = obtener_usuario(correo)
+    diccionario = usuarioe[11]
+    diccionario = diccionario.replace("'", '"')
+    
+    preferencias = json.loads(diccionario)
     if not usuarioe:
         flash("Usuario no encontrado", "danger")
         return redirect('/registro')
     
-    return render_template('perfil.html', usuario=usuarioe)
+    return render_template('perfil.html', usuario=usuarioe, preferencias=preferencias)
 
 @app.route('/bancorecetas')##Ruta del banco de recetas☺
 def bancorecetas():

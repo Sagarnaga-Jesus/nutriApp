@@ -25,11 +25,15 @@
         </div>
     
     <div class="col-6">
-        <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 550px; width: 100%; margin-top: 40px;">
+        <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 450px; width: 100%; margin-top: 40px;">
             <div class="card-header">
                 <h2 class="text-center">Preferencias del usuario</h2>
                 <div class="card-body">
                     <ul>
+                        <li><strong>Alergias:</strong> {{ preferencias.alergia}}</li><br>
+                        <li><strong>Intolerancias:</strong> {{ preferencias.intolerancia}}</li><br>
+                        <li><strong>Dietas:</strong> {{ preferencias.dietas}}</li><br>
+                        <li><strong>No gustan:</strong> {{ preferencias.no_gusta }}</li><br>
                     </ul>
                     
                 </div>
