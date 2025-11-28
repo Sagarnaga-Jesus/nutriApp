@@ -6,13 +6,11 @@
 <div class='container mt-5'>
     <h1 class="text-center mb-4 text-success fst-italic">Educación e Información Nutricional</h1>
     <p class="text-dark fs-3 text-center fst-italic my-3">Bienvenido a nuestra sección de educación e información nutricional. Aquí encontrarás recursos y artículos diseñados para ayudarte a comprender mejor la nutrición y cómo tomar decisiones alimenticias saludables.</p>
-    <div class="row text-center" >
-        <a class="text-dark fs-4 text-center fst-italic" href="{{ url_for('static', filename='imagenes/doc/Planillas de ejercicios diarios - 2.pdf') }}" download>Descargar planilla de ejercicios</a>
-    </div>
+
     <div class="row" style="margin-top: 60px;">
         <div class="col-4">
             <div class="list-group" id="list-tab" role="tablist">
-                <a class="list-group-item list-group-item-action" id="pregunta1" data-bs-toggle="list" href="#resp1" role="tab" aria-controls="list-profile">¿Cómo leer las etiquetas nutricionales?</a>
+                <a class="list-group-item list-group-item-action active" id="pregunta1" data-bs-toggle="list" href="#resp1" role="tab" aria-controls="list-profile">¿Cómo leer las etiquetas nutricionales?</a>
                 <a class="list-group-item list-group-item-action" id="pregunta2" data-bs-toggle="list" href="#resp2" role="tab" aria-controls="list-messages">Mitos y verdades sobre las dietas de moda.</a>
                 <a class="list-group-item list-group-item-action" id="pregunta3" data-bs-toggle="list" href="#resp3" role="tab" aria-controls="list-settings">Guías sobre macronutrientes y su función.</a>
                 <a class="list-group-item list-group-item-action" id="pregunta4" data-bs-toggle="list" href="#resp4" role="tab" aria-controls="list-home">La importancia de la hidratación, la fibra, etc.</a>
@@ -21,7 +19,7 @@
 
         <div class="col-8 text-dark f-5">
             <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade" id="resp1" role="tabpanel" aria-labelledby="list-home-list"><strong>¿Cómo leer las etiquetas de los alimentos?</strong><br>Las etiquetas de los alimentos contienen información sobre sobre la cantidad de calorías, porciones y datos nutricionales de los alimentos. Leerlas le ayudará a hacer elecciones saludables al hacer las compras y planificar las comidas. <br> <strong>¿Qué se debe buscar?</strong> <br> Siempre verifique primero el tamaño de la porción. Toda la información en la etiqueta se basa en el tamaño de ésta. Muchos paquetes contienen más de 1 porción.
+                <div class="tab-pane fade show active" id="resp1" role="tabpanel" aria-labelledby="list-home-list"><strong>¿Cómo leer las etiquetas de los alimentos?</strong><br>Las etiquetas de los alimentos contienen información sobre sobre la cantidad de calorías, porciones y datos nutricionales de los alimentos. Leerlas le ayudará a hacer elecciones saludables al hacer las compras y planificar las comidas. <br> <strong>¿Qué se debe buscar?</strong> <br> Siempre verifique primero el tamaño de la porción. Toda la información en la etiqueta se basa en el tamaño de ésta. Muchos paquetes contienen más de 1 porción.
                 Por ejemplo, el tamaño de la porción para los fideos con frecuencia es de 2 onzas (56 g) crudos o 1 taza (140 g) cocidos. Si usted come 2 tazas (280 g) en una comida, está consumiendo 2 porciones. Es decir, 2 veces la cantidad de calorías, grasas y otros nutrientes que aparecen en lista en la etiqueta.
                 La información calórica le indica el número de calorías en 1 porción. Ajuste el número de calorías si usted come porciones más pequeñas o más grandes. Este número le ayudará a determinar cómo afectan su peso los alimentos.
                 El total de carbohidratos está listado en letra negrilla para que se destaque y se mide en gramos (g). El azúcar, el almidón y la fibra vegetal conforman los carbohidratos totales que aparecen en la etiqueta. El azúcar aparece por separado. Todos estos carbohidratos excepto la fibra elevan su azúcar en la sangre.
@@ -88,6 +86,22 @@
             </div>
         </div>
     </div>
-    
+    <br>
+
+    <h1 class="text-center mb-4 text-success fst-italic">Ejercicios</h1>
+    <p class="text-dark fs-3 text-center fst-italic my-3">Planillas de ejercicios sencillos y en casa para hombres y mujeres.</p>
+    <div class="row text-center" >
+        <div class='col mb-4'>
+            <p class="text-dark fs-3 text-center fst-italic my-3">Planilla de ejercicios para hombre!</p>
+            <a class="text-dark fs-4 text-center fst-italic" href="{{ url_for('static', filename='imagenes/doc/Planillas de ejercicios para hombres.pdf') }}" download>Descargar ejercicios hombre</a>
+        </div>
+        <div class='col mb-4'>
+            <p class="text-dark fs-3 text-center fst-italic my-3">Planilla de ejercicios para mujeres!</p>
+            <a class="text-dark fs-4 text-center fst-italic" href="{{ url_for('static', filename='imagenes/doc/Planillas de ejercicios para mujeres.pdf') }}" download>Descargar ejercicios mujeres</a>
+        </div>
+    </div>
+    <div class="text-center mb-5">
+    <img src="static/imagenes/ejercicio.png" alt="imagen de ejercicio">
+    </div>
 </div>
 {% endblock %}
