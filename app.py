@@ -22,7 +22,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'alum1#19'
 app.config['MYSQL_DB'] = 'bdnutriapp'
 ##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
@@ -89,10 +89,9 @@ def registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, 
         ''', (nombre, apellido, correo, hashed_password, edad, peso, altura, sexo, actividad))
         
         mysql.connection.commit()
-        return True, "Usuario registrado exitosamente."
+        
     except Exception as e:
         print("Error al registrar el usuario:", e)
-        return False, "Error al registrar el usuario."
     
 def registrar_objetivos(objetivo):
     try:
@@ -158,6 +157,7 @@ def obtener_usuario(correo):
         cursor.execute("SELECT * FROM usuario WHERE correo = %s", (correo,))
         usuario = cursor.fetchone()
         cursor.close()
+        
         return usuario
     except Exception as e:
         print(f"Error al obtener el usuario: {e}")
@@ -242,7 +242,8 @@ def registro():
             flash("El correo ya está registrado.", "danger")
             return render_template("registro.html")
             
-        registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo)
+        if not registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo):
+            return render_template("registro.html")
         
 
         session['correo_registro'] = correo
@@ -318,6 +319,8 @@ def perfil():
         return redirect('/login')
     
     usuarioe = obtener_usuario(correo)
+    
+    
     diccionario = usuarioe[11]
     diccionario = diccionario.replace("'", '"')
     
