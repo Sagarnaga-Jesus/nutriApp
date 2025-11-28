@@ -213,7 +213,7 @@ def logout():
     session.pop('usuario', None)
     session.permanent = False
     flash("Has cerrado sesión correctamente.", "success")
-    return redirect('/login')
+    return redirect('/')
 
 
 @app.route('/registro', methods=["POST", "GET"])##Registro
