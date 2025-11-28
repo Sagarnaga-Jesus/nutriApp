@@ -11,7 +11,12 @@
     <nav class="navbar navbar-expand-lg py-3 fs-5 border-bottom border-5 border-black fw-bolder p-3 mb-4"  style="background-color: rgba(0, 0, 0, 1);">
         <div class="container-fluid">
             <img src="static/imagenes/Gemini_Generated_Image_z3bn2mz3bn2mz3bn-removebg-preview.png" alt="Logo" width="105" height="105" class="d-inline-block align-text-top" >
-            <a class="navbar-brand fs-1 fst-italic text-success" style="margin-left: 90px;" href="/">NutriApp</a>
+            {% if session.get('usuario') %}
+            <a class="navbar-brand fs-1 fst-italic text-success" style="margin-left: 90px;">NutriApp</a>
+                {% else %}
+                <a class="navbar-brand fs-1 fst-italic text-success" style="margin-left: 90px;" href="/">NutriApp</a>
+            {% endif %}
+            
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

@@ -11,11 +11,11 @@
         <form method="POST" action="/calcuimc">
             <div class="mb-3">
                 <label for="calorias" class="form-label">Altura en metros</label>
-                <input type="text" class="form-control" id="altura" name="altura">
+                <input type="text" class="form-control" id="altura" name="altura" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
             </div>
             <div class="mb-3">
                 <label for="macronutrientes" class="form-label">Peso en KG</label>
-                <input type="text" class="form-control" id="peso" name="peso">
+                <input type="text" class="form-control" id="peso" name="peso" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
             </div>
         </div>
     </div>

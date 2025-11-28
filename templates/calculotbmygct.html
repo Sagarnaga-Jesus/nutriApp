@@ -1,7 +1,7 @@
 {%extends "base.html"%}
     {%block contenido%}
     <div class="row text-center" style="align-items: center; margin-top: 100px;">
-        <h1 class="text-success">Calculadora de gasto Energeticos (TMB Y GET)</h1>
+        <h1 class="text-success">Calculadora de Gasto Energeticos Total y Tasa Metabólica Basal (TMB Y GET)</h1>
         <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 600px; width: 100%; margin-top: 40px;">
 
 
@@ -12,14 +12,14 @@
                     
                 <div class="row">
                     <label> Peso(kg) </label>
-                    <input type="text" id="peso" name="peso"  value="{{request.form.get('peso','')}}">
+                    <input type="text" id="peso" name="peso"  value="{{request.form.get('peso','')}}" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
                     
                     </input>
                 </div>
 
                 <div class="row">
                     <label> Altura(M) </label>
-                    <input type="text" id="altura" name="altura" value="{{request.form.get('altura','')}}">
+                    <input type="text" id="altura" name="altura" value="{{request.form.get('altura','')}}" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
                     
                     </input>
                 </div>

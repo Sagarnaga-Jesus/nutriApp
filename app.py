@@ -174,13 +174,13 @@ def home():
     
     informacion = [
                     {"imagen":"static/imagenes/La-diferencia-entre-nutricion-y-alimentacion1.jpg",
-                    "descripcion":"Esta pagina nutricional es una creada para que la gente pueda llevar un control de consumo de calorías, actualmente es muy bajo el porcentaje de personas que se preocupan por su consumo diario de calorías, por eso esta pagina esta hecha con el fin de que las personas como ya mencionado con anterioridad tenga un control.",
+                    "descripcion":"Esta página nutricional ha sido creada para que las personas puedan llevar un control adecuado de su consumo diario de calorías. Actualmente, solo un pequeño porcentaje de la población se preocupa por monitorear su ingesta calórica, lo cual puede afectar su salud y bienestar. Por esta razón, esta página tiene como objetivo ayudar a las personas a mantener un registro claro y accesible de su consumo, promoviendo hábitos alimenticios más saludables.",
                     },
                     {"imagen":"static/imagenes/nutri.jpg",
-                    "descripcion":"El fin de esta pagina es mostrar nuestra actividad calórica y dar una vida saludable a las personas llevandolas por un buen camino y a si esa persona a futuro no tenga problemas dde salud como obesidad o cosas asi.",
+                    "descripcion":"El fin de esta página es mostrar nuestra actividad calórica y fomentar una vida saludable, guiando a las personas por un buen camino. De esta manera, se busca que, a futuro, no presenten problemas de salud como obesidad u otras complicaciones relacionadas con una mala alimentación.",
                     },
                     {"imagen":"static/imagenes/Estado_Nutri-Post-de-Twitter.jpg",
-                    "descripcion":"Esta pagina cuenta con alimentos y sus calorías, un calendario que de un control diario de consumo de calorias al igual que el agua, tiene un apartado de perfil que nos permitira ir llevando una reivisión sobre el plan que tenga, el proposito es facilitar y ayudar a las personas para ser un mundo mejor en el futuro.",
+                    "descripcion":"Esta página cuenta con una sección de alimentos y sus calorías, además de un calendario que permite llevar un control diario del consumo de calorías y de agua. También incluye un apartado de perfil que facilita revisar el progreso según el plan que cada persona siga. El propósito de esta plataforma es apoyar y facilitar una vida más saludable, contribuyendo al bienestar de las personas y a un mejor futuro.",
                     },
                 ]
     
@@ -410,7 +410,8 @@ def buscar():
                 "name": receta["label"],
                 "imagen": receta["images"]["REGULAR"]["url"],
                 "calorias": int(receta["calories"]),
-                "ingredientes": receta["ingredientLines"]
+                "ingredientes": receta["ingredientLines"],
+                "receta": receta["instructionLines"]
             })
 
         return render_template("targeta.html", recetas=recetas)
