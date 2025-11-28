@@ -40,4 +40,6 @@ mysql = MYSQL(app)
 
 def crear_tabla()
   try:
+
+https://word.cloud.microsoft/open/onedrive/?docId=6685E3CE21179051%21sd1d470a4396049f9853031c431a17a27&driveId=6685E3CE21179051
   
