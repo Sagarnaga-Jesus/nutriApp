@@ -89,9 +89,10 @@ def registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, 
         ''', (nombre, apellido, correo, hashed_password, edad, peso, altura, sexo, actividad))
         
         mysql.connection.commit()
-        
+        return True
     except Exception as e:
         print("Error al registrar el usuario:", e)
+        return False
     
 def registrar_objetivos(objetivo):
     try:
@@ -244,10 +245,9 @@ def registro():
             
         if not registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, actividad, sexo):
             return render_template("registro.html")
-        
-
-        session['correo_registro'] = correo
-        return redirect("/objetivos")
+        else:
+            session['correo_registro'] = correo
+            return redirect("/objetivos")
 
     return render_template("registro.html")
 
@@ -319,8 +319,6 @@ def perfil():
         return redirect('/login')
     
     usuarioe = obtener_usuario(correo)
-    
-    
     diccionario = usuarioe[11]
     diccionario = diccionario.replace("'", '"')
     
