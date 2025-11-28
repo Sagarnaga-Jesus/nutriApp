@@ -40,4 +40,6 @@ mysql = MYSQL(app)
 
 def crear_tabla()
   try:
+
+https://1drv.ms/w/c/6685e3ce21179051/IQCkcNTRYDn5SYUwMcQxoXonAeVeYn1v3ToNkgX9Nybek10?e=pvzBxS
   
