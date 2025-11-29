@@ -12,8 +12,8 @@
         <div class="container-fluid">
             <img src="static/imagenes/Gemini_Generated_Image_z3bn2mz3bn2mz3bn-removebg-preview.png" alt="Logo" width="105" height="105" class="d-inline-block align-text-top" >
             {% if session.get('usuario') %}
-            <a class="navbar-brand fs-1 fst-italic text-success" style="margin-left: 90px;">NutriApp</a>
-                {% else %}
+                <a class="navbar-brand fs-1 fst-italic text-success" style="margin-left: 90px;" href="/">NutriApp</a>
+            {% else %}
                 <a class="navbar-brand fs-1 fst-italic text-success" style="margin-left: 90px;" href="/">NutriApp</a>
             {% endif %}
             
@@ -27,7 +27,7 @@
                         {% if session.get('usuario') %}
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link text-light" href="/">Home</a>
+                            <a class="nav-link text-success" href="/">Home</a>
                         </li>
                         {% endif %}
 
@@ -100,7 +100,13 @@
                         {% endif %}
                         
 
+                        {% if session.get('usuario') %}
+                        <li class="nav-item">
+                            <a class="nav-link text-light" href="/informacion">Educación e Información</a>
+                        </li>
+                            {% else %}
                         
+                        {% endif %}
 
 
                         <li class="nav-item">
@@ -122,13 +128,7 @@
                         </li>
                         {% endif %}
                         
-                        {% if session.get('usuario') %}
-                        <li class="nav-item">
-                            <a class="nav-link text-light" href="/informacion">Educación e Información</a>
-                        </li>
-                            {% else %}
                         
-                        {% endif %}
 
                         <li class="nav-item">
                             <a class="nav-link text-light" href="/acerca">Acerca de</a>

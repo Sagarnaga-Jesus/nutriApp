@@ -92,7 +92,7 @@ def registra_usuario(nombre, apellido, correo, contraseña, edad, peso, altura, 
         return True
     except Exception as e:
         print("Error al registrar el usuario:", e)
-        return False
+        return False, "Error al registrar el usuario."
     
 def registrar_objetivos(objetivo):
     try:
@@ -202,8 +202,9 @@ def login():
         
         if check_password_hash(usuario[4],contraseña):
             session['usuario'] = usuario[3]
+            session['nombre'] = usuario[1]
             session.permanent = True
-            return redirect('/perfil')
+            return redirect('/')
 
         flash("Correo o contraseña incorrectos", "danger")
         return render_template('login.html')

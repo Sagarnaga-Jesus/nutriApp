@@ -11,6 +11,8 @@
             <img src="static/imagenes/comida.jpg" alt="Plato de frutas y verduras" class="img-fluid mx-auto d-block rounded-5 shadow-lg p-3 mb-5 bg-body-tertiary rounded " style="max-width: 600px; margin-top: 20px;">
         </div>
 
+        {% if session.get('usuario') %}
+        {% else %}
         <div class="row justify-content-center" style="margin-top: 30px; gap: 20px;">
             <div class="col-auto">
                 <button class="btn btn-success fs-5 fw-bold" style="color: white; height: 65px; width: 160px;">
@@ -20,6 +22,8 @@
 
             </div>
         </div>
+        {% endif %}
+        
 
 
         <div class="row justify-content-center gap-3" style="margin-top: 40px; margin-end: 80px;">
