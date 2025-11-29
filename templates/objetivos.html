@@ -4,10 +4,10 @@
 {% block contenido %}
 
 <h1 class="text-center fst-italic text-success" style="margin-top: 20px;">Objetivos a seguir:</h1>
-    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 600px; width: 100%; margin-top: 40px;">
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 border-success border-5 fs-5 fst-italic" style="max-width: 600px; width: 100%; margin-top: 40px;">
     <form action="/objetivos" method="POST" id="objetivos"><!-- lo que hiciste en registro-->
         <div class="card-header">
-            <h2>Objetivos</h2>
+            <h2 class="text-center">Objetivos</h2>
             <div>
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -58,8 +58,8 @@
             </div>
             <br>
 
-            <footer>
-                <button type="submit" class="btn btn-success">Siguente paso</button>
+            <footer class="text-center">
+                <button type="submit" class="btn btn-success ">Siguente paso</button>
             </footer>
             </form>
     </div>

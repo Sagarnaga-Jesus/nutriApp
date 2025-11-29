@@ -4,10 +4,10 @@
 {% block contenido %}
 
 <h1 class="text-center fst-italic text-success" style="margin-top: 20px;"> Preferencias y Restricciones</h1>
-    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 700px; width: 100%; margin-top: 40px;">
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 border-success border-5 fs-5 fst-italic" style="max-width: 700px; width: 100%; margin-top: 40px;">
             <form action="/preferencias" method="POST" id="preferencias">
         <div class="card-header">
-            <h2> Preferencias y Restricciones</h2>
+            <h2 class="text-center"> Preferencias y Restricciones</h2>
             <div>
                 {% with messages = get_flashed_messages(with_categories=true) %}
                     {% if messages %}
@@ -75,7 +75,7 @@
                 </label>
             </div>
             <br>
-            <h3>Intolerancias</h3>
+            <h3 class="text-center">Intolerancias</h3>
             <select class="form-select border border-black" aria-label="Default select example" name="intolerancias" required>
                 <option selected>Intolerancias</option>
                 <option value="lactosa">Lactosa</option>
@@ -83,7 +83,7 @@
                 <option value="no">No tengo</option>
             </select>
             <br>
-            <h3>Tipo de dietas</h3>
+            <h3 class="text-center">Tipo de dietas</h3>
             <select class="form-select border border-black" aria-label="Default select example" name="dietas" required>
                 <option selected>Seleccione la dieta que desea.</option>
                 <option value="vegana">Vegana</option>
@@ -93,14 +93,14 @@
                 <option value="ninguna">Ninguna en especifica</option>
             </select>
             <br>
-            <h3>Alimentos que no le gustan.</h3>
+            <h3 class="text-center">Alimentos que no le gustan.</h3>
             <div class="form-floating">
-                <textarea class="form-control border border-black" placeholder="Leave a comment here" name="no_gustan" id="no_gustan" style="height: 100px" required></textarea>
+                <textarea class="form-control border border-black" placeholder="Leave a comment here" name="no_gustan" id="no_gustan" style="height: 100px"></textarea>
                 <label for="no_gustan">Alimentos que no te gustan</label>
             </div>
             <br>
 
-            <footer>
+            <footer class="text-center">
                 <button type="submit" class="btn btn-success">Siguente paso</button>
             </footer>
             </form>
