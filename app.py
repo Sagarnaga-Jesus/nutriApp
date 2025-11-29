@@ -29,10 +29,9 @@ app.config['MYSQL_DB'] = 'bdnutriapp'
 mysql = MySQL(app)
 
 
-## analizador de recetas
-## diseños algunas cosas
-## responsivo
-## 
+## Falta el problema de la plantilla de alergias o prefcerencias
+## Resolver el problema de las calculadoras al momento de iniciar sesion
+
 
 def crear_tabla():##Funcion para crear la tabla de usuarios
     try:
