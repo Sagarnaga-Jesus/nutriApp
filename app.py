@@ -12,8 +12,8 @@ app.secret_key = "1q2w3e4r5t6y7u8i9o0p1a2s3d4f5g6h7j8k9l"
 app.permanent_session_lifetime = timedelta(minutes=5)
 
 API_URL = "https://api.edamam.com/api/recipes/v2"
-API_ID = "6d8321c7"
-API_KEY = "3299bb508e6a3b92fd7b3d8597f1e80d"
+API_ID = "693b2b1a"
+API_KEY = "38a99c86ea2c3d1562b6106cec16abdb"
 
 NUTRIENTES_API_URL = "https://api.edamam.com/api/food-database/v2/parser"
 NUTRIENTES_API_ID = "8497257e"
@@ -22,7 +22,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = ''
+app.config['MYSQL_PASSWORD'] = 'alum1#19'
 app.config['MYSQL_DB'] = 'bdnutriapp'
 ##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
@@ -412,8 +412,7 @@ def buscar():
                 "name": receta["label"],
                 "imagen": receta["images"]["REGULAR"]["url"],
                 "calorias": int(receta["calories"]),
-                "ingredientes": receta["ingredientLines"],
-                "receta": receta["instructionLines"]
+                "ingredientes": receta["ingredientLines"]
             })
 
         return render_template("targeta.html", recetas=recetas)
