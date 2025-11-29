@@ -40,14 +40,14 @@ def crear_tabla():##Funcion para crear la tabla de usuarios
         cursor.execute('''
             CREATE TABLE IF NOT EXISTS usuario(
                 id INT(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                nombre VARCHAR(25) NULL DEFAULT NULL,
-                apellido VARCHAR(25) NULL DEFAULT NULL,
-                correo VARCHAR(25) NULL DEFAULT NULL,
+                nombre VARCHAR(50) NULL DEFAULT NULL,
+                apellido VARCHAR(50) NULL DEFAULT NULL,
+                correo VARCHAR(150) NULL DEFAULT NULL,
                 contraseña VARCHAR(255) NULL DEFAULT NULL,
                 edad INT(11) NULL DEFAULT NULL,
                 peso FLOAT NULL DEFAULT NULL,
                 altura FLOAT NULL DEFAULT NULL,
-                actividad VARCHAR(30) NULL DEFAULT NULL,
+                actividad VARCHAR(40) NULL DEFAULT NULL,
                 sexo VARCHAR(25) NULL DEFAULT NULL,
                 objetivo VARCHAR(150) NULL DEFAULT NULL,
                 preferencias VARCHAR(250) NULL DEFAULT NULL,
