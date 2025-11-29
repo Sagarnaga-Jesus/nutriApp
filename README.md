@@ -28,18 +28,5 @@ y de esa manera darles un estilo de vida mas sano y mejor para ellos con ayuda d
 
 
 ## Analisis de la Base de Datos 
-from flask_mysqldb import MYSQL se tiene que instalar
-from werkseug.security import generate_password_hash seguridad
-immport re 
 
-app.config[´MYSQL_HOST´]=´localhost´
-app.config[´MYSQL_USER´]=´root´
-app.config[´MYSQL_DB´]=´prueba´
-
-mysql = MYSQL(app)
-
-def crear_tabla()
-  try:
-
-https://1drv.ms/w/c/6685e3ce21179051/IQCkcNTRYDn5SYUwMcQxoXonAeVeYn1v3ToNkgX9Nybek10?e=pvzBxS
   
