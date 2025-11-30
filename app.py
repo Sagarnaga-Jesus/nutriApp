@@ -22,7 +22,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = '' ##poner alum1#19 si eres Sagarnaga, sacarlo si eres Luis
+app.config['MYSQL_PASSWORD'] = 'alum1#19' ##poner alum1#19 si eres Sagarnaga, sacarlo si eres Luis
 app.config['MYSQL_DB'] = 'bdnutriapp'
 ##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
@@ -168,8 +168,6 @@ perfiles = []
 
 alimentos_cons = []
 
-
-
 print(perfiles)
 
 @app.route('/') ## No mover
@@ -220,7 +218,6 @@ def logout():
     session.permanent = False
     flash("Has cerrado sesión correctamente.", "success")
     return redirect('/')
-
 
 @app.route('/registro', methods=["POST", "GET"])##Registro
 def registro():
@@ -275,7 +272,6 @@ def objetivos():
             return redirect("/objetivos")
 
     return render_template("objetivos.html")
-
 
 @app.route('/preferencias', methods=["POST","GET"])
 def preferencias():
@@ -342,7 +338,6 @@ def perfil():
 @app.route('/bancorecetas')##Ruta del banco de recetas☺
 def bancorecetas():
     return render_template('bancorecetas.html')
-
 
 
 ##Buscadores de rcetas
@@ -431,7 +426,7 @@ def buscar():
         flash("Error al conectar con Edamam.", "danger")
         return redirect(url_for('buscador'))
 
-@app.route('/planificador')
+@app.route('/planificador')## no tiene nada 
 def planificador():
     correo = session.get('usuario')
     if not correo:
@@ -662,7 +657,6 @@ def imcmis():
                             reco = "Para evitar el aumento de peso es necesario llevar un estilo de vida saludable, la práctica de deporte y el control de las ingestas diarias. Realizar ejercicio de forma regular, se recomienda caminar, correr o nadar." 
     
     return render_template('calculadora-imc-mis.html',peso=peso, altura=altura, imc=imc, informacion=info, recomendaciones=reco )
-
 
 @app.route("/registropsi")## Registro del psi
 def registropsi():

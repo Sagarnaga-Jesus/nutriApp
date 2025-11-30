@@ -2,8 +2,22 @@
 {% block title %} Perfil {% endblock %}
 
 {% block contenido %}
-<div class="row">
+
+<div class="row text-center">
     <h1 class="text-center fst-italic text-black" style="margin-top: 20px;">Perfil de {{ usuario[1] }}</h1>
+    
+    <div class="col-4" style="margin-top: 30px;">
+        <a href='/objetivos' class="btn btn-success mb-4">Cambiar objetivo</a>
+    </div>
+    <div class="col-4" style="margin-top: 30px;">
+        <a href='/nivel' class="btn btn-success mb-4">Cambiar Nivel de experiencia</a>
+    </div>
+    <div class="col-4" style="margin-top: 30px;">
+        <a href='/preferencias' class="btn btn-success mb-4">Cambiar Preferencias</a>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-6">
         
         <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 550px; width: 100%; margin-top: 40px;">
