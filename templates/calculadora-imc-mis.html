@@ -1,19 +1,18 @@
 {% extends 'base.html' %}
 
 {% block contenido %}
+
 <div class='d-flex justify-content-center mb-4' style="margin-top: 30px;">
-    <a href='/registroimc' class="btn btn-success mb-4">Quieres calcularlo por ti mismo?</a>
+    <a href='/registroimc' class="btn btn-success mb-4">Calcular otra vez</a>
 </div>
-    
 
 <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 text-center border-success border-5 fs-5 fst-italic" style="max-width: 750px; width: 100%; height: auto; margin-top: 40px;">
     <div class="card-body">
         <h2 class="card-title">Calculadora IMC (Indice de Masa Corporal)</h2>
-        <p class="card-text">Datos de: {{usuario[1]}}</p>
-            <h4></h4>
-            
-            <p><strong>Peso:</strong> {{ usuario[6] }} kg</p><br><!-- peso de ejmplos --> 
-            <p><strong>Altura:</strong> {{ usuario[7] }} m</p><br><!-- altura de ejmplos -->
+        <p class="card-text">Datos</p>
+
+            <p><strong>Peso:</strong> {{ peso }} kg</p><br><!-- peso de ejmplos --> 
+            <p><strong>Altura:</strong> {{ altura }} m</p><br><!-- altura de ejmplos -->
             <p><strong>IMC:</strong> {{ imc }}</p><br><!-- imc de ejmplos -->
             <p><strong>informacion:</strong> {{ informacion }}</p><br><!-- infos de ejmplos -->
             <p><strong>Recomendaciones:</strong> {{ recomendaciones }}</p><br><!-- infos de ejmplos -->
@@ -21,7 +20,6 @@
             <img src="static/imagenes/ref.jpeg" alt="imagen de referencia" class="d-inline-block align-text-top img-fluid" width="600" height="300">
     </div>
 </div>
-
 
     
 {% endblock %}

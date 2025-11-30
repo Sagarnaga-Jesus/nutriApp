@@ -1,59 +1,46 @@
 {%extends "base.html"%}
-    {%block contenido%}
-    <div class="row" style="align-items: center; margin-top: 100px;">
-        <div class="card" style="width: 100rem; height:200rem:">
-            <div class="card-header" style=" background-color: blue;">
-                <p class="fw-bolder " style="color: azure;">Calculadora de gasto Energeticos (TMB Y GET)</p>
-            </div>
+{%block contenido%}
 
-            <div class="card-body">
-                
-                <form action="/energia" method="POST">
+<div class='d-flex justify-content-center mb-4' style="margin-top: 30px;">
+    <a href='/calculotbmygct' class="btn btn-success mb-4">Calcular otra vez</a>
+</div>
 
-                    
-                <div class="row">
-                    <label> Peso(kg) </label>
-                    <input type="number" id="peso" name="peso"  value="{{request.form.get('peso','')}}" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
-                    
-                    </input>
+<div class="container" style="text-align: center; ">
+    <div class="row " style="display: flex; justify-content: center; align-items: center;">
+        <h1 class="text-success" style="margin-top: 50px;">Resultados del calculo</h1>
+        <div class="col-5">
+            <div class="card shadow-lg" style="margin-top: 50px;">
+                <div>
+                    <h3>Tasa Metabolica Basal (TMB)</h3>
                 </div>
 
-                <div class="row">
-                    <label> Altura(M) </label>
-                    <input type="text" id="altu" name="altu" value="{{request.form.get('altu','')}}" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
-                    
-                    </input>
+                <div>
+                    <p class='fs-3' style="color: blue;">{{tbm}}</p>
                 </div>
 
-                <div class="row">
-                    <label> Edad(años) </label>
-                    <input type="number" id="edad" name="edad" value="{{request.form.get('edad','')}}" required> 
-                    
-                    </input>
-                    </div>
-
-                <div class="row">
-                    <label> Genero </label>
-                    <select name="genero">
-                        <option id="hombre" name="hombre" value="hombre">Hombre</option>
-                        <option id="mujer" name="mujer" value="mujer">Mujer</option>
-                    </select>
+                <div>
+                    <h4>Kcal/dia(Gasto en Reposo)</h4>
                 </div>
-
-                <div class="row">
-                    <label> Nivel de actividad fisica </label>
-                    <select name="activi">
-                        <option value="sedentario">Sedentario</option>
-                        <option value="ligera">Actividad Ligera</option>
-                        <option value="moderada">Actividad Moderada</option>
-                        <option value="alta">Actividad Alta</option>
-                    </select>
-                </div>
-
-                
-                    <input type="submit" value="Calcular">  </input>
-                </form>
             </div>
         </div>
+
+        <div class="col-5">
+            <div class="card shadow-lg" style="margin-top: 50px;">
+                <div>
+                    <h3>Gasto Energetico Total (GCT)</h3>
+                </div>
+
+                <div>
+                    <p class='fs-3' style="color: blue;">{{get}}</p>
+                </div>
+
+                <div>
+                    <h4>Kcal/dia(Gasto con Actividad)</h4>
+                </div>
+            </div>
+        </div>
+        </div>
     </div>
+    
+</div>
     {%endblock%}

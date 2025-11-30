@@ -1,7 +1,6 @@
 {%extends "base.html"%}
 {%block contenido%}
 
-{%if session.get('usuario')%}
 <div class="container" style="text-align: center; ">
     <div class="row " style="display: flex; justify-content: center; align-items: center;">
         <h1 class="text-success" style="margin-top: 50px;">Resultados del calculo</h1>
@@ -44,46 +43,6 @@
 <div class='d-flex justify-content-center mb-4' style="margin-top: 30px;">
     <a href='/calculotbmygct' class="btn btn-success mb-4">Quieres calcularlo por ti mismo?</a>
 </div>
-{%else%}
-<div class="container" style="text-align: center; ">
-    <div class="row " style="display: flex; justify-content: center; align-items: center;">
-        <h1 class="text-success" style="margin-top: 50px;">Resultados del calculo</h1>
-        <div class="col-5">
-            <div class="card shadow-lg" style="margin-top: 50px;">
-                <div>
-                    <h3>Tasa Metabolica Basal (TMB)</h3>
-                </div>
-
-                <div>
-                    <p class='fs-3' style="color: blue;">{{tbm}}</p>
-                </div>
-
-                <div>
-                    <h4>Kcal/dia(Gasto en Reposo)</h4>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-5">
-            <div class="card shadow-lg" style="margin-top: 50px;">
-                <div>
-                    <h3>Gasto Energetico Total (GCT)</h3>
-                </div>
-
-                <div>
-                    <p class='fs-3' style="color: blue;">{{get}}</p>
-                </div>
-
-                <div>
-                    <h4>Kcal/dia(Gasto con Actividad)</h4>
-                </div>
-            </div>
-        </div>
-        </div>
-    </div>
-    
-</div>
-{%endif%}
     
 
 {%endblock%}

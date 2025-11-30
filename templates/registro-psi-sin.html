@@ -8,7 +8,7 @@
     <div class="card-header">
         <h2>Calculadora de PSI</h2>
     <div>
-        <form method="POST" action="/calcupeso">
+        <form method="POST" action="/calcupesomis">
             <div class="mb-3">
                 <label for="calorias" class="form-label">Altura en metros</label>
                 <input type="text" class="form-control" id="altura" name="altura" pattern="[0-9,.]+" title="Solo se permiten numeros" required>
@@ -29,7 +29,7 @@
                 </div>
         </div>
     </div>
-            <button type="submit" class="btn btn-primary">Calcular PSI</button>
+            <button type="submit" class="btn btn-success">Calcular PSI</button>
         </form>
 
 {% endblock %}
