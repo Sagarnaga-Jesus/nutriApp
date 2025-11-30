@@ -22,7 +22,7 @@ NUTRIENTES_API_KEY = "937ef3deb00ae9d109f4bd50ec9fc6fe"
 ##Configuracion MySQL
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
-app.config['MYSQL_PASSWORD'] = 'alum1#19'
+app.config['MYSQL_PASSWORD'] = '' ##poner alum1#19 si eres Sagarnaga, sacarlo si eres Luis
 app.config['MYSQL_DB'] = 'bdnutriapp'
 ##app.config['MYSQL_CURSORCLASS']='DictCursor'## hace que se vuelva diccionario por la informacion esta en  tuplas
 
