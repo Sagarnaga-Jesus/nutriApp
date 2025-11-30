@@ -202,6 +202,7 @@ def login():
         
         if check_password_hash(usuario[4],contraseña):
             session['usuario'] = usuario[3]
+            session['correo_registro'] = usuario[3]
             session['nombre'] = usuario[1]
             session.permanent = True
             return redirect('/')
@@ -277,10 +278,17 @@ def objetivos():
 def preferencias():
     if request.method == "POST":
         alergia = request.form["alergia"]
-        alergias = request.form["alergias"]
+        alergias = request.form.getlist("alergias")
         intolerancia = request.form["intolerancias"]
         dietas = request.form["dietas"]
         no_gusta = request.form["no_gustan"]
+        
+        if not alergias:
+            alergias = ["ninguno"]
+            
+        if alergia == "si":
+            flash("Debes selecionar alnua alergia", "danger")
+            return redirect("/campreferencias")
         
         preferencias={
             "alergia":alergia,
@@ -339,6 +347,70 @@ def perfil():
 def bancorecetas():
     return render_template('bancorecetas.html')
 
+@app.route('/camobjetivo', methods=["POST","GET"])##cambio de objetivos
+def camobjetivo():
+    if request.method == "POST":
+        objetivo = request.form["objetivos"]
+        
+        if not objetivo:
+            flash("Debes ingresar un objetivo", "danger")
+            return redirect("/camobjetivos")
+
+        exito = registrar_objetivos(objetivo)
+        if exito:
+            return redirect("/")
+        else:
+            flash("Error al registrar los objetivos", "danger")
+            return redirect("/camobjetivos")
+        
+    return render_template('cambio-objetivo.html')
+
+@app.route('/campreferencias', methods=["POST","GET"])
+def campreferencias():
+    if request.method == "POST":
+        alergia = request.form["alergia"]
+        alergias = request.form.getlist("alergias")
+        intolerancia = request.form["intolerancias"]
+        dietas = request.form["dietas"]
+        no_gusta = request.form["no_gustan"]
+        
+        if not alergias:
+            alergias = ["ninguno"]
+            
+        if alergia == "si":
+            flash("Debes selecionar alnua alergia", "danger")
+            return redirect("/campreferencias")
+        
+        preferencias={
+            "alergia":alergia,
+            "alergias":alergias,
+            "intolerancia":intolerancia,
+            "dietas":dietas,
+            "no_gusta":no_gusta
+        }
+
+        exito = registrar_preferencias(preferencias)
+        if exito:
+            return redirect("/")
+        else:
+            flash("Error al registrar las preferencias", "danger")
+            return redirect("/campreferencias")
+    return render_template("cambio-preferencias.html")
+
+@app.route('/camnivel', methods=["POST","GET"])
+def camnivel():
+    if request.method == "POST":
+        experi = request.form["experiencia"]
+
+        exito = registrar_experiencia(experi)
+        if exito:
+            return redirect("/")
+        else:
+            flash("Error al registrar la experiencia", "danger")
+            return redirect("/camnivel")
+    
+    
+    return render_template("cambio-nivel.html")
 
 ##Buscadores de rcetas
 @app.route('/buscador')

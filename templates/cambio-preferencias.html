@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+{% block title %}  Preferencias y Restricciones {% endblock %}
+
+{% block contenido %}
+
+<h1 class="text-center fst-italic text-success" style="margin-top: 20px;"> Preferencias y Restricciones</h1>
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 border-success border-5 fs-5 fst-italic" style="max-width: 700px; width: 100%; margin-top: 40px;">
+            <form action="/campreferencias" method="POST" id="preferencias">
+        <div class="card-header">
+            <h2 class="text-center">⚠️ Preferencias y Restricciones ⚠️</h2>
+            <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="card-body">
+            <h3>Tienes alergia a algun alimento?</h3>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border border-black" type="radio" name="alergia" id="si" value="si" required>
+                <label class="form-check-label" for="si">Si</label>
+            </div>
+            <div class="form-check form-check-inline">
+                <input class="form-check-input border border-black" type="radio" name="alergia" id="no" value="no" required>
+                <label class="form-check-label" for="no">No</label>
+            </div>
+            <h5>Seleccione alimentos al cual le tenga alergias</h5><h6 class='opacity-25 text-center'>opcional*</h6>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="almendras" id="almendras" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Almendras
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="pescados" id="pescados" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Pescados
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="huevo" id="huevo" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Huevo
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="nueces" id="nueces" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Nueces
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="pasas" id="pasas" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Pasas
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="otros" id="otros" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Otros
+                </label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="ninguno" id="ninguno" name="alergias">
+                <label class="form-check-label" for="checkDefault">
+                    Ninguno
+                </label>
+            </div>
+            <br>
+            <h3 class="text-center">Intolerancias</h3>
+            <select class="form-select border border-black" aria-label="Default select example" name="intolerancias" required>
+                <option selected>Intolerancias</option>
+                <option value="lactosa">Lactosa</option>
+                <option value="gluten">Gluten</option>
+                <option value="no">No tengo</option>
+            </select>
+            <br>
+            <h3 class="text-center">Tipo de dietas</h3>
+            <select class="form-select border border-black" aria-label="Default select example" name="dietas" required>
+                <option selected>Seleccione la dieta que desea.</option>
+                <option value="vegana">Vegana</option>
+                <option value="vegetariana">Vegetariana</option>
+                <option value="keto">Keto</option>
+                <option value="mediterranea">Mediterranea</option>
+                <option value="ninguna">Ninguna en especifica</option>
+            </select>
+            <br>
+            <h3 class="text-center">Alimentos que no le gustan.</h3><h6 class='opacity-25 text-center'>opcional*</h6>
+            <div class="form-floating">
+                <textarea class="form-control border border-black" placeholder="Leave a comment here" name="no_gustan" id="no_gustan" style="height: 100px"></textarea>
+                <label for="no_gustan">Alimentos que no te gustan</label>
+            </div>
+            <br>
+
+            <footer class="text-center">
+                <button type="submit" class="btn btn-success">Siguente paso</button>
+            </footer>
+            </form>
+    </div>
+
+{% endblock %}

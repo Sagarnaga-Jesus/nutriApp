@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% block title %} Objetivos {% endblock %}
+
+{% block contenido %}
+
+<h1 class="text-center fst-italic text-success" style="margin-top: 20px;">Objetivos a seguir:</h1>
+    <div class="card mx-auto p-2 mb-3 shadow-lg bg-body-tertiary rounded-4 border-success border-5 fs-5 fst-italic" style="max-width: 600px; width: 100%; margin-top: 40px;">
+    <form action="/camobjetivo" method="POST" id="objetivos"><!-- lo que hiciste en registro-->
+        <div class="card-header">
+            <h2 class="text-center">Objetivos 💪</h2>
+            <div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="bajar de peso" id="bajar_peso" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Bajar de peso?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="aumentar masa muscular" id="masa_muscu" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Aumentar masa muscular?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="mantener peso" id="mantener_peso" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Mantener peso?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="mejorar digestión" id="mejorar_digestion" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Mejorar digestión?
+                </label>
+            </div>
+            <br>
+            <div class="form-check">
+                <input class="form-check-input border border-black" type="checkbox" value="condicion" id="condicion" name="objetivos">
+                <label class="form-check-label" for="checkDefault">
+                    ¿Controlar una condición (diabetes, hipertensión)?
+                </label>
+            </div>
+            <br>
+
+            <footer class="text-center">
+                <button type="submit" class="btn btn-success ">Siguente paso</button>
+            </footer>
+            </form>
+    </div>
+
+{% endblock %}

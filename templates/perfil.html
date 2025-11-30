@@ -7,13 +7,13 @@
     <h1 class="text-center fst-italic text-black" style="margin-top: 20px;">Perfil de {{ usuario[1] }}</h1>
     
     <div class="col-4" style="margin-top: 30px;">
-        <a href='/objetivos' class="btn btn-success mb-4">Cambiar objetivo</a>
+        <a href='/camobjetivo' class="btn btn-success mb-4">Cambiar objetivo</a>
     </div>
     <div class="col-4" style="margin-top: 30px;">
-        <a href='/nivel' class="btn btn-success mb-4">Cambiar Nivel de experiencia</a>
+        <a href='/camnivel' class="btn btn-success mb-4">Cambiar Nivel de experiencia</a>
     </div>
     <div class="col-4" style="margin-top: 30px;">
-        <a href='/preferencias' class="btn btn-success mb-4">Cambiar Preferencias</a>
+        <a href='/campreferencias' class="btn btn-success mb-4">Cambiar Preferencias</a>
     </div>
 </div>
 
@@ -45,6 +45,10 @@
                 <div class="card-body">
                     <ul>
                         <li><strong>Alergias:</strong> {{ preferencias.alergia}}</li><br>
+
+                        
+                        <li><strong>Alergias:</strong> {{ preferencias.alergias}}</li><br>
+
                         <li><strong>Intolerancias:</strong> {{ preferencias.intolerancia}}</li><br>
                         <li><strong>Dietas:</strong> {{ preferencias.dietas}}</li><br>
                         <li><strong>No gustan:</strong> {{ preferencias.no_gusta }}</li><br>
