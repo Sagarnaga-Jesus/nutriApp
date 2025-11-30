@@ -30,8 +30,12 @@ mysql = MySQL(app)
 
 
 ## Falta el problema de la plantilla de alergias o prefcerencias
-## Resolver el problema de las calculadoras al momento de iniciar sesion
-## falta que se visualize bien el usuario
+## falta revision final
+## no se que mas podemos agregar ideas o mejorar
+## vere si hacer la bd de alimentos
+## ando viendo si poner el home en lo de iniciar sesion o dejarlo nomas con el nombre de la app
+##  vere si mañana puedo hacer la paginacion de las recetas
+## falta revisar los porcentajes de la api de luis esta raro
 
 
 def crear_tabla():##Funcion para crear la tabla de usuarios
@@ -343,6 +347,7 @@ def perfil():
     
     return render_template('perfil.html', usuario=usuarioe, preferencias=preferencias)
 
+## Rutas para realizar cambios en la aplicacion
 @app.route('/bancorecetas')##Ruta del banco de recetas☺
 def bancorecetas():
     return render_template('bancorecetas.html')
@@ -411,6 +416,7 @@ def camnivel():
     
     
     return render_template("cambio-nivel.html")
+## acaba aqui
 
 ##Buscadores de rcetas
 @app.route('/buscador')
