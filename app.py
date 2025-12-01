@@ -29,13 +29,12 @@ app.config['MYSQL_DB'] = 'bdnutriapp'
 mysql = MySQL(app)
 
 
-## Falta el problema de la plantilla de alergias o prefcerencias
 ## falta revision final
 ## no se que mas podemos agregar ideas o mejorar
-## vere si hacer la bd de alimentos
+## vere si hacer la bd de alimentos, no la hice
 ## ando viendo si poner el home en lo de iniciar sesion o dejarlo nomas con el nombre de la app
-##  vere si mañana puedo hacer la paginacion de las recetas
-## falta revisar los porcentajes de la api de luis esta raro
+##  vere si mañana puedo hacer la paginacion de las recetas, no pude
+## falta revisar los porcentajes de la api de luis esta raro, lo checa luis
 
 
 def crear_tabla():##Funcion para crear la tabla de usuarios
@@ -208,7 +207,6 @@ def login():
             session['usuario'] = usuario[3]
             session['correo_registro'] = usuario[3]
             session['nombre'] = usuario[1]
-            session.permanent = True
             return redirect('/')
         else:
             flash("Correo o contraseña incorrectos", "danger")
@@ -220,7 +218,6 @@ def login():
 def logout():
     session.pop('usuario', None)
     session.pop('nombre', None)
-    session.permanent = False
     flash("Has cerrado sesión correctamente.", "success")
     return redirect('/')
 
@@ -319,7 +316,6 @@ def nivel():
         if exito:
             session['usuario'] = session.get('correo_registro')
             session['nombre'] = session.get('nombre_registro')
-            session.permanent = True
             return redirect("/")
         else:
             flash("Error al registrar la experiencia", "danger")
