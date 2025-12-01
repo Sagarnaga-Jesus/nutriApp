@@ -42,7 +42,15 @@
             {% endfor %}
             
         </div>
+        <br>
+            <h5 class='text-center fst-italic text-black'>¿Como usar nuestra aplicacion?</h5>
+    <div class="row text-center" >
+        <div class='col mb-4'>
+            <p class="text-dark fs-3 text-center fst-italic my-3">Manual para el usuario!</p>
+            <a class="text-dark fs-4 text-center fst-italic" href="{{ url_for('static', filename='imagenes/doc/Manual del usuario!.pdf') }}" download>Descargar manual para el usuario</a>
+        </div>
 
+    </div>
     </div>
 
 {% endblock %} 
