@@ -27,12 +27,12 @@
             {% for a in alimento %}
         <th scope="row">{{ loop.index }}</th>
             <td class="table-info">{{a.nombre}}</td>
-            <td class="table-info">{{a.grasas}}</td>
-            <td class="table-info">{{a.proteinas}}</td>
-            <td class="table-info">{{a.carbohidratos}}</td>
-            <td class="table-info">{{a.grasasc}}</td>
-            <td class="table-info">{{a.proteinasc}}</td>
-            <td class="table-info">{{a.carbohidratosc}}</td>
+            <td class="table-info">{{a.calorias}}</td>
+            <td class="table-info">{{a.grasa}}</td>
+            <td class="table-info">{{a.proteina}}</td>
+            <td class="table-info">{{a.grasa_calorias}}</td>
+            <td class="table-info">{{a.proteina_calorias}}</td>
+            <td class="table-info">{{a.carbohidratos_calorias}}</td>
             <td class="table-info">{{a.agua}} L</td>
         </tr>
         {% endfor %}

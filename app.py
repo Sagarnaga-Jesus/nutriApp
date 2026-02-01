@@ -513,52 +513,90 @@ def planificador():
 
 ##Calculadoras 
 
-@app.route('/registrar_alimentos')## guarda e calcula una lista de nutrientes de alimentos
+@app.route('/registrar_alimentos')## guarda e calcula una lista de nutrientes de alimentos, para nada fue echo solo por chatpt tambien por mi😊
 def alimentos():
+    
     return render_template("registrar_alimentos.html")
 
-@app.route("/contador",methods=["POST","GET"])## contador de nutrientes
+@app.route("/contador", methods=["GET", "POST"])
 def contador():
-    
-    if  request.method == "POST":
-        nombre = request.form["alimento"]
-        grasas = request.form["grasas"]
-        prote = request.form["proteinas"]
-        carbo = request.form["carbohidratos"]
-        agua = request.form["agua"]
-        
-        grasa=0
-        proteinas=0
-        carbohidratos=0
-        
-        grasa = 9*float(grasas)
-        proteinas = 4*float(prote)
-        carbohidratos = 4*float(carbo)
-        
-        
-        grasat = str(grasa)
-        proteinast = str(proteinas)
-        carbohidratost = str(carbohidratos)
-        
-        alimento = {
-            "nombre": nombre ,
-            "grasas": grasas ,
-            "proteinas": prote ,
-            "carbohidratos":carbo ,
-            "grasasc":grasat,
-            "proteinasc":proteinast,
-            "carbohidratosc":carbohidratost,
-            "agua":agua
+
+    if request.method == "GET":
+        return render_template(
+            "contador.html",
+            alimento=session.get("alimentos", [])
+        )
+
+    alimento = request.form.get('alimento', '').strip().lower()
+    agua = request.form.get("agua", 0)
+
+    if not alimento:
+        flash("Ingresa un alimento", "danger")
+        return redirect(url_for('registrar_alimentos'))
+
+    try:
+        agua = float(agua) if agua else 0
+    except ValueError:
+        agua = 0
+
+    if "alimentos" not in session:
+        session["alimentos"] = []
+
+    try:
+        response = requests.get(
+            "https://api.edamam.com/api/food-database/v2/parser",
+            params={
+                "ingr": alimento,
+                "app_id": NUTRIENTES_API_ID,
+                "app_key": NUTRIENTES_API_KEY
+            }
+        )
+
+        data = response.json()
+
+        if data.get("parsed"):
+            food = data["parsed"][0]["food"]
+        elif data.get("hints"):
+            food = data["hints"][0]["food"]
+        else:
+            flash("No se encontró el alimento.", "danger")
+            return redirect(url_for('registrar_alimentos'))
+
+        nutrients = food.get("nutrients", {})
+
+        grasa = float(nutrients.get("FAT", 0) or 0)
+        proteina = float(nutrients.get("PROCNT", 0) or 0)
+        carbohidratos = float(nutrients.get("CHOCDF", 0) or 0)
+
+        resultado = {
+            "nombre": food.get("label", alimento),
+            "calorias": float(nutrients.get("ENERC_KCAL", 0) or 0),
+            "grasa": grasa,
+            "proteina": proteina,
+            "carbohidratos": carbohidratos,
+            "grasa_calorias": grasa * 9,
+            "proteina_calorias": proteina * 4,
+            "carbohidratos_calorias": carbohidratos * 4,
+            "agua": agua
         }
-        alimentos_cons.append(alimento)
-        
-    return render_template("contador.html", alimento=alimentos_cons,)
+
+        session["alimentos"].append(resultado)
+        session.modified = True
+
+        return redirect(url_for("contador"))
+
+    except Exception as e:
+        print("ERROR:", e)
+        flash("Error al analizar el alimento.", "danger")
+        return redirect(url_for('registrar_alimentos'))
+
+    
 
 @app.route("/eliminar")## elimina el ultimo alimento ingresado
 def eliminar ():
-    if alimentos_cons:
-        alimentos_cons.pop(-1)
-    return render_template("contador.html", alimento=alimentos_cons )
+    session["alimentos"].pop(-1)
+    session.modified = True
+    return render_template("contador.html")
 
 @app.route("/calculoene") ## ingreso de datos para energetico por ahora no se usa por que se saca automaticamente informacion
 def calculoene ():
