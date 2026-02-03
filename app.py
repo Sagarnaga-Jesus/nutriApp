@@ -533,10 +533,8 @@ def contador():
     if not alimento:
         flash("Ingresa un alimento", "danger")
         return redirect(url_for('registrar_alimentos'))
-
-    try:
-        agua = float(agua) if agua else 0
-    except ValueError:
+    
+    if not agua:
         agua = 0
 
     if "alimentos" not in session:
@@ -590,7 +588,6 @@ def contador():
         flash("Error al analizar el alimento.", "danger")
         return redirect(url_for('registrar_alimentos'))
 
-    
 
 @app.route("/eliminar")## elimina el ultimo alimento ingresado
 def eliminar ():
